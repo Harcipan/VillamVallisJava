@@ -1,0 +1,31 @@
++++add actionlisterners to buttons in main menu
+
++++text to mainM: "Main Menu"
+
++++ test a mainM,gameScene-hez
+	+++ gamescene keypressed
+	+++ sceneMan settings in/out
++++ functionality for save button and graphics button(fullscreen)
+
+
+Bigger goals:
++ settings menu
+	+ only be able to open settings once in gameplay
+	+ add functionality to buttons
+- tilemapping
+- texture manager for character and wheat ...
+- movement
+- actions
+	- plant
+	- water
+	- acquire
+- inventory
+
+
+Extra
+- improve looks
+	- fancy up buttons in mMenu
+	- better textures
+
+- add sound
+- physics

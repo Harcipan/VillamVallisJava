@@ -8,27 +8,36 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import gamemanager.GameLoop;
 import graphics.SceneManager;
 import graphics.components.MenuButton;
+import interfaces.GameLoopCallback;
+import interfaces.GameObserver;
 /**
  * The GameScene class represents the main game scene, allowing interaction with the game.
  * It manages the display of the game and the settings overlay.
  */
 @SuppressWarnings("serial")
-public class GameScene extends JPanel implements KeyListener {
+public class GameScene extends JPanel implements KeyListener, GameObserver {
 	SceneManager manager;
 	boolean settingsActive;
 	JPanel settingsPanel;
+	private JLabel moneyText;
+	private GameLoopCallback glCallback;
     /**
      * Initializes a new instance of GameScene.
      *
      * @param manager The SceneManager managing this scene.
      */
-    public GameScene(SceneManager manager) {
+    public GameScene(SceneManager manager, GameLoop gameLoop) {
+    	gameLoop.addObserver(this);
+    	glCallback = (GameLoopCallback)gameLoop; 
         setLayout(new GridLayout(1, 1));
         JPanel jp = new JPanel();
         JLabel jl = new JLabel("This is the game scene!");
-        jp.add(jl);
+        //money = 0;
+        setMoneyText(new JLabel("Here should be the money of the player."));
+        jp.add(jl);jp.add(getMoneyText());
         add(jp);
         this.manager=manager;
         settingsActive = false;
@@ -76,16 +85,33 @@ public class GameScene extends JPanel implements KeyListener {
         JPanel settingsPanel = new JPanel();
         settingsPanel.setLayout(new GridLayout(4, 1, 10, 10));
         
+        //Extra: Implement after audio
+        //settingsPanel.add(new MenuButton("Audio Settings"));
+        JButton fullScreenButton = new MenuButton("FullScreen");
+        fullScreenButton.addActionListener(e->{manager.toggleFullScreen();manager.hideOverlay(settingsPanel);});
+        JButton saveExitButton = new JButton("Save&Exit");
+        saveExitButton.addActionListener(e -> {glCallback.saveGame(); manager.showScene("MainMenu"); manager.hideOverlay(settingsPanel); settingsActive=false;});
         JButton closeButton = new JButton("Close");
         closeButton.addActionListener(e -> {manager.hideOverlay(settingsPanel); settingsActive=false;});
-        JButton saveExitButton = new JButton("Save&Exit");
-        saveExitButton.addActionListener(e -> {manager.showScene("MainMenu"); manager.hideOverlay(settingsPanel); settingsActive=false;});
 
-        settingsPanel.add(new MenuButton("Audio Settings"));
-        settingsPanel.add(new MenuButton("Graphics Settings"));
+        settingsPanel.add(fullScreenButton);
         settingsPanel.add(saveExitButton);
         settingsPanel.add(closeButton);
         
         return settingsPanel;
     }
+
+	@Override
+	public void onScoreChange(int newScore) {
+		System.out.println("Score updated: " + newScore);
+		getMoneyText().setText("Money: "+newScore);
+	}
+
+	public JLabel getMoneyText() {
+		return moneyText;
+	}
+
+	public void setMoneyText(JLabel moneyText) {
+		this.moneyText = moneyText;
+	}
 }

@@ -4,24 +4,68 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+
+//import graphics.scenes.GameScene;
 import filemanager.Serializer;
+import interfaces.GameLoopCallback;
+import interfaces.GameObserver;
 /**
  * The GameLoop class manages the game's main loop, handling user input and game state.
  * It allows saving and loading the game state.
  */
-@SuppressWarnings("serial")
-public class GameLoop implements Serializable {
+public class GameLoop implements Serializable, GameLoopCallback{
+	private static final long serialVersionUID = 1L;
 	public int money;
 	private transient InputStreamReader isr;
 	private transient BufferedReader br;
+    private transient List<GameObserver> observers = new ArrayList<>();
+    private transient Serializer ser;
+    private transient GameLoop loadedGame;
+
+    public void addObserver(GameObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(GameObserver observer) {
+        observers.remove(observer);
+    }
+
+    public void setMoney(int score) {
+        this.money = score;
+        notifyObservers();
+    }
+
+    private void notifyObservers() {
+        for (GameObserver observer : observers) {
+            observer.onScoreChange(money);
+        }
+    }
+	
+	//public GameScene GameScene;
 	/**
      * Initializes a new instance of GameLoop with default values.
      */
 	public GameLoop()
 	{
+		ser = new Serializer();
 		money = 0;
 	}
+	
+	public void newGame()
+	{
+		setMoney(0);
+		new Thread(this::startGameLoop).start();
+
+	}
+	public void continueGame()
+	{
+		loadGame();
+		new Thread(this::startGameLoop).start();
+	}
+	
 	 /**
      * Starts the game loop, processing user input and updating game state.
      */
@@ -36,21 +80,11 @@ public class GameLoop implements Serializable {
 				{
 					if(s.equals("save"))
 					{
-						System.out.println(money);
-						Serializer ser = new Serializer();
-						ser.saveData(this, "saves/gameSave.txt");
+						saveGame();
 					}
 					else if(s.equals("load"))
 					{
-						Serializer ser = new Serializer();
-						GameLoop loadedGame;
-						try {
-							loadedGame = (GameLoop)ser.loadData("saves/gameSave.txt");
-							this.money = loadedGame.money;
-						} catch (ClassNotFoundException e) {
-							e.printStackTrace();
-						}
-						System.out.println(money);
+						loadGame();
 					}
 					else if(s.equals("money"))
 					{
@@ -60,7 +94,8 @@ public class GameLoop implements Serializable {
 					{
 				        try {
 				            int number = Integer.parseInt(s);
-				            money=number;
+				            setMoney(number);
+				            //GameScene.setMoney(money);
 				        } catch (NumberFormatException e) {
 				            System.out.println("The input is not a valid number.");
 				        }
@@ -69,5 +104,34 @@ public class GameLoop implements Serializable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		try {
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	public void loadGame()
+	{
+		try {
+			loadedGame = (GameLoop)ser.loadData("saves/gameSave.txt");
+			setMoney(loadedGame.money);
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(money);
+	}
+	
+	public void saveGame()
+	{
+		System.out.println(money);
+		try {
+			ser.saveData(this, "saves/gameSave.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

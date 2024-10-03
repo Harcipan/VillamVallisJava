@@ -18,18 +18,18 @@ public class Main {
      */
 	public static void main(String[] args) throws IOException
 	{
-		gf = new GameFrame();
 		
 		//Sceen selector
 		//gf.loadMainMenu();
 
 		//only shows changes (exmp: loadMainM)
 		//if setVisibility is used after change
-		gf.setVisible(true);
 		
 		// TODO: Only load GameLoop after player selects
         // "Continue Game" or "New Game".
-        // gl = new GameLoop();
-        // gl.startGameLoop();
+        gl = new GameLoop();
+		gf = new GameFrame(gl);
+		gf.setVisible(true);
+        //gl.startGameLoop();
 	}
 }

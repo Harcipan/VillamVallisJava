@@ -1,6 +1,8 @@
 package graphics;
 
 import java.awt.CardLayout;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,11 +15,11 @@ import javax.swing.JLayeredPane;
  * It handles switching between scenes and showing overlays.
  */
 public class SceneManager {
-	@SuppressWarnings("unused")
 	private JFrame frame; // The main game frame
     private JPanel sceneContainer; // A panel to hold different scenes
     private CardLayout cardLayout; // To switch between scenes
-    private JLayeredPane layeredPane; // To show the settings ontop of stuff
+    JLayeredPane layeredPane; // To show the settings on top of stuff
+    private boolean fullscreen;
 
     /**
      * Initializes a new instance of SceneManager.
@@ -26,7 +28,7 @@ public class SceneManager {
      */
     public SceneManager(JFrame frame) {
         this.frame = frame;
-        
+        fullscreen = false;
         // Create the JLayeredPane and set it as the content pane
         layeredPane = new JLayeredPane();
         frame.setContentPane(layeredPane);
@@ -59,8 +61,8 @@ public class SceneManager {
         cardLayout.show(sceneContainer, sceneName); // Switch to the desired scene
         if (sceneContainer.getComponent(sceneContainer.getComponentCount() - 1) instanceof GameScene) {
             ((GameScene) sceneContainer.getComponent(sceneContainer.getComponentCount() - 1)).requestFocus();
-            
         }
+        
     }
     
     /**
@@ -69,6 +71,7 @@ public class SceneManager {
      * @param overlayPanel The JPanel to display as an overlay.
      */
     public void showOverlay(JPanel overlayPanel) {
+    	overlayPanel.setVisible(true);
         // Get the dimensions of the layeredPane
         int paneWidth = layeredPane.getWidth();
         int paneHeight = layeredPane.getHeight();
@@ -84,8 +87,6 @@ public class SceneManager {
         overlayPanel.setBounds(xPosition, yPosition, overlayWidth, overlayHeight); // Set the position and size of the overlay
 
         layeredPane.add(overlayPanel, JLayeredPane.PALETTE_LAYER); // Add to a higher layer
-        layeredPane.revalidate();
-        layeredPane.repaint();
     }
 
     /**
@@ -94,8 +95,33 @@ public class SceneManager {
      * @param overlayPanel The JPanel to hide.
      */
     public void hideOverlay(JPanel overlayPanel) {
+    	overlayPanel.setVisible(false);
         layeredPane.remove(overlayPanel); // Remove the settings panel from the layered pane
-        layeredPane.revalidate();
-        layeredPane.repaint();
+    }
+    
+    public void toggleFullScreen()
+    {
+    	//is this safe??? source: OpenAI ChatGPT 4o
+        GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        if(fullscreen)
+        {
+        	graphicsDevice.setFullScreenWindow(null);
+        	frame.setSize(500, 500); 
+        	fullscreen = false;
+        }
+        else
+        {
+        	fullscreen = true;
+            if (graphicsDevice.isFullScreenSupported()) {
+                graphicsDevice.setFullScreenWindow(frame);
+            } else {
+                System.out.println("Fullscreen not supported. Running in windowed mode.");
+                frame.setSize(500, 500); // Set a default size
+            }
+        }
+
+        sceneContainer.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        // "Commit" changes
+        frame.setVisible(true);
     }
 }
