@@ -1,0 +1,52 @@
++++add actionlisterners to buttons in main menu
+
++++text to mainM: "Main Menu"
+
++++ test a mainM,gameScene-hez
+	+++ gamescene keypressed
+	+++ sceneMan settings in/out
++++ functionality for save button and graphics button(fullscreen)
+
+
+Bigger goals:
++ settings menu
+	+ only be able to open settings once in gameplay
+	+ add functionality to buttons
++++ tilemapping
+
++++ fullscreen call components instead of observer ???
+
++++ movement
+	+++ smoother control
+	+++ 8 directional movement
+
++++ refactor movement and other stuff
+
++++ 2 second delay before able to movem
+	+++ possibly because of gameloop init and gamescene setLooop function delay each other
+	+++ maybe seperating helps
+
+- actions
+	- plant
+	- water
+	- acquire
+	- mouse click position
+	- inventory UI
+
+
+- test for new game features
+
+Extra
+
+- texture manager for character and wheat ...
+
+- animation for movement
+
+
+Extra
+- improve looks
+	- fancy up buttons in mMenu
+	- better textures
+
+- add sound
+- physics
