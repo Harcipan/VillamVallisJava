@@ -2,13 +2,13 @@ package graphics.camera;
 
 public class Camera {
 
-    private double cameraX, cameraY; // Camera position
-    public static int maxCameraX = 1000;
-    public static int maxCameraY = 1000;
+    private double cameraX, cameraY; // Camera position (center of the world)
+    public static int maxCameraX = 4*64;
+    public static int maxCameraY = 4*64;
 	public Camera() {
 
-        this.cameraX = 0; // Initial camera position
-        this.cameraY = 0;
+        this.cameraX = 200; // Initial camera position
+        this.cameraY = 200;
 	}
 	
     public void moveCamera(double deltaX, double deltaY) {
@@ -16,8 +16,8 @@ public class Camera {
         cameraY += deltaY;
 
         // Optionally clamp camera position to prevent going out of bounds
-        cameraX = Math.max(-maxCameraX, Math.min(cameraX, maxCameraX));
-        cameraY = Math.max(-maxCameraY, Math.min(cameraY, maxCameraY));
+        cameraX = Math.max(64, Math.min(cameraX, maxCameraX));
+        cameraY = Math.max(64, Math.min(cameraY, maxCameraY));
     }
 
 	public double getCameraX() {

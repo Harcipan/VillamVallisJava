@@ -8,7 +8,6 @@ import java.io.IOException;
 public class Main {
 
 	static GameFrame gf;
-	String testString = "hello";
 	/**
      * The main method to start the game application.
      *

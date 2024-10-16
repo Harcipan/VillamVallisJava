@@ -2,10 +2,8 @@ package graphics.scenes;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
+import java.awt.geom.Point2D;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -41,6 +39,17 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
     Camera camera;
     KeyHandler keyHandler;
     GameLoop gameLoop;
+    int[][] tileMap = {
+        {0, 0, 1, 1, 0, 0, 1, 1, 0},
+        {1, 1, 1, 0, 1, 0, 1, 1, 0},
+        {1, 1, 1, 0, 1, 0, 1, 1, 0},
+        {0, 1, 1, 1, 0, 0, 1, 1, 0},
+        {1, 1, 1, 0, 1, 0, 1, 1, 0},
+        {0, 0, 0, 0, 0, 0, 1, 1, 0},
+        {1, 1, 1, 0, 1, 0, 1, 1, 0},
+        {1, 1, 1, 0, 1, 0, 1, 1, 0},
+        {0, 0, 0, 0, 0, 0, 1, 1, 0}
+    };
     /**
      * Initializes a new instance of GameScene.
      *
@@ -54,17 +63,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
         UIpanel.add(jl);UIpanel.add(getMoneyText());
         
         
-        int[][] tileMap = {
-        	    {0, 0, 1, 1, 0, 0, 1, 1, 0},
-        	    {1, 1, 1, 0, 1, 0, 1, 1, 0},
-        	    {1, 1, 1, 0, 1, 0, 1, 1, 0},
-        	    {0, 1, 1, 1, 0, 0, 1, 1, 0},
-        	    {1, 1, 1, 0, 1, 0, 1, 1, 0},
-        	    {0, 0, 0, 0, 0, 0, 1, 1, 0},
-        	    {1, 1, 1, 0, 1, 0, 1, 1, 0},
-        	    {1, 1, 1, 0, 1, 0, 1, 1, 0},
-        	    {0, 0, 0, 0, 0, 0, 1, 1, 0}
-        	};
+
         TileMap tm = new TileMap(tileMap);
         player = new Player();
         camera = new Camera();
@@ -107,6 +106,16 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
         this.addKeyListener(this);
         this.setFocusable(true); // Ensure the panel can receive key events
         this.requestFocusInWindow();
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //convert screen coordinates to world coordinates
+                System.out.println("Mouse clicked at: " + (e.getX()+2* camera.getCameraX()-gp.getWidth()/2) + ", " + (e.getY()+2* camera.getCameraY()-gp.getHeight()/2));
+                Point2D.Double cameraPos = screenToCamera(e.getX(), e.getY());
+                System.out.println("Normalizalt eszkoz position: " + cameraPos.x + ", " + cameraPos.y);
+
+            }
+        });
         
         this.addComponentListener(new ComponentAdapter() {
             @Override
@@ -119,6 +128,46 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
             }
         });
     }
+    public Point2D.Double screenToCamera(int screenX, int screenY) {
+        // Camera coordinates (cameraX, cameraY) and GamePanel dimensions
+        double cameraX = camera.getCameraX();
+        double cameraY = camera.getCameraY();
+
+        // Get the size of the GamePanel (since you are using it as your game canvas)
+        float gamePanelWidth = gp.getWidth();
+        float gamePanelHeight = gp.getHeight();
+
+        // Convert the screen coordinates to game world coordinates
+
+        float cX = 2.0f * screenX / gamePanelWidth - 1;	// flip y axis
+        float cY = 1.0f - 2.0f * screenY / gamePanelHeight;
+
+        double worldX =(cX*(gamePanelWidth/2)+cameraX*2);
+        double worldY = (cY*(gamePanelHeight/2)-cameraY*2);
+
+        int clickedTileX = (int)Math.floor(worldX/64);
+        int clickedTileY = -(int)Math.floor(worldY/64)-1;
+
+        System.out.println("Ablak position: " + cX*(gamePanelWidth/2) + ", " + cX*(gamePanelHeight/2));
+        System.out.println("World position: " + worldX + ", " + worldY);
+        System.out.println("You pressed the " + Math.floor(worldX/64) + ". X and " + Math.floor(worldY/64) + ".Y tile");
+        //check if the clicked tile is inside the map
+        if(!(clickedTileX<0 || clickedTileY<0 || clickedTileX>=tileMap.length || clickedTileY>=tileMap[0].length))
+        {
+            if(tileMap[-(int)Math.floor(worldY/64)-1][(int)Math.floor(worldX/64)]==1)
+            {
+                System.out.println("You clicked on a dirt");
+            }
+            else
+            {
+                System.out.println("You clicked on a wheat");
+            }
+        }
+
+
+        return new Point2D.Double(cX, cY);
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         keyHandler.keyPressed(e);
@@ -133,7 +182,8 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
     @Override
     public void keyTyped(KeyEvent e) {
     }
-    
+
+
     /**
      * Creates the settings panel for the game.
      *
@@ -152,7 +202,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
         JButton fullScreenButton = new MenuButton("FullScreen");
         fullScreenButton.addActionListener(e->{manager.toggleFullScreen();manager.hideOverlay(settingsPanel);});
         JButton sizeButton = new MenuButton("Size");
-        sizeButton.addActionListener(e->{manager.setWindowSize(800,800);manager.hideOverlay(settingsPanel);});
+        sizeButton.addActionListener(e->{manager.setWindowSize(1000,600);manager.hideOverlay(settingsPanel);});
         JButton saveMainButton = new MenuButton("Save&ExitToMain");
         saveMainButton.addActionListener(e -> {glCallback.saveGame(); manager.showScene("MainMenu");
             manager.hideOverlay(settingsPanel); settingsActive=false; glCallback.setPlaying(false);});

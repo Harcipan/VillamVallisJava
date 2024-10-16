@@ -20,7 +20,7 @@ public class SceneManager {
 	private JFrame frame; // The main game frame
     private JPanel sceneContainer; // A panel to hold different scenes
     private transient List<JPanel> scenes = new ArrayList<>();
-    private CardLayout cardLayout; // To switch between scenes
+    private final CardLayout cardLayout; // To switch between scenes
     public JLayeredPane layeredPane; // To show the settings on top of stuff
     private boolean fullscreen;
 
