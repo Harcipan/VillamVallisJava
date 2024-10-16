@@ -1,30 +1,41 @@
 package graphics.camera;
 
-public class Camera {
+import gameObject.GameObject;
+import graphics.transform.Vec2;
 
-    private double cameraX, cameraY; // Camera position (center of the world)
-    public static int maxCameraX = 4*64;
-    public static int maxCameraY = 4*64;
+import java.awt.*;
+
+public class Camera extends GameObject {
+
+    private Vec2 wCenter = new Vec2(); // Camera position (center of the world)
+    public static int maxCameraX = 4*TILE_SIZE;
+    public static int maxCameraY = 4*TILE_SIZE;
 	public Camera() {
 
-        this.cameraX = 200; // Initial camera position
-        this.cameraY = 200;
+        wCenter.x = 200; // Initial camera position
+        wCenter.y = 200;
 	}
+    
 	
-    public void moveCamera(double deltaX, double deltaY) {
-        cameraX += deltaX;
-        cameraY += deltaY;
+    public void moveCamera(float deltaX, float deltaY) {
+        wCenter.x += deltaX;
+        wCenter.y += deltaY;
 
         // Optionally clamp camera position to prevent going out of bounds
-        cameraX = Math.max(64, Math.min(cameraX, maxCameraX));
-        cameraY = Math.max(64, Math.min(cameraY, maxCameraY));
+        wCenter.x = Math.max(TILE_SIZE, Math.min(wCenter.x, maxCameraX));
+        wCenter.y = Math.max(TILE_SIZE, Math.min(wCenter.y, maxCameraY));
     }
 
 	public double getCameraX() {
-		return cameraX;
+		return wCenter.x;
 	}
 
 	public double getCameraY() {
-		return cameraY;
+		return wCenter.y;
 	}
+
+    @Override
+    public void draw(Graphics g, int i, int j) {
+
+    }
 }

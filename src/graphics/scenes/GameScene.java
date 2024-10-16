@@ -18,6 +18,7 @@ import graphics.GameFrame;
 import graphics.GamePanel;
 import graphics.camera.Camera;
 import graphics.components.MenuButton;
+import graphics.transform.Vec2;
 import input.KeyHandler;
 import interfaces.GameLoopCallback;
 import interfaces.GameObserver;
@@ -110,8 +111,9 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //convert screen coordinates to world coordinates
-                System.out.println("Mouse clicked at: " + (e.getX()+2* camera.getCameraX()-gp.getWidth()/2) + ", " + (e.getY()+2* camera.getCameraY()-gp.getHeight()/2));
-                Point2D.Double cameraPos = screenToCamera(e.getX(), e.getY());
+                System.out.println("Mouse clicked at: " + (e.getX()+2* camera.getCameraX()-gp.getWidth()/2) + ", " +
+                        (e.getY()+2* camera.getCameraY()-gp.getHeight()/2));
+                Vec2 cameraPos = screenToCamera(e.getX(), e.getY());
                 System.out.println("Normalizalt eszkoz position: " + cameraPos.x + ", " + cameraPos.y);
 
             }
@@ -128,7 +130,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
             }
         });
     }
-    public Point2D.Double screenToCamera(int screenX, int screenY) {
+    public Vec2 screenToCamera(int screenX, int screenY) {
         // Camera coordinates (cameraX, cameraY) and GamePanel dimensions
         double cameraX = camera.getCameraX();
         double cameraY = camera.getCameraY();
@@ -145,16 +147,17 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
         double worldX =(cX*(gamePanelWidth/2)+cameraX*2);
         double worldY = (cY*(gamePanelHeight/2)-cameraY*2);
 
-        int clickedTileX = (int)Math.floor(worldX/64);
-        int clickedTileY = -(int)Math.floor(worldY/64)-1;
+        int clickedTileX = (int)Math.floor(worldX/player.getTileSize());
+        int clickedTileY = -(int)Math.floor(worldY/player.getTileSize())-1;
 
         System.out.println("Ablak position: " + cX*(gamePanelWidth/2) + ", " + cX*(gamePanelHeight/2));
         System.out.println("World position: " + worldX + ", " + worldY);
-        System.out.println("You pressed the " + Math.floor(worldX/64) + ". X and " + Math.floor(worldY/64) + ".Y tile");
+        System.out.println("You pressed the " + Math.floor(worldX/player.getTileSize()) +
+                ". X and " + Math.floor(worldY/player.getTileSize()) + ".Y tile");
         //check if the clicked tile is inside the map
         if(!(clickedTileX<0 || clickedTileY<0 || clickedTileX>=tileMap.length || clickedTileY>=tileMap[0].length))
         {
-            if(tileMap[-(int)Math.floor(worldY/64)-1][(int)Math.floor(worldX/64)]==1)
+            if(tileMap[-(int)Math.floor(worldY/player.getTileSize())-1][(int)Math.floor(worldX/player.getTileSize())]==1)
             {
                 System.out.println("You clicked on a dirt");
             }
@@ -165,7 +168,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
         }
 
 
-        return new Point2D.Double(cX, cY);
+        return new Vec2(cX, cY);
     }
 
     @Override

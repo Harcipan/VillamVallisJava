@@ -34,7 +34,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
     private transient KeyHandler keyHandler;
     private transient Camera camera;
     private transient GamePanel gp;
-    private double moveSpeed = 2;
+    private float moveSpeed = 2;
 	private transient boolean firstTime = true;
 
 
@@ -102,7 +102,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	{
     	long lastTime = System.nanoTime();
     	final double nsPerFrame = 1_000_000_000.0 / 60.0; // 60 frames per second
-    	double deltaTime = 0;
+    	float deltaTime = 0;
 
 
         int TARGET_FPS = 300; // Target frames per second
@@ -115,7 +115,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		while(true)
 		{
 			long now = System.nanoTime();
-			deltaTime += (now - lastTime) / nsPerFrame;
+			deltaTime += (float)((now - lastTime) / nsPerFrame);
 			lastTime = now;
 			if (playing) {
 
@@ -123,7 +123,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 				// Process movement when enough time has passed (i.e., one frame)
 				while (deltaTime >= 100) {
 
-					moveCamera(deltaTime/100.0); // Update movement
+					moveCamera((float) (deltaTime/100.0)); // Update movement
 					deltaTime--;
 					//System.out.println(playing);
 				}
@@ -200,9 +200,9 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	}
 
 
-	private void moveCamera(double deltaTime) {
-        double deltaX = 0;
-        double deltaY = 0;
+	private void moveCamera(float deltaTime) {
+        float deltaX = 0;
+        float deltaY = 0;
 
         Set<Integer> pressedKeys = keyHandler.getPressedKeys();
         if (pressedKeys.contains(KeyEvent.VK_W)) {
