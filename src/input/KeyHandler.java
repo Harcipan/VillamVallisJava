@@ -1,6 +1,7 @@
 package input;
 
 import java.awt.event.KeyEvent;
+import java.security.Key;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import javax.swing.JPanel;
 import gamemanager.SceneManager;
 import graphics.GamePanel;
 import graphics.camera.Camera;
+import graphics.scenes.GameScene;
 import interfaces.GameLoopCallback;
 
 public class KeyHandler{
@@ -25,8 +27,9 @@ public class KeyHandler{
 	JPanel settingsPanel;
 	Camera camera;
 	GameLoopCallback glCallback;
+	GameScene gameScene;
     
-	public KeyHandler(GamePanel gamePanel, SceneManager sceneManager, boolean sActive, JPanel sPanel, Camera c) {
+	public KeyHandler(GamePanel gamePanel, SceneManager sceneManager, boolean sActive, JPanel sPanel, Camera c, GameScene gameScene) {
     	movingUp = false;
     	movingDown = false;
     	movingLeft = false;
@@ -36,6 +39,7 @@ public class KeyHandler{
     	settingsActive = sActive;
     	settingsPanel = sPanel;
     	camera = c;
+		this.gameScene = gameScene;
 	}
 
 	public void setGLCallback(GameLoopCallback glC) {
@@ -44,7 +48,8 @@ public class KeyHandler{
 	
     public void keyPressed(KeyEvent e) {
         pressedKeys.add(e.getKeyCode());
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+		int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_ESCAPE) {
             //JPanel settingsPanel = new SettingsScene(manager);
         	if(settingsActive)
         	{
@@ -59,6 +64,9 @@ public class KeyHandler{
 				glCallback.setPlaying(false);
         	}
         }
+		else if (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9) {
+			gameScene.player.inventory = keyCode - KeyEvent.VK_0;
+		}
     }
 
     public void keyReleased(KeyEvent e) {

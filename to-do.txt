@@ -28,11 +28,13 @@ Bigger goals:
 
 +++ screen to world coord for mouse
 +++ get which tile was pressed
-- refactor gamescene and camera
-	- add vector and mat classes
++++ refactor gamescene and camera
+	+++ add vector and mat classes
 	- better encapsulation
 
-- make tile modifiable with click
++++ make tile modifiable with click
+	+++ put mouse listener to seperate class
+	+++ only change tile when player is close enough
 
 - select action via keyboard
 	- actions (plant, water, acquire)

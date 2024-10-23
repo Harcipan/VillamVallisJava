@@ -25,7 +25,7 @@ public class SceneManagerTest {
     @Before
     public void setUp() {
         gameLoop = new GameLoop();
-    	gf = new GameFrame(gameLoop);
+    	gf = new GameFrame();
         manager = new SceneManager(gf);
         gameScene = new GameScene(manager, gameLoop);
         manager.addScene("GameScene", gameScene);

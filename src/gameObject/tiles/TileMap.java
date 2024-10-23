@@ -39,6 +39,14 @@ public class TileMap extends GameObject{
         }
     }
 
+	public void setTile(int x, int y, Tile tile) {
+		tiles[y][x] = tile;
+	}
+
+	public Tile getTile(int x, int y) {
+		return tiles[y][x];
+	}
+
     @Override
     public void draw(Graphics g, int camX, int camY) {
         int offsetX = GameFrame.getInstance().getWidth() / 2 - camX;

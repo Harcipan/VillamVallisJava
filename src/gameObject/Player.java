@@ -11,11 +11,13 @@ import graphics.GameFrame;
 
 public class Player extends GameObject {
     public Image texture;
-    
+
+    public int inventory;
     int prevW;
     int prevH;
     
     public Player() {
+        inventory = 0;
         try {
             texture = ImageIO.read(new File("assets/player.png"));
         } catch (IOException e) {

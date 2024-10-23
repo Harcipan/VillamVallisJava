@@ -20,26 +20,29 @@ import graphics.camera.Camera;
 import graphics.components.MenuButton;
 import graphics.transform.Vec2;
 import input.KeyHandler;
+import input.MouseHandler;
 import interfaces.GameLoopCallback;
 import interfaces.GameObserver;
 /**
  * The GameScene class represents the main game scene, allowing interaction with the game.
  * It manages the display of the game and the settings overlay.
  */
-public class GameScene extends JPanel implements KeyListener, GameObserver {
+public class GameScene extends JPanel implements KeyListener, GameObserver, MouseListener {
 	private static final long serialVersionUID = 1L;
 	SceneManager manager;
 	boolean settingsActive;
 	JPanel settingsPanel;
 	private JLabel moneyText;
 	private GameLoopCallback glCallback;
-	private Player player;
+	public Player player;
     JLayeredPane layeredPane; // To show the UI on top of stuff
-    GamePanel gp;
+    public GamePanel gp;
     JPanel UIpanel;
-    Camera camera;
+    public Camera camera;
     KeyHandler keyHandler;
+    MouseHandler mouseHandler;
     GameLoop gameLoop;
+    public TileMap tm;
     int[][] tileMap = {
         {0, 0, 1, 1, 0, 0, 1, 1, 0},
         {1, 1, 1, 0, 1, 0, 1, 1, 0},
@@ -65,7 +68,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
         
         
 
-        TileMap tm = new TileMap(tileMap);
+        tm = new TileMap(tileMap);
         player = new Player();
         camera = new Camera();
         gp = new GamePanel(tm,player,camera);
@@ -93,7 +96,8 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
         settingsActive = false;
         settingsPanel = createSettingsPanel();
 
-        keyHandler = new KeyHandler(gp, manager, settingsActive, settingsPanel, camera);
+        keyHandler = new KeyHandler(gp, manager, settingsActive, settingsPanel, camera, this);
+        mouseHandler = new MouseHandler(this);
 
         gameLoop.loopSetup(keyHandler, camera, gp);
         glCallback = (GameLoopCallback)gameLoop;
@@ -107,17 +111,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
         this.addKeyListener(this);
         this.setFocusable(true); // Ensure the panel can receive key events
         this.requestFocusInWindow();
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                //convert screen coordinates to world coordinates
-                System.out.println("Mouse clicked at: " + (e.getX()+2* camera.getCameraX()-gp.getWidth()/2) + ", " +
-                        (e.getY()+2* camera.getCameraY()-gp.getHeight()/2));
-                Vec2 cameraPos = screenToCamera(e.getX(), e.getY());
-                System.out.println("Normalizalt eszkoz position: " + cameraPos.x + ", " + cameraPos.y);
-
-            }
-        });
+        this.addMouseListener(this);
         
         this.addComponentListener(new ComponentAdapter() {
             @Override
@@ -130,6 +124,37 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
             }
         });
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //convert screen coordinates to world coordinates
+        System.out.println("Mouse clicked at: " + (e.getX()+2* camera.getCameraX()-gp.getWidth()/2) + ", " +
+                (e.getY()+2* camera.getCameraY()-gp.getHeight()/2));
+        Vec2 cameraPos = screenToCamera(e.getX(), e.getY());
+        System.out.println("Normalizalt eszkoz position: " + cameraPos.x + ", " + cameraPos.y);
+        mouseHandler.mouseClicked(e);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
     public Vec2 screenToCamera(int screenX, int screenY) {
         // Camera coordinates (cameraX, cameraY) and GamePanel dimensions
         double cameraX = camera.getCameraX();
@@ -152,6 +177,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
 
         System.out.println("Ablak position: " + cX*(gamePanelWidth/2) + ", " + cX*(gamePanelHeight/2));
         System.out.println("World position: " + worldX + ", " + worldY);
+        System.out.println("WCamera " + camera.screenToWorld(new Vec2(cX, cY)).x + ", " + camera.screenToWorld(new Vec2(cX, cY)).y);
         System.out.println("You pressed the " + Math.floor(worldX/player.getTileSize()) +
                 ". X and " + Math.floor(worldY/player.getTileSize()) + ".Y tile");
         //check if the clicked tile is inside the map
@@ -201,11 +227,14 @@ public class GameScene extends JPanel implements KeyListener, GameObserver {
         //settingsPanel.add(new MenuButton("Audio Settings"));
 
         JButton closeButton = new MenuButton("Close");
-        closeButton.addActionListener(e -> {manager.hideOverlay(settingsPanel); settingsActive=false; glCallback.setPlaying(true);});
+        closeButton.addActionListener(e -> {manager.hideOverlay(settingsPanel); settingsActive=false;
+            glCallback.setPlaying(true);});
         JButton fullScreenButton = new MenuButton("FullScreen");
-        fullScreenButton.addActionListener(e->{manager.toggleFullScreen();manager.hideOverlay(settingsPanel);});
+        fullScreenButton.addActionListener(e->{manager.toggleFullScreen();manager.hideOverlay(settingsPanel);
+            glCallback.setPlaying(true);});
         JButton sizeButton = new MenuButton("Size");
-        sizeButton.addActionListener(e->{manager.setWindowSize(1000,600);manager.hideOverlay(settingsPanel);});
+        sizeButton.addActionListener(e->{manager.setWindowSize(1000,600);manager.hideOverlay(settingsPanel);
+            glCallback.setPlaying(true);});
         JButton saveMainButton = new MenuButton("Save&ExitToMain");
         saveMainButton.addActionListener(e -> {glCallback.saveGame(); manager.showScene("MainMenu");
             manager.hideOverlay(settingsPanel); settingsActive=false; glCallback.setPlaying(false);});
