@@ -36,10 +36,10 @@ Bigger goals:
 	+++ put mouse listener to seperate class
 	+++ only change tile when player is close enough
 
-- select action via keyboard
-	- actions (plant, water, acquire)
++++ select action via keyboard
+	+++ actions (plant, water, acquire)
 
-- make actions modify tiles
++++ make actions modify tiles
 
 - add inventory UI
 
