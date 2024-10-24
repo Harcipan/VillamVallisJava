@@ -41,22 +41,31 @@ Bigger goals:
 
 +++ make actions modify tiles
 
-- add inventory UI
++++ add inventory UI
 	+++ add basic UI
-	- tool texures
+	+++ tool texures
 
-- animation for movement
++++ animation for movement
 
-- add texture manager
-- add texturemap
++++ add texture manager
++++ add texturemap
+
+- add time
+	- add save every 10 min
+	- add wheat grow
+
+- use correct textures
+
 
 - revise old tests
 - test for new game features
 
 Extra
-- improve looks
-	- fancy up buttons in mMenu
-	- better textures
-
 - add sound
 - physics
+- add bed and sleep option
+- add nigth and day
+- add text (first for tutorial)
+
+- improve looks
+	- fancy up buttons in mMenu

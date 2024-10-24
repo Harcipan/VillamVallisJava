@@ -14,7 +14,7 @@ public class Inventory extends GameObject{
     Image[] texture = new Image[6];
     Image inventoryTexture;
 
-    // Note: Always preload textures, otherwise the game will be laggy
+    // Note: Always preload textures, otherwise the game will lag
     public Inventory() {
         currentTool = 0;
         for(int i=0;i<6;i++)
