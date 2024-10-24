@@ -1,8 +1,6 @@
 package gamemanager;
 
-import java.awt.CardLayout;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,8 +125,13 @@ public class SceneManager {
         GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         if(fullscreen)
         {
-        	graphicsDevice.setFullScreenWindow(null);
-        	frame.setSize(500, 500); 
+            graphicsDevice.setFullScreenWindow(null);
+            //get maxheight and maxwidth of screen
+            //GraphicsConfiguration[] gc= graphicsDevice.getConfigurations();
+            //System.out.println(gc[0].getBounds());
+            //gc[0].getBounds().width, gc[0].getBounds().height
+        	frame.setSize(500,500);
+
         	fullscreen = false;
         }
         else

@@ -37,7 +37,7 @@ public class MouseHandler {
             if(inBounds(new Vec2(gameScene.camera.getCameraX()*2,gameScene.camera.getCameraY()*2),
                     new Vec2(tileX*tileSize, tileY*tileSize), tileSize*2)) {
                 System.out.println("In bounds");
-                if(gameScene.player.inventory==1)
+                if(gameScene.player.inventory.currentTool==1)
                 {
                     try {
                         gameScene.tm.setTile(tileX, tileY, new Tile(ImageIO.read(new File("assets/wheat.png"))));

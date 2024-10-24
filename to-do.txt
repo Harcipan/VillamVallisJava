@@ -42,15 +42,16 @@ Bigger goals:
 +++ make actions modify tiles
 
 - add inventory UI
-
-- test for new game features
-
-Extra
-
-- texture manager for character and wheat ...
+	+++ add basic UI
+	- tool texures
 
 - animation for movement
 
+- add texture manager
+- add texturemap
+
+- revise old tests
+- test for new game features
 
 Extra
 - improve looks

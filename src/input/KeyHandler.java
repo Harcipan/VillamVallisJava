@@ -65,7 +65,7 @@ public class KeyHandler{
         	}
         }
 		else if (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9) {
-			gameScene.player.inventory = keyCode - KeyEvent.VK_0;
+			gameScene.player.inventory.currentTool = keyCode - KeyEvent.VK_0;
 		}
     }
 
