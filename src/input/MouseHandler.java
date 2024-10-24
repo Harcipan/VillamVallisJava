@@ -38,7 +38,7 @@ public class MouseHandler {
                     new Vec2(tileX*tileSize, tileY*tileSize), tileSize*2) && tileX>=0 && tileY>=0 &&
                     tileX<gameScene.tm.mapData.length && tileY<gameScene.tm.mapData[0].length){
                 System.out.println("In bounds");
-                if(gameScene.player.inventory.currentTool==1)
+                if(gameScene.player.inventory.currentTool==0)
                 {
                     gameScene.tm.getTile(tileX, tileY).growthStage++;
                 }

@@ -37,7 +37,7 @@ public class Player extends GameObject {
         texture2 = TextureManager.getTextureFromMap(new Vec2(1,1),new Vec2(TILE_SIZE, TILE_SIZE));
         for(int i=0;i<4;i++)
         {
-            playerTextures[i] = TextureManager.getTextureFromMap(new Vec2(i,1),new Vec2(TILE_SIZE, TILE_SIZE));
+            playerTextures[i] = TextureManager.getTextureFromMap(new Vec2(i,2),new Vec2(TILE_SIZE, TILE_SIZE));
         }
     }
     

@@ -17,9 +17,9 @@ public class Inventory extends GameObject{
     // Note: Always preload textures, otherwise the game will lag
     public Inventory() {
         currentTool = 0;
-        for(int i=0;i<6;i++)
+        for(int i=0;i<5;i++)
         {
-            texture[i] = TextureManager.getTextureFromMap(new Vec2(i,0),new Vec2(TILE_SIZE, TILE_SIZE));
+            texture[i] = TextureManager.getTextureFromMap(new Vec2(i,1),new Vec2(TILE_SIZE, TILE_SIZE));
         }
         inventoryTexture = TextureManager.loadTextures("assets/inventory.png");
     }
@@ -34,9 +34,9 @@ public class Inventory extends GameObject{
         g.drawImage(inventoryTexture,
                 width/4+camX, height-height/10+camY, width-width/2, height/20, null);
 
-        for(int i=0;i<6;i++)
+        for(int i=1;i<4;i++)
         {
-            g.drawImage(texture[i],width/4+camX+i*width/20, height-height/10+camY, width/20, height/20, null);
+            g.drawImage(texture[i],width/4+camX+(i-1)*width/20, height-height/10+camY, width/20, height/20, null);
         }
 
         g.drawImage(texture[0],width/4+camX+currentTool*width/20,height-height/10+camY, width/20, height/20, null);

@@ -54,7 +54,9 @@ Bigger goals:
 	+++ add save every 10 min
 	+++ add wheat grow
 
-- use correct textures
++++ use correct textures
+- implement watering
+- finish player animation
 
 
 - revise old tests
