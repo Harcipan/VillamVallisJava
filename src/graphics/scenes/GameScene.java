@@ -39,7 +39,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
     public GamePanel gp;
     JPanel UIpanel;
     public Camera camera;
-    KeyHandler keyHandler;
+    public KeyHandler keyHandler;
     MouseHandler mouseHandler;
     GameLoop gameLoop;
     public TileMap tm;
@@ -69,7 +69,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
         
 
         tm = new TileMap(tileMap);
-        player = new Player();
+        player = new Player(this);
         camera = new Camera();
         gp = new GamePanel(tm,player,camera);
      
@@ -267,11 +267,6 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
 
 	public void setMoneyText(JLabel moneyText) {
 		this.moneyText = moneyText;
-	}
-	
-	public GameLoop getGameLoop()
-	{
-		return gameLoop;
 	}
 
 }
