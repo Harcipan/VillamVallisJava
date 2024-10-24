@@ -59,6 +59,14 @@ public class Camera extends GameObject {
 		return wCenter.y;
 	}
 
+    public Vec2 getwCenter() {
+        return wCenter;
+    }
+
+    public void setwCenter(Vec2 wCenter) {
+        this.wCenter = wCenter;
+    }
+
     @Override
     public void draw(Graphics g, int i, int j) {
 

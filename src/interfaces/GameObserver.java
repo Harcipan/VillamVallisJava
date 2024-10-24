@@ -1,5 +1,5 @@
 package interfaces;
 
 public interface GameObserver {
-	void onScoreChange(int newScore);
+    void onMoneyChange(int newScore);
 }

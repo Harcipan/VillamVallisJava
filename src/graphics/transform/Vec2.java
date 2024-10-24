@@ -1,6 +1,11 @@
 package graphics.transform;
 
-public class Vec2 {
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Vec2 implements Serializable {
     public float x, y;
 
     public Vec2() {

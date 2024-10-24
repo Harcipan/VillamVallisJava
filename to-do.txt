@@ -50,9 +50,9 @@ Bigger goals:
 +++ add texture manager
 +++ add texturemap
 
-- add time
-	- add save every 10 min
-	- add wheat grow
++++ add time
+	+++ add save every 10 min
+	+++ add wheat grow
 
 - use correct textures
 

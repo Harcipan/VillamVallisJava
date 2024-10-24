@@ -35,25 +35,17 @@ public class MouseHandler {
         //System.out.println(gameScene.tm.getTile(tileX, tileY));
         if(mouseEvent.getButton()==MouseEvent.BUTTON1) {
             if(inBounds(new Vec2(gameScene.camera.getCameraX()*2,gameScene.camera.getCameraY()*2),
-                    new Vec2(tileX*tileSize, tileY*tileSize), tileSize*2)) {
+                    new Vec2(tileX*tileSize, tileY*tileSize), tileSize*2) && tileX>=0 && tileY>=0 &&
+                    tileX<gameScene.tm.mapData.length && tileY<gameScene.tm.mapData[0].length){
                 System.out.println("In bounds");
                 if(gameScene.player.inventory.currentTool==1)
                 {
-                    try {
-                        gameScene.tm.setTile(tileX, tileY, new Tile(ImageIO.read(new File("assets/wheat.png"))));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    gameScene.tm.getTile(tileX, tileY).growthStage++;
                 }
                 else
                 {
-                    try {
-                        Image texture = ImageIO.read(new File("assets/dirt.png"));
-                        texture= texture.getScaledInstance(gameScene.player.getTileSize(), gameScene.player.getTileSize(), Image.SCALE_FAST);
-                        gameScene.tm.setTile(tileX, tileY, new Tile(texture));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    gameScene.tm.harvestTile(tileX,tileY);
+                    gameScene.player.setMoney(gameScene.player.money+1);
                 }
             }
            // System.out.println(gameScene.tm.getTile(tileX, tileY));

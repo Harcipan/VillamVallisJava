@@ -3,7 +3,6 @@ package graphics.scenes;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -41,19 +40,9 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
     public Camera camera;
     public KeyHandler keyHandler;
     MouseHandler mouseHandler;
-    GameLoop gameLoop;
+    public GameLoop gameLoop;
     public TileMap tm;
-    int[][] tileMap = {
-        {0, 0, 1, 1, 0, 0, 1, 1, 0},
-        {1, 1, 1, 0, 1, 0, 1, 1, 0},
-        {1, 1, 1, 0, 1, 0, 1, 1, 0},
-        {0, 1, 1, 1, 0, 0, 1, 1, 0},
-        {1, 1, 1, 0, 1, 0, 1, 1, 0},
-        {0, 0, 0, 0, 0, 0, 1, 1, 0},
-        {1, 1, 1, 0, 1, 0, 1, 1, 0},
-        {1, 1, 1, 0, 1, 0, 1, 1, 0},
-        {0, 0, 0, 0, 0, 0, 1, 1, 0}
-    };
+
     /**
      * Initializes a new instance of GameScene.
      *
@@ -68,7 +57,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
         
         
 
-        tm = new TileMap(tileMap);
+        tm = new TileMap();
         player = new Player(this);
         camera = new Camera();
         gp = new GamePanel(tm,player,camera);
@@ -99,7 +88,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
         keyHandler = new KeyHandler(gp, manager, settingsActive, settingsPanel, camera, this);
         mouseHandler = new MouseHandler(this);
 
-        gameLoop.loopSetup(keyHandler, camera, gp);
+        gameLoop.loopSetup(keyHandler, camera, gp, player, tm);
         glCallback = (GameLoopCallback)gameLoop;
         gameLoop.addObserver(this);
 
@@ -181,9 +170,9 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
         System.out.println("You pressed the " + Math.floor(worldX/player.getTileSize()) +
                 ". X and " + Math.floor(worldY/player.getTileSize()) + ".Y tile");
         //check if the clicked tile is inside the map
-        if(!(clickedTileX<0 || clickedTileY<0 || clickedTileX>=tileMap.length || clickedTileY>=tileMap[0].length))
+        if(!(clickedTileX<0 || clickedTileY<0 || clickedTileX>=tm.mapData.length || clickedTileY>=tm.mapData[0].length))
         {
-            if(tileMap[-(int)Math.floor(worldY/player.getTileSize())-1][(int)Math.floor(worldX/player.getTileSize())]==1)
+            if(tm.mapData[-(int)Math.floor(worldY/player.getTileSize())-1][(int)Math.floor(worldX/player.getTileSize())]==1)
             {
                 System.out.println("You clicked on a dirt");
             }
@@ -256,7 +245,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
     }
 
 	@Override
-	public void onScoreChange(int newScore) {
+    public void onMoneyChange(int newScore) {
 		System.out.println("Score updated: " + newScore);
 		getMoneyText().setText("Money: "+newScore);
 	}

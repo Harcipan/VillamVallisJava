@@ -8,11 +8,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 //import graphics.scenes.GameScene;
 import filemanager.Serializer;
+import gameObject.Player;
+import gameObject.tiles.Tile;
+import gameObject.tiles.TileMap;
 import graphics.GamePanel;
 import graphics.camera.Camera;
+import graphics.transform.Vec2;
 import input.KeyHandler;
 import interfaces.GameLoopCallback;
 import interfaces.GameObserver;
@@ -36,6 +43,12 @@ public class GameLoop implements Serializable, GameLoopCallback{
     private transient GamePanel gp;
     private float moveSpeed = 2;
 	private transient boolean firstTime = true;
+	private transient ScheduledExecutorService saveScheduler;
+	private transient Player player;
+	transient TileMap tileMap;
+	int[][] tileMapSave;
+	Vec2 cameraSave;
+
 
 
     public void addObserver(GameObserver observer) {
@@ -53,7 +66,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 
     private void notifyObservers() {
         for (GameObserver observer : observers) {
-            observer.onScoreChange(money);
+            observer.onMoneyChange(money);
         }
     }
 
@@ -65,13 +78,26 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		ser = new Serializer();
 		money = 0;
 		playing = true;
+
+		saveScheduler = Executors.newSingleThreadScheduledExecutor();
+		saveScheduler.scheduleAtFixedRate(this::autoSave, 600, 600, TimeUnit.SECONDS);
 	}
 
-    public void loopSetup(KeyHandler keyHandler, Camera camera, GamePanel gp)
+	// Method to handle automatic saving only if the game is playing
+	private void autoSave() {
+		if (playing) {
+			System.out.println("Autosaving...");
+			saveGame();
+		}
+	}
+
+    public void loopSetup(KeyHandler keyHandler, Camera camera, GamePanel gp, Player player, TileMap tileMap)
     {
         this.keyHandler = keyHandler;
         this.camera = camera;
         this.gp = gp;
+		this.player = player;
+		this.tileMap = tileMap;
     }
 
 	public void newGame()
@@ -122,9 +148,9 @@ public class GameLoop implements Serializable, GameLoopCallback{
 
 				// Process movement when enough time has passed (i.e., one frame)
 				while (deltaTime >= 100) {
-
 					moveCamera((float) (deltaTime/100.0)); // Update movement
 					deltaTime--;
+					tileMap.addGrowthToAll(1);
 					//System.out.println(playing);
 				}
 
@@ -157,48 +183,6 @@ public class GameLoop implements Serializable, GameLoopCallback{
 
 	}
 
-	public void readInput()
-	{
-		isr = new InputStreamReader(System.in);
-		br = new BufferedReader(isr);
-
-
-
-		String s = "";
-		try {
-
-			while((s = br.readLine())!=null && playing)
-			{
-				if(s.equals("save"))
-				{
-					saveGame();
-				}
-				else if(s.equals("load"))
-				{
-					loadGame();
-				}
-				else if(s.equals("money"))
-				{
-					System.out.println(money);
-				}
-				else
-				{
-			        try {
-
-			            int number = Integer.parseInt(s);
-			            setMoney(number);
-			            //GameScene.setMoney(money);
-			        } catch (NumberFormatException e) {
-			            System.out.println("The input is not a valid number.");
-			        }
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
 
 	private void moveCamera(float deltaTime) {
         float deltaX = 0;
@@ -224,19 +208,25 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public void loadGame()
 	{
 		try {
-			loadedGame = (GameLoop)ser.loadData("saves/gameSave.txt");
-			setMoney(loadedGame.money);
+			loadedGame = (GameLoop)ser.loadData("saves/gameSave.dat");
+			System.out.println(loadedGame.money);
+			player.setMoney(loadedGame.money);
+			tileMap.setTiles(loadedGame.tileMapSave);
+			camera.setwCenter(loadedGame.cameraSave);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(money);
+		System.out.println(player.money);
 	}
 
 	public void saveGame()
 	{
-		System.out.println(money);
+		System.out.println(player.money);
+		money= player.money;
+		tileMapSave = tileMap.getTiles();
+		cameraSave = camera.getwCenter();
 		try {
-			ser.saveData(this, "saves/gameSave.txt");
+			ser.saveData(this, "saves/gameSave.dat");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -246,24 +236,6 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public void setPlaying(boolean p)
 	{
 		playing = p;
-		if(playing)
-		{
-			//gameLoopT = new Thread(this::startGameLoop);
-			//gameLoopT.start();
-		}
-	}
-
-
-	//is this how this should be???
-	//(doesn't actually matter because I won't use input stream)
-	public void finalize()
-	{
-		try {
-			br.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }

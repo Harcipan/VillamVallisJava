@@ -19,6 +19,7 @@ public class Player extends GameObject {
     Image texture1;
     Image texture2;
     Image[] playerTextures = new Image[4];
+    public int money;
 
     public Inventory inventory;
     int prevW;
@@ -26,6 +27,7 @@ public class Player extends GameObject {
     GameScene gameScene;
     
     public Player(GameScene gameScene) {
+        money = 0;
         this.gameScene = gameScene;
         inventory = new Inventory();
         texture = TextureManager.loadTextures("assets/player.png");
@@ -68,5 +70,11 @@ public class Player extends GameObject {
             g.drawImage(playerTextures[0],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
         }
         inventory.draw(g, camX, camY);
+    }
+
+    public void setMoney(int m)
+    {
+        money = m;
+        gameScene.onMoneyChange(money);
     }
 }
