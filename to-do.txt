@@ -55,7 +55,7 @@ Bigger goals:
 	+++ add wheat grow
 
 +++ use correct textures
-- implement watering
++++ implement watering
 - finish player animation
 
 

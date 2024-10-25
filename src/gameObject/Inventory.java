@@ -32,14 +32,14 @@ public class Inventory extends GameObject{
 
         // Draw the player based on its world coordinates and the camera position
         g.drawImage(inventoryTexture,
-                width/4+camX, height-height/10+camY, width-width/2, height/20, null);
+                (width - TILE_SIZE * 4) / 2 + camX, height - TILE_SIZE * 2 + camY, TILE_SIZE * 4, TILE_SIZE, null);
 
         for(int i=1;i<4;i++)
         {
-            g.drawImage(texture[i],width/4+camX+(i-1)*width/20, height-height/10+camY, width/20, height/20, null);
+            g.drawImage(texture[i],(width - TILE_SIZE * 4) / 2 + camX +(i-1)*TILE_SIZE, height-TILE_SIZE*2+camY, TILE_SIZE, TILE_SIZE, null);
         }
 
-        g.drawImage(texture[0],width/4+camX+currentTool*width/20,height-height/10+camY, width/20, height/20, null);
+        g.drawImage(texture[0],(width - TILE_SIZE * 4) / 2 + camX +currentTool*TILE_SIZE,height-TILE_SIZE*2+camY, TILE_SIZE, TILE_SIZE, null);
         //g.fillRect(width/4+camX+currentTool*width/20, height-100+camY, width/20, width/10);
         //g.drawImage(texture, CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
     }

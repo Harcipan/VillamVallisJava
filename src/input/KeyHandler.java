@@ -64,7 +64,7 @@ public class KeyHandler{
 				glCallback.setPlaying(false);
         	}
         }
-		else if (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9) {
+		else if (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_3) {
 			gameScene.player.inventory.currentTool = keyCode - KeyEvent.VK_0;
 		}
     }

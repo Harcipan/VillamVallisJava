@@ -14,6 +14,8 @@ import static gameObject.GameObject.TILE_SIZE;
 public class Tile {
     private transient Image[] texture = new Image[5];
     public int growthStage = 0;
+    public boolean isWatered = false;
+    public boolean isHarvestable = false;
 
     public Tile() {
         for(int i=0;i<5;i++)
@@ -25,9 +27,9 @@ public class Tile {
     public Image getTexture() {
         if(growthStage!=0)
         {
-            if(growthStage/100<4)
+            if(growthStage/1000<4)
             {
-                return texture[(growthStage/100)];
+                return texture[(growthStage/1000)];
             }
             else
             {

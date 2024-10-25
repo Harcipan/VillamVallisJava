@@ -42,7 +42,11 @@ public class MouseHandler {
                 {
                     gameScene.tm.getTile(tileX, tileY).growthStage++;
                 }
-                else
+                else if(gameScene.player.inventory.currentTool==2)
+                {
+                    gameScene.tm.getTile(tileX, tileY).isWatered = true;
+                }
+                else if(gameScene.tm.getTile(tileX, tileY).isHarvestable)
                 {
                     gameScene.tm.harvestTile(tileX,tileY);
                     gameScene.player.setMoney(gameScene.player.money+1);

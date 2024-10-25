@@ -17,6 +17,7 @@ import graphics.GameFrame;
 import graphics.GamePanel;
 import graphics.camera.Camera;
 import graphics.components.MenuButton;
+import graphics.components.UIPanel;
 import graphics.transform.Vec2;
 import input.KeyHandler;
 import input.MouseHandler;
@@ -36,7 +37,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
 	public Player player;
     JLayeredPane layeredPane; // To show the UI on top of stuff
     public GamePanel gp;
-    JPanel UIpanel;
+    UIPanel ui;
     public Camera camera;
     public KeyHandler keyHandler;
     MouseHandler mouseHandler;
@@ -50,10 +51,10 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
      */
     public GameScene(SceneManager manager, GameLoop gameLoop) {
         setLayout(new GridLayout(1, 1));
-        UIpanel = new JPanel();
         JLabel jl = new JLabel("This is the game scene!");
         setMoneyText(new JLabel("Here should be the money of the player."));
-        UIpanel.add(jl);UIpanel.add(getMoneyText());
+        ui = new UIPanel();
+        ui.add(getMoneyText());
         
         
 
@@ -73,10 +74,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
         layeredPane.add(gp, JLayeredPane.DEFAULT_LAYER);
 
         // Set the size of the UI panel (jp) and add it to a higher layer
-        UIpanel.setBounds(0, 0,GameFrame.getInstance().getWidth(), GameFrame.getInstance().getHeight());
-        UIpanel.setBackground(new Color(0,0,0,0));
-        UIpanel.setOpaque(false); //without this the UIpanel is covering the game because it isn't truly transparent
-        layeredPane.add(UIpanel, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(ui, JLayeredPane.PALETTE_LAYER);
 
         
         // Add the layeredPane to the GameScene
@@ -109,7 +107,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
                 int newHeight = GameFrame.getInstance().getHeight();
                 
                 gp.setBounds(0, 0, newWidth, newHeight);
-                UIpanel.setBounds(0, 0, newWidth, newHeight);
+                ui.setBounds(0, 0, newWidth, newHeight);
             }
         });
     }
