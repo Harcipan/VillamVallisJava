@@ -56,14 +56,14 @@ Bigger goals:
 
 +++ use correct textures
 +++ implement watering
-- finish player animation
++++ finish player animation
 
+- add sound
 
 - revise old tests
 - test for new game features
 
 Extra
-- add sound
 - physics
 - add bed and sleep option
 - add nigth and day

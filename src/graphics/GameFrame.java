@@ -34,7 +34,7 @@ public class GameFrame extends JFrame {
         }
 
 		setMinimumSize(new Dimension(500, 500));
-		ImageIcon i = new ImageIcon("assets/wheat.png");
+		ImageIcon i = new ImageIcon("assets/vvj.icon");
 		Image img = i.getImage();
 		this.setIconImage(img);
 		

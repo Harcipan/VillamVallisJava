@@ -15,16 +15,18 @@ import graphics.texture.TextureManager;
 import graphics.transform.Vec2;
 
 public class Player extends GameObject {
-    Image texture1;
-    Image texture2;
-    Image[] playerTextures = new Image[8];
+    Image[][] playerTextures = new Image[8][4];
+    int animPhase = 0;
+    int animTimer = 0;
+    boolean moving;
+    int lookDirection = 0;
+
     public int money;
 
     public Inventory inventory;
     int prevW;
     int prevH;
     GameScene gameScene;
-    //boolean[] moving = new boolean[4];
     
     public Player(GameScene gameScene) {
         money = 0;
@@ -34,7 +36,10 @@ public class Player extends GameObject {
         prevH = GameFrame.getInstance().getHeight();
         for(int i=0;i<8;i++)
         {
-            playerTextures[i] = TextureManager.getTextureFromMap(new Vec2(0,2+i),new Vec2(TILE_SIZE, TILE_SIZE));
+            for(int j=0;j<4;j++)
+            {
+                playerTextures[i][j] = TextureManager.getTextureFromMap(new Vec2(j,2+i),new Vec2(TILE_SIZE, TILE_SIZE));
+            }
         }
     }
     
@@ -46,42 +51,65 @@ public class Player extends GameObject {
         Set<Integer> pressedKeys = gameScene.keyHandler.getPressedKeys();
         //g.drawImage(texture,CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
         // Draw player with animation
+        moving = true;
         if(pressedKeys.contains(KeyEvent.VK_W) && pressedKeys.contains(KeyEvent.VK_A))
         {
-            g.drawImage(playerTextures[3],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(playerTextures[3][animPhase],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            lookDirection = 3;
         }
         else if(pressedKeys.contains(KeyEvent.VK_W) && pressedKeys.contains(KeyEvent.VK_D))
         {
-            g.drawImage(playerTextures[5],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(playerTextures[5][animPhase],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            lookDirection = 5;
         }
         else if(pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_A))
         {
-            g.drawImage(playerTextures[1],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(playerTextures[1][animPhase],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            lookDirection = 1;
         }
         else if(pressedKeys.contains(KeyEvent.VK_S) && pressedKeys.contains(KeyEvent.VK_D))
         {
-            g.drawImage(playerTextures[7],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(playerTextures[7][animPhase],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            lookDirection = 7;
         }
         else
         if(pressedKeys.contains(KeyEvent.VK_S))
         {
-            g.drawImage(playerTextures[0],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(playerTextures[0][animPhase],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            lookDirection = 0;
         }
         else if(pressedKeys.contains(KeyEvent.VK_W))
         {
-            g.drawImage(playerTextures[4],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(playerTextures[4][animPhase],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            lookDirection = 4;
         }
         else if(pressedKeys.contains(KeyEvent.VK_A))
         {
-            g.drawImage(playerTextures[2],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(playerTextures[2][animPhase],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            lookDirection = 2;
         }
         else if(pressedKeys.contains(KeyEvent.VK_D))
         {
-            g.drawImage(playerTextures[6],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(playerTextures[6][animPhase],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            lookDirection = 6;
         }
         else
         {
-            g.drawImage(playerTextures[0],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+            moving = false;
+            g.drawImage(playerTextures[lookDirection][animPhase],CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
+        }
+        // Animation scheduler
+        animTimer++;
+        if (animTimer >= 100) {
+            if(moving)
+            {
+                animPhase = (animPhase + 1) % 2 +2;
+            }
+            else
+            {
+                animPhase = (animPhase + 1) % 2;
+            }
+            animTimer = 0;
         }
         inventory.draw(g, camX, camY);
     }

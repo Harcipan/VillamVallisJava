@@ -21,7 +21,7 @@ public class Inventory extends GameObject{
         {
             texture[i] = TextureManager.getTextureFromMap(new Vec2(i,1),new Vec2(TILE_SIZE, TILE_SIZE));
         }
-        inventoryTexture = TextureManager.loadTextures("assets/inventory.png");
+        inventoryTexture = TextureManager.getTextureFromMap(new Vec2(2,2),new Vec2(TILE_SIZE*2, TILE_SIZE));
     }
 
     @Override
@@ -30,17 +30,17 @@ public class Inventory extends GameObject{
         int width = GameFrame.getInstance().getWidth();
         int height = GameFrame.getInstance().getHeight();
 
-        // Draw the player based on its world coordinates and the camera position
+        // Draw the inventory
         g.drawImage(inventoryTexture,
                 (width - TILE_SIZE * 4) / 2 + camX, height - TILE_SIZE * 2 + camY, TILE_SIZE * 4, TILE_SIZE, null);
 
+        // Draw the tools
         for(int i=1;i<4;i++)
         {
             g.drawImage(texture[i],(width - TILE_SIZE * 4) / 2 + camX +(i-1)*TILE_SIZE, height-TILE_SIZE*2+camY, TILE_SIZE, TILE_SIZE, null);
         }
 
+        // Draw the tool selector
         g.drawImage(texture[0],(width - TILE_SIZE * 4) / 2 + camX +currentTool*TILE_SIZE,height-TILE_SIZE*2+camY, TILE_SIZE, TILE_SIZE, null);
-        //g.fillRect(width/4+camX+currentTool*width/20, height-100+camY, width/20, width/10);
-        //g.drawImage(texture, CenterX+camX, CenterY+camY, TILE_SIZE, TILE_SIZE, null);
     }
 }
