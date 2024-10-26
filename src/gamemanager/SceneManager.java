@@ -4,10 +4,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import graphics.scenes.GameScene;
+import sound.SoundPlayer;
 
 import javax.swing.JLayeredPane;
 /**
@@ -21,6 +23,7 @@ public class SceneManager {
     private final CardLayout cardLayout; // To switch between scenes
     public JLayeredPane layeredPane; // To show the settings on top of stuff
     private boolean fullscreen;
+    public SoundPlayer soundPlayer;
 
     
     /**
@@ -41,6 +44,11 @@ public class SceneManager {
         this.sceneContainer = new JPanel(cardLayout);
         sceneContainer.setBounds(0, 0, frame.getWidth(), frame.getHeight());
         layeredPane.add(sceneContainer, JLayeredPane.DEFAULT_LAYER);
+
+        soundPlayer = new SoundPlayer();
+        Clip clip = soundPlayer.playSound("assets/sound/backgroundMusic/InstrumentalSuno.wav");
+        soundPlayer.setVolume(clip, -30.0f);
+        soundPlayer.loopSound(clip);
     }
     
 

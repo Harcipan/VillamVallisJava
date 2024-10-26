@@ -58,12 +58,22 @@ Bigger goals:
 +++ implement watering
 +++ finish player animation
 
-- add sound
++++ add sound
++++ add volume control
 
 - revise old tests
 - test for new game features
 
 Extra
+- fix moneytext centering
+- improve save handeling
+	- be able to choose which play you want to continue
+	from a list
+	- be able to choose new game filename
+- improve settings
+	- make buttons addable components for easier edit in
+	game and menuscene
+- improve resize (especially in gp) ???
 - physics
 - add bed and sleep option
 - add nigth and day

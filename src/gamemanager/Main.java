@@ -19,10 +19,6 @@ public class Main {
 	public static void main(String[] args) throws IOException
 	{
 		gf = new GameFrame();
-		SoundPlayer player = new SoundPlayer();
-		player.playSound("assets/sound/backgroundMusic/InstrumentalSuno.wav");
-
-		//Clip.loop(Clip.LOOP_CONTINUOUSLY);
 		gf.setVisible(true);
 	}
 }

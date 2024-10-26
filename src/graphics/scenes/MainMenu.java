@@ -2,9 +2,7 @@ package graphics.scenes;
 
 import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import gamemanager.SceneManager;
 import graphics.components.MenuButton;
@@ -67,10 +65,18 @@ public class MainMenu extends JPanel {
         
         JButton fullScreenButton = new MenuButton("FullScreen");
         fullScreenButton.addActionListener(e->{manager.toggleFullScreen();manager.hideOverlay(settingsPanel);});
+        //slider to change music volume
+        JSlider musicVolume = new JSlider(JSlider.HORIZONTAL, 0, 100, (int)(manager.soundPlayer.getVolume()));
+        musicVolume.addChangeListener(e -> manager.soundPlayer.setVolume(musicVolume.getValue()));
+
         JButton closeButton = new MenuButton("Close");
         closeButton.addActionListener(e -> manager.hideOverlay(settingsPanel));
 
         settingsPanel.add(fullScreenButton);
+        JPanel musicSettings = new JPanel();
+        musicSettings.add(new JLabel("Music Volume"));
+        musicSettings.add(musicVolume);
+        settingsPanel.add(musicSettings);
         settingsPanel.add(closeButton);
         
         return settingsPanel;
