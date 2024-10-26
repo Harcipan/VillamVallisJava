@@ -1,6 +1,10 @@
 package gamemanager;
 import graphics.GameFrame;
+import sound.SoundPlayer;
+
+import javax.sound.sampled.Clip;
 import java.io.IOException;
+
 /**
  * The Main class serves as the entry point for the game application.
  * It initializes the game frame and manages the game loop.
@@ -15,6 +19,10 @@ public class Main {
 	public static void main(String[] args) throws IOException
 	{
 		gf = new GameFrame();
+		SoundPlayer player = new SoundPlayer();
+		player.playSound("assets/sound/backgroundMusic/InstrumentalSuno.wav");
+
+		//Clip.loop(Clip.LOOP_CONTINUOUSLY);
 		gf.setVisible(true);
 	}
 }
