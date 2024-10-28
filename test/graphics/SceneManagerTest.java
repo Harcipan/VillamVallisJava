@@ -7,6 +7,7 @@ import java.awt.GraphicsEnvironment;
 
 import javax.swing.JPanel;
 
+import gamemanager.SceneManager;
 import org.junit.Before;
 import org.junit.Test;
 

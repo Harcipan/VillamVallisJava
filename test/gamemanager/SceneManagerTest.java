@@ -40,6 +40,13 @@ public class SceneManagerTest {
     }
 
     @Test
+    public void testSoundStopVol()
+    {
+    	manager.soundPlayer.setVolume(0);
+    	manager.soundPlayer.stopSound(manager.clip);
+    }
+    
+    @Test
     public void testHideOverlay() throws Exception {
     	int compCount = manager.layeredPane.getComponentCount();
         JPanel overlayPanel = new JPanel();

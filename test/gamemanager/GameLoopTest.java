@@ -1,9 +1,10 @@
 package gamemanager;
 
-import static org.junit.Assert.*;
+//Change to JUnit5
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
 
 import org.junit.Before;
-import org.junit.Test;
 
 import graphics.GameFrame;
 import graphics.scenes.GameScene;
@@ -74,10 +75,10 @@ public class GameLoopTest {
 
     @Test
     public void testLoadGame() {
-        gameLoop.setMoney(60);
+        gameScene.player.setMoney(60);
         gameLoop.saveGame();  // Save the state first
         gameLoop.loadGame();  // Load the state
-        assertEquals(60, gameLoop.money);
+        assertEquals(60, gameScene.player.money,0);
     }
     
     @Test
@@ -88,20 +89,20 @@ public class GameLoopTest {
     
     @Test
     public void testContinueGame() {
-        gameLoop.setMoney(60);
+        gameScene.player.setMoney(60);
         gameLoop.saveGame();  // Save the state first
         gameLoop.setMoney(120);
         gameLoop.continueGame();  // Load the state
-        assertEquals(60, gameLoop.money);
+        assertEquals(60, gameScene.player.money);
     }
     
 
-    private class TestObserver implements GameObserver {
+    private static class TestObserver implements GameObserver {
         boolean isNotified = false;
         int receivedScore;
 
         @Override
-        public void onScoreChange(int newScore) {
+        public void onMoneyChange(int newScore) {
             isNotified = true;
             receivedScore = newScore;
         }

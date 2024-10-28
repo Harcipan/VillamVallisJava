@@ -32,12 +32,12 @@ public class Mat4 {
 
     public Mat4 multiply(Mat4 other) {
         Mat4 result = new Mat4();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             result.m[i] = new Vec4(
-                    m[i].x * other.m[0].x + m[i].y * other.m[1].x + m[i].z * other.m[2].x,
-                    m[i].x * other.m[0].y + m[i].y * other.m[1].y + m[i].z * other.m[2].y,
-                    m[i].x * other.m[0].z + m[i].y * other.m[1].z + m[i].z * other.m[2].z,
-                    m[i].x * other.m[0].w + m[i].y * other.m[1].w + m[i].z * other.m[2].w
+                    m[i].x * other.m[0].x + m[i].y * other.m[1].x + m[i].z * other.m[2].x + m[i].w * other.m[3].x,
+                    m[i].x * other.m[0].y + m[i].y * other.m[1].y + m[i].z * other.m[2].y + m[i].w * other.m[3].y,
+                    m[i].x * other.m[0].z + m[i].y * other.m[1].z + m[i].z * other.m[2].z + m[i].w * other.m[3].z,
+                    m[i].x * other.m[0].w + m[i].y * other.m[1].w + m[i].z * other.m[2].w + m[i].w * other.m[3].w
             );
         }
         return result;
@@ -71,6 +71,7 @@ public class Mat4 {
     }
 
     public Mat4 rotate(float angle) {
+    	angle = (float) Math.toRadians(angle);
         return new Mat4(
                 new Vec4((float) Math.cos(angle), (float) Math.sin(angle), 0, 0),
                 new Vec4((float) -Math.sin(angle), (float) Math.cos(angle), 0, 0),
@@ -82,8 +83,8 @@ public class Mat4 {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 3; i++) {
-            sb.append(m[i]).append("\n");
+        for (int i = 0; i < 4; i++) {
+            sb.append(m[i]).append(" ");
         }
         return sb.toString();
     }

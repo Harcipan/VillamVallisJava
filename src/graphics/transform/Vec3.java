@@ -31,6 +31,10 @@ public class Vec3 {
         return this.x * other.x + this.y * other.y + this.z * other.z;
     }
 
+    public Vec3 cross(Vec3 other) {
+        return new Vec3(0, 0, this.x * other.y - this.y * other.x);
+    }
+
     public float length() {
         return (float) Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
     }

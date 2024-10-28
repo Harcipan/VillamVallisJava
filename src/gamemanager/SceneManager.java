@@ -24,6 +24,7 @@ public class SceneManager {
     public JLayeredPane layeredPane; // To show the settings on top of stuff
     private boolean fullscreen;
     public SoundPlayer soundPlayer;
+    Clip clip;
 
     
     /**
@@ -46,7 +47,7 @@ public class SceneManager {
         layeredPane.add(sceneContainer, JLayeredPane.DEFAULT_LAYER);
 
         soundPlayer = new SoundPlayer();
-        Clip clip = soundPlayer.playSound("assets/sound/backgroundMusic/InstrumentalSuno.wav");
+        clip = soundPlayer.playSound("assets/sound/backgroundMusic/InstrumentalSuno.wav");
         soundPlayer.setVolume(clip, -30.0f);
         soundPlayer.loopSound(clip);
     }
