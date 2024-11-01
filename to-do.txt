@@ -16,6 +16,11 @@ Bigger goals:
 
 +++ fullscreen call components instead of observer ???
 
++++ improve settings
+	+++ make buttons addable components for easier edit in
+	game and menuscene
+
+
 +++ movement
 	+++ smoother control
 	+++ 8 directional movement
@@ -61,23 +66,31 @@ Bigger goals:
 +++ add sound
 +++ add volume control
 
-- revise old tests
-- test for new game features
++++ revise old tests
++++ test for new game features
+
+After Jporta eval
+- be able to:
+	-define, list out, copy (and than edit the copy)
+	new plant types from the game
+
+- different dirt types with diff growth speed
+- be able to edit the map
+
 
 Extra
-- fix moneytext centering
-- improve save handeling
-	- be able to choose which play you want to continue
-	from a list
-	- be able to choose new game filename
-- improve settings
-	- make buttons addable components for easier edit in
-	game and menuscene
-- improve resize (especially in gp) ???
-- physics
+- save functionality upgrade
+	- choose save file from list
+	- new game screen
+		- choose save name
+		- modifiable character ???
+
 - add bed and sleep option
 - add nigth and day
-- add text (first for tutorial)
 
-- improve looks
-	- fancy up buttons in mMenu
+- add text (first for tutorial and sleep dialog)
+
+- fix moneytext centering
+- improve resize (especially in gp) ???
+- physics
+- improve looks (textures, anim)
