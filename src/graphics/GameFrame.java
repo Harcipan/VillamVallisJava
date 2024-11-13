@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import gamemanager.GameLoop;
 import gamemanager.SceneManager;
+import graphics.scenes.EditorScene;
 import graphics.scenes.GameScene;
 import graphics.scenes.MainMenu;
 import interfaces.GameLoopCallback;
@@ -21,6 +22,7 @@ public class GameFrame extends JFrame {
 	private static GameFrame instance;
 	JPanel MainMenu;
 	public JPanel GameScene;
+	JPanel EditorScene;
 	
     /**
      * Initializes a new instance of GameFrame.
@@ -43,11 +45,14 @@ public class GameFrame extends JFrame {
         SceneManager sceneManager = new SceneManager(this);
         MainMenu = new MainMenu(sceneManager,((GameLoopCallback)(gameLoop)));
         GameScene = new GameScene(sceneManager,gameLoop);
+		EditorScene = new EditorScene();
         sceneManager.addScene("MainMenu", MainMenu);
+		sceneManager.addScene("EditorScene", EditorScene);
         sceneManager.addScene("GameScene", GameScene);
 
         // Show initial scene (Main Menu)
         sceneManager.showScene("MainMenu");
+		//sceneManager.toggleFullScreen();
 
         pack();
 	}

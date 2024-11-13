@@ -70,12 +70,14 @@ Bigger goals:
 +++ test for new game features
 
 After Jporta eval
-- be able to:
-	-define, list out, copy (and than edit the copy)
-	new plant types from the game
-
+- be able to define, list out,
+copy (and than edit the copy)
+new plant types from the game
 - different dirt types with diff growth speed
 - be able to edit the map
+	+++ editor scene
+	- make scene parent for scenes
+	- ??
 
 
 Extra

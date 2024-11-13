@@ -27,7 +27,7 @@ import interfaces.GameObserver;
  * The GameScene class represents the main game scene, allowing interaction with the game.
  * It manages the display of the game and the settings overlay.
  */
-public class GameScene extends JPanel implements KeyListener, GameObserver, MouseListener {
+public class GameScene extends Scene {
 	private static final long serialVersionUID = 1L;
 	SceneManager manager;
 	boolean settingsActive;
@@ -121,27 +121,7 @@ public class GameScene extends JPanel implements KeyListener, GameObserver, Mous
         System.out.println("Normalizalt eszkoz position: " + cameraPos.x + ", " + cameraPos.y);
         mouseHandler.mouseClicked(e);
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
+    
     public Vec2 screenToCamera(int screenX, int screenY) {
         // Camera coordinates (cameraX, cameraY) and GamePanel dimensions
         double cameraX = camera.getCameraX();
