@@ -76,8 +76,9 @@ new plant types from the game
 - different dirt types with diff growth speed
 - be able to edit the map
 	+++ editor scene
-	- make scene parent for scenes
-	- ??
+	+++ make scene parent for scenes
+	+++ fix mouse and keyboard
+	- choose map file for new game
 
 
 Extra

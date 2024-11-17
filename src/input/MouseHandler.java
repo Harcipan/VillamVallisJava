@@ -2,6 +2,7 @@ package input;
 
 import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
+import graphics.GameFrame;
 import graphics.scenes.GameScene;
 import graphics.transform.Vec2;
 
@@ -13,9 +14,11 @@ import java.io.IOException;
 
 public class MouseHandler {
     private final GameScene gameScene;
+    private final GameFrame gameFrame;
     int tileSize = 64;
-    public MouseHandler(GameScene gameScene) {
-        this.gameScene = gameScene;
+    public MouseHandler(GameFrame gameFrame) {
+        this.gameScene = gameFrame.gameScene;
+        this.gameFrame = gameFrame;
         tileSize = gameScene.player.getTileSize();
     }
 
@@ -23,7 +26,7 @@ public class MouseHandler {
         int x = mouseEvent.getX();
         int y = mouseEvent.getY();
 
-        Vec2 clickW = gameScene.screenToCamera(x, y);
+        Vec2 clickW = gameFrame.screenToCamera(x, y);
 
         double worldX =(clickW.x*((double) gameScene.gp.getWidth() /2)+gameScene.camera.getCameraX()*2);
         double worldY = (clickW.y*((double) gameScene.gp.getHeight() /2)-gameScene.camera.getCameraY()*2);

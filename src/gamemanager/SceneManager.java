@@ -158,4 +158,17 @@ public class SceneManager {
         // "Commit" changes
         frame.setVisible(true);
     }
+
+    //get gameScene
+    public GameScene getGameScene()
+    {
+    	for(JPanel scene : scenes)
+    	{
+    		if(scene instanceof GameScene)
+    		{
+    			return (GameScene)scene;
+    		}
+    	}
+    	return null;
+    }
 }

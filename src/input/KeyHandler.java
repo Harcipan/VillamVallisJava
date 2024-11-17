@@ -11,6 +11,7 @@ import gamemanager.SceneManager;
 import graphics.GamePanel;
 import graphics.camera.Camera;
 import graphics.scenes.GameScene;
+import graphics.scenes.Scene;
 import interfaces.GameLoopCallback;
 
 public class KeyHandler{
@@ -27,9 +28,9 @@ public class KeyHandler{
 	JPanel settingsPanel;
 	Camera camera;
 	GameLoopCallback glCallback;
-	GameScene gameScene;
+	Scene gameScene;
     
-	public KeyHandler(GamePanel gamePanel, SceneManager sceneManager, boolean sActive, JPanel sPanel, Camera c, GameScene gameScene) {
+	public KeyHandler(GamePanel gamePanel, SceneManager sceneManager, boolean sActive, JPanel sPanel, Camera c, Scene gameScene) {
     	movingUp = false;
     	movingDown = false;
     	movingLeft = false;
