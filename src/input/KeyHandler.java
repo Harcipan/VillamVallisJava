@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import gameObject.Inventory;
 import gamemanager.SceneManager;
 import graphics.GamePanel;
 import graphics.camera.Camera;
@@ -67,6 +68,11 @@ public class KeyHandler{
         }
 		else if (keyCode >= KeyEvent.VK_1 && keyCode <= KeyEvent.VK_4) {
 			Scene.player.inventory.currentTool = keyCode - KeyEvent.VK_1;
+			if(keyCode == KeyEvent.VK_1)
+			{
+				Scene.player.inventory.currentPlant=(Scene.player.inventory.currentPlant+1)% Inventory.numberOfPlants;
+				System.out.println(Scene.player.inventory.currentPlant);
+			}
 		}
     }
 
