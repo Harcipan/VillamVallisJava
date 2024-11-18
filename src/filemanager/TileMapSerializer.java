@@ -48,6 +48,9 @@ public class TileMapSerializer {
         tileBuilder.add("growthStage", tile.growthStage);
         tileBuilder.add("isWatered", tile.isWatered);
         tileBuilder.add("isHarvestable", tile.isHarvestable);
+        tileBuilder.add("growthSpeed", tile.growthSpeed);
+        tileBuilder.add("cultivable", tile.isCultivable);
+        tileBuilder.add("type", tile.type);
         return tileBuilder.build();
     }
 

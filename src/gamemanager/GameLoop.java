@@ -24,6 +24,7 @@ import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
 import graphics.GamePanel;
 import graphics.camera.Camera;
+import graphics.scenes.GameScene;
 import graphics.transform.Vec2;
 import input.KeyHandler;
 import interfaces.GameLoopCallback;
@@ -85,7 +86,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		money = 0;
 		playing = true;
 
-		this.tileMap = testLoad();
+		tileMap= new TileMap(new int[3][3]);
 
 		saveScheduler = Executors.newSingleThreadScheduledExecutor();
 		saveScheduler.scheduleAtFixedRate(this::autoSave, 600, 600, TimeUnit.SECONDS);
@@ -107,13 +108,16 @@ public class GameLoop implements Serializable, GameLoopCallback{
         this.camera = camera;
         this.gp = gp;
 		this.player = player;
-
-		Camera.setMaxCamera((tileMap.mapData[0].length-1)*TileMap.TILE_SIZE/2,(tileMap.mapData.length-1)*TileMap.TILE_SIZE/2);
     }
 
 	public void newGame()
 	{
 		setMoney(0);
+		tileMap = new TileMap(new int[5][5]);
+		saveGame();
+		loadGame();
+
+		Camera.setMaxCamera((tileMap.mapData[0].length-1)*TileMap.TILE_SIZE/2,(tileMap.mapData.length-1)*TileMap.TILE_SIZE/2);
 		if(firstTime)
 		{
 			gameLoopT = new Thread(this::startGameLoop);
@@ -124,6 +128,8 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public void continueGame()
 	{
 		loadGame();
+
+		Camera.setMaxCamera((tileMap.mapData[0].length-1)*TileMap.TILE_SIZE/2,(tileMap.mapData.length-1)*TileMap.TILE_SIZE/2);
 		if(firstTime)
 		{
 			gameLoopT = new Thread(this::startGameLoop);
@@ -161,7 +167,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 				while (deltaTime >= 100) {
 					moveCamera((float) (deltaTime/100.0)); // Update movement
 					deltaTime--;
-					tileMap.addGrowthToAll(1);
+					tileMap.addGrowthToAll();
 					//System.out.println(playing);
 				}
 
@@ -219,11 +225,14 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public void loadGame()
 	{
 		try {
-			loadedGame = (GameLoop)ser.loadData("saves/gameSave.dat");
+			loadedGame = (GameLoop)ser.loadData("saves/game1/gameSave.dat");
 			System.out.println(loadedGame.money);
 			player.setMoney(loadedGame.money);
 			//tileMap.setTiles(loadedGame.tileMapSave);
-			testLoad();
+			tileMap=loadMap();
+
+			gp.tileMap = tileMap;
+			GameScene.tm = tileMap;
 			camera.setwCenter(loadedGame.cameraSave);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
@@ -236,20 +245,20 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		System.out.println(player.money);
 		money= player.money;
 		//tileMapSave = tileMap.getTiles();
-		String filePath = "tileMap.json";
+		String filePath = "saves/game1/tileMap.json";
 		TileMapSerializer.writeTileMapToFile(tileMap, filePath);
 		cameraSave = camera.getwCenter();
 		try {
-			ser.saveData(this, "saves/gameSave.dat");
+			ser.saveData(this, "saves/game1/gameSave.dat");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	TileMap testLoad()
+	TileMap loadMap()
 	{
-		String filePath = "tileMap.json";
+		String filePath = "saves/game1/tileMap.json";
 
 		// Deserialize TileMap from file
 		TileMap deserializedTileMap = TileMapDeserializer.deserializeTileMap(filePath);
@@ -258,9 +267,11 @@ public class GameLoop implements Serializable, GameLoopCallback{
 			System.out.println("TileMap deserialized successfully!");
 			System.out.println("First tile growth stage: " + deserializedTileMap.tiles[0][0].growthStage);
 			System.out.println("Is the first tile watered? " + deserializedTileMap.tiles[0][0].isWatered);
+			System.out.println("Is the first tile isCultivable? " + deserializedTileMap.tiles[0][0].isCultivable);
 		} else {
 			System.out.println("Failed to deserialize TileMap.");
 		}
+
 		return deserializedTileMap;
 	}
 

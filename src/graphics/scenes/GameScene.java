@@ -34,7 +34,7 @@ public class GameScene extends Scene implements GameObserver{
     UIPanel ui;
     public Camera camera;
     public KeyHandler keyHandler;
-    public TileMap tm;
+    public static TileMap tm;
 
     /**
      * Initializes a new instance of GameScene.

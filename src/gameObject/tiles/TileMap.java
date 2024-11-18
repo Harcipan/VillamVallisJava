@@ -2,10 +2,6 @@ package gameObject.tiles;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import gameObject.GameObject;
 import graphics.GameFrame;
@@ -16,12 +12,14 @@ public class TileMap extends GameObject{
 	public final Tile[][] tiles;
 	private final transient Image dirtTexture;
 	private final transient Image wateredTexture;
+	private final transient Image defaultTexture;
 	public int[][] mapData;
 
     public TileMap(int[][] mapData) {
 		this.mapData = mapData;
 		dirtTexture = TextureManager.getTextureFromMap(new Vec2(5, 0), new Vec2(TILE_SIZE, TILE_SIZE));
 		wateredTexture = TextureManager.getTextureFromMap(new Vec2(5, 1), new Vec2(TILE_SIZE, TILE_SIZE));
+		defaultTexture = TextureManager.getTextureFromMap(new Vec2(0, 1), new Vec2(TILE_SIZE, TILE_SIZE));
         tiles = new Tile[mapData.length][mapData[0].length];   
         for(int i=0;i<mapData.length;i++)
         {
@@ -33,20 +31,20 @@ public class TileMap extends GameObject{
         }
     }
 
-	public void addGrowthToAll(int growth)
+	public void addGrowthToAll()
 	{
         for (Tile[] tile : tiles) {
             for (Tile value : tile) {
-				if(!value.isHarvestable)
+				if(value.isHarvestable)
 				{
 					if (value.growthStage > 0) {
 						if(value.isWatered)
 						{
-							value.growthStage += growth*2;
+							value.growthStage += value.growthSpeed*2;
 						}
 						else
 						{
-							value.growthStage += growth;
+							value.growthStage += value.growthSpeed;
 						}
 
 						if(value.growthStage>4000)
@@ -78,10 +76,15 @@ public class TileMap extends GameObject{
 				{
 					g.drawImage(wateredTexture, x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
 				}
-				else {
+				else if(tiles[y][x].type.equals("ground")) {
 					g.drawImage(dirtTexture, x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
 				}
-				g.drawImage(tiles[y][x].getTexture(), x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
+				else
+				{
+					g.drawImage(defaultTexture, x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
+				}
+				// Draw plant if there is one
+				g.drawImage(tiles[y][x].getPlantTexture(), x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
             }
         }
     }

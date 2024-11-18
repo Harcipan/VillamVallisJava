@@ -12,7 +12,7 @@ import graphics.camera.Camera;
 
 public class GamePanel extends JPanel {
     private static final long serialVersionUID = 1L;
-	private TileMap tileMap;
+	public TileMap tileMap;
 	private Player player;
 	private Camera camera;
 

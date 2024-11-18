@@ -52,9 +52,12 @@ public class TileMapDeserializer {
 
     private static Tile deserializeTile(JsonObject tileJson) {
         Tile tile = new Tile();
-        tile.growthStage = tileJson.getInt("growthStage", 0);
-        tile.isWatered = tileJson.getBoolean("isWatered", false);
-        tile.isHarvestable = tileJson.getBoolean("isHarvestable", false);
+        tile.growthStage = tileJson.getInt("growthStage");
+        tile.isWatered = tileJson.getBoolean("isWatered");
+        tile.isHarvestable = tileJson.getBoolean("isHarvestable");
+        tile.growthSpeed = tileJson.getInt("growthSpeed");
+        tile.isHarvestable = tileJson.getBoolean("cultivable");
+        tile.type = tileJson.getString("type");
         return tile;
     }
 }
