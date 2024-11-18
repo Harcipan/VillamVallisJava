@@ -16,18 +16,10 @@ public class TileMap extends GameObject{
 	public final Tile[][] tiles;
 	private final transient Image dirtTexture;
 	private final transient Image wateredTexture;
-	public int[][] mapData = {
-			{0, 0, 100, 1, 0, 0, 1, 1, 0},
-			{1, 1, 1, 0, 100, 0, 1, 1, 0},
-			{1, 1, 1, 0, 1, 0, 1, 1, 0},
-			{0, 1, 1, 1, 0, 0, 1, 1, 0},
-			{1, 1, 1, 0, 1, 0, 1, 1, 0},
-			{0, 0, 0, 0, 0, 0, 1, 1, 0},
-			{1, 1, 1, 0, 1, 0, 1, 1, 0},
-			{1, 1, 1, 0, 1, 0, 1, 1, 0},
-			{0, 0, 0, 0, 0, 0, 1, 1, 0}
-	};
-    public TileMap() {
+	public int[][] mapData;
+
+    public TileMap(int[][] mapData) {
+		this.mapData = mapData;
 		dirtTexture = TextureManager.getTextureFromMap(new Vec2(5, 0), new Vec2(TILE_SIZE, TILE_SIZE));
 		wateredTexture = TextureManager.getTextureFromMap(new Vec2(5, 1), new Vec2(TILE_SIZE, TILE_SIZE));
         tiles = new Tile[mapData.length][mapData[0].length];   

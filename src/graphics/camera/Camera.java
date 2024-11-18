@@ -10,12 +10,18 @@ import java.awt.*;
 public class Camera extends GameObject {
 
     private Vec2 wCenter = new Vec2(); // Camera position (center of the world)
-    public static int maxCameraX = 4*TILE_SIZE;
-    public static int maxCameraY = 4*TILE_SIZE;
+    public static int maxCameraX = TILE_SIZE;
+    public static int maxCameraY = TILE_SIZE;
 	public Camera() {
-        wCenter.x = 200; // Initial camera position
-        wCenter.y = 200;
+        wCenter.x = 10; // Initial camera position
+        wCenter.y = 10;
 	}
+
+    //Set max camera position
+    public static void setMaxCamera(int x, int y) {
+        maxCameraX = x;
+        maxCameraY = y;
+    }
 
     public Mat4 V() {
         return new Mat4().translate(-wCenter.x, -wCenter.y);

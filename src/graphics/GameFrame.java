@@ -32,6 +32,7 @@ public class GameFrame extends JFrame implements KeyListener, MouseListener {
 	KeyHandler keyHandler;
 	public GameScene gameScene;
 	MouseHandler mouseHandler;
+	GameLoop gameLoop;
     /**
      * Initializes a new instance of GameFrame.
      * Sets the title and icon of the frame, and initializes the scene manager.
@@ -49,7 +50,7 @@ public class GameFrame extends JFrame implements KeyListener, MouseListener {
 		this.setIconImage(img);
 		
         // Create SceneManager and add scenes
-        GameLoop gameLoop = new GameLoop();
+        gameLoop = new GameLoop();
         SceneManager sceneManager = new SceneManager(this);
         MainMenu = new MainMenu(sceneManager,((GameLoopCallback)(gameLoop)));
         GameScene = new GameScene(sceneManager,gameLoop);
@@ -106,7 +107,7 @@ public class GameFrame extends JFrame implements KeyListener, MouseListener {
 		//check if the clicked tile is inside the map
 		if(!(clickedTileX<0 || clickedTileY<0 || clickedTileX>=gameScene.tm.mapData.length || clickedTileY>=gameScene.tm.mapData[0].length))
 		{
-			if(gameScene.tm.mapData[-(int)Math.floor(worldY/gameScene.player.getTileSize())-1][(int)Math.floor(worldX/gameScene.player.getTileSize())]==1)
+			if(gameLoop.tileMap.mapData[-(int)Math.floor(worldY/gameScene.player.getTileSize())-1][(int)Math.floor(worldX/gameScene.player.getTileSize())]==1)
 			{
 				System.out.println("You clicked on a dirt");
 			}

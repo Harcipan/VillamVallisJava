@@ -74,11 +74,14 @@ After Jporta eval
 copy (and than edit the copy)
 new plant types from the game
 - different dirt types with diff growth speed
+	- save Tile obj. instead of just growth number
+
 - be able to edit the map
 	+++ editor scene
 	+++ make scene parent for scenes
 	+++ fix mouse and keyboard
-	- choose map file for new game
+	+++ choose map file for new game
+	- map editor ingame (not just from file)
 
 
 Extra

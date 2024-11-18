@@ -1,10 +1,7 @@
 package gamemanager;
 
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +20,7 @@ import graphics.transform.Vec2;
 import input.KeyHandler;
 import interfaces.GameLoopCallback;
 import interfaces.GameObserver;
+
 /**
  * The GameLoop class manages the game's main loop, handling user input and game state.
  * It allows saving and loading the game state.
@@ -45,7 +43,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	private transient boolean firstTime = true;
 	private transient ScheduledExecutorService saveScheduler;
 	private transient Player player;
-	transient TileMap tileMap;
+	public transient TileMap tileMap;
 	int[][] tileMapSave;
 	Vec2 cameraSave;
 
@@ -79,9 +77,35 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		money = 0;
 		playing = true;
 
+		int[][] mapData = readWorldFile("assets/map.txt");
+		this.tileMap = new TileMap(mapData);
+
 		saveScheduler = Executors.newSingleThreadScheduledExecutor();
 		saveScheduler.scheduleAtFixedRate(this::autoSave, 600, 600, TimeUnit.SECONDS);
 	}
+
+	// Read world file into mapData
+	public int[][] readWorldFile(String filename) {
+		List<int[]> lines = new ArrayList<>();
+		try {
+			File f = new File(filename);
+			isr = new InputStreamReader(new FileInputStream(f));
+			br = new BufferedReader(isr);
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] parts = line.split(" ");
+				int[] row = new int[parts.length];
+				for (int j = 0; j < parts.length; j++) {
+					row[j] = Integer.parseInt(parts[j]);
+				}
+				lines.add(row);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return lines.toArray(new int[0][]);
+	}
+
 
 	// Method to handle automatic saving only if the game is playing
 	private void autoSave() {
@@ -91,13 +115,14 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		}
 	}
 
-    public void loopSetup(KeyHandler keyHandler, Camera camera, GamePanel gp, Player player, TileMap tileMap)
+    public void loopSetup(KeyHandler keyHandler, Camera camera, GamePanel gp, Player player)
     {
         this.keyHandler = keyHandler;
         this.camera = camera;
         this.gp = gp;
 		this.player = player;
-		this.tileMap = tileMap;
+
+		Camera.setMaxCamera((tileMap.mapData[0].length-1)*TileMap.TILE_SIZE/2,(tileMap.mapData.length-1)*TileMap.TILE_SIZE/2);
     }
 
 	public void newGame()

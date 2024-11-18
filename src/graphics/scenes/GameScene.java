@@ -48,10 +48,10 @@ public class GameScene extends Scene implements GameObserver{
         setMoneyText(new JLabel("Here should be the money of the player."));
         ui = new UIPanel();
         ui.add(getMoneyText());
-        
-        
 
-        tm = new TileMap();
+
+
+        tm = gameLoop.tileMap;
         player = new Player(this);
         camera = new Camera();
         gp = new GamePanel(tm,player,camera);
@@ -82,7 +82,7 @@ public class GameScene extends Scene implements GameObserver{
         settingsPanel = new SettingsPanel(glCallback, manager, this);
         keyHandler = new KeyHandler(gp, manager, settingsActive, settingsPanel, camera, this);
         keyHandler.setGLCallback(glCallback);
-        gameLoop.loopSetup(keyHandler, camera, gp, player, tm);
+        gameLoop.loopSetup(keyHandler, camera, gp, player);
         
         this.addComponentListener(new ComponentAdapter() {
             @Override
