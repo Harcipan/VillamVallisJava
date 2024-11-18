@@ -9,6 +9,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 //import graphics.scenes.GameScene;
 import filemanager.Serializer;
 import gameObject.Player;
@@ -82,6 +88,32 @@ public class GameLoop implements Serializable, GameLoopCallback{
 
 		saveScheduler = Executors.newSingleThreadScheduledExecutor();
 		saveScheduler.scheduleAtFixedRate(this::autoSave, 600, 600, TimeUnit.SECONDS);
+
+
+
+		// Create a Tile object
+		Tile tile = new Tile();
+		tile.growthStage = 3000;
+		tile.isWatered = true;
+		tile.isHarvestable = false;
+
+		// Serialize the Tile object to JSON
+		JsonObject tileJson = Json.createObjectBuilder()
+				.add("growthStage", tile.growthStage)
+				.add("isWatered", tile.isWatered)
+				.add("isHarvestable", tile.isHarvestable)
+				.build();
+
+		// Write JSON to a file
+		try (FileWriter fileWriter = new FileWriter("tile.json");
+			 JsonWriter jsonWriter = Json.createWriter(fileWriter)) {
+
+			jsonWriter.writeObject(tileJson);
+			System.out.println("Serialized JSON written to tile.json");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	// Read world file into mapData
