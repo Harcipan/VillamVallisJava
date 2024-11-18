@@ -29,7 +29,6 @@ public class GameScene extends Scene implements GameObserver{
 	JPanel settingsPanel;
 	private JLabel moneyText;
 	private GameLoopCallback glCallback;
-	public Player player;
     JLayeredPane layeredPane; // To show the UI on top of stuff
     public GamePanel gp;
     UIPanel ui;

@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class Scene extends JPanel {
     public boolean settingsActive;
-    public Player player;
+    public static Player player;
     public Scene() {
         super();
         settingsActive = false;

@@ -17,6 +17,8 @@ import java.io.IOException;
 
 //import graphics.scenes.GameScene;
 import filemanager.Serializer;
+import filemanager.TileMapDeserializer;
+import filemanager.TileMapSerializer;
 import gameObject.Player;
 import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
@@ -83,59 +85,11 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		money = 0;
 		playing = true;
 
-		int[][] mapData = readWorldFile("assets/map.txt");
-		this.tileMap = new TileMap(mapData);
+		this.tileMap = testLoad();
 
 		saveScheduler = Executors.newSingleThreadScheduledExecutor();
 		saveScheduler.scheduleAtFixedRate(this::autoSave, 600, 600, TimeUnit.SECONDS);
 
-
-
-		// Create a Tile object
-		Tile tile = new Tile();
-		tile.growthStage = 3000;
-		tile.isWatered = true;
-		tile.isHarvestable = false;
-
-		// Serialize the Tile object to JSON
-		JsonObject tileJson = Json.createObjectBuilder()
-				.add("growthStage", tile.growthStage)
-				.add("isWatered", tile.isWatered)
-				.add("isHarvestable", tile.isHarvestable)
-				.build();
-
-		// Write JSON to a file
-		try (FileWriter fileWriter = new FileWriter("tile.json");
-			 JsonWriter jsonWriter = Json.createWriter(fileWriter)) {
-
-			jsonWriter.writeObject(tileJson);
-			System.out.println("Serialized JSON written to tile.json");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	// Read world file into mapData
-	public int[][] readWorldFile(String filename) {
-		List<int[]> lines = new ArrayList<>();
-		try {
-			File f = new File(filename);
-			isr = new InputStreamReader(new FileInputStream(f));
-			br = new BufferedReader(isr);
-			String line;
-			while ((line = br.readLine()) != null) {
-				String[] parts = line.split(" ");
-				int[] row = new int[parts.length];
-				for (int j = 0; j < parts.length; j++) {
-					row[j] = Integer.parseInt(parts[j]);
-				}
-				lines.add(row);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return lines.toArray(new int[0][]);
 	}
 
 
@@ -268,7 +222,8 @@ public class GameLoop implements Serializable, GameLoopCallback{
 			loadedGame = (GameLoop)ser.loadData("saves/gameSave.dat");
 			System.out.println(loadedGame.money);
 			player.setMoney(loadedGame.money);
-			tileMap.setTiles(loadedGame.tileMapSave);
+			//tileMap.setTiles(loadedGame.tileMapSave);
+			testLoad();
 			camera.setwCenter(loadedGame.cameraSave);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
@@ -280,7 +235,9 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	{
 		System.out.println(player.money);
 		money= player.money;
-		tileMapSave = tileMap.getTiles();
+		//tileMapSave = tileMap.getTiles();
+		String filePath = "tileMap.json";
+		TileMapSerializer.writeTileMapToFile(tileMap, filePath);
 		cameraSave = camera.getwCenter();
 		try {
 			ser.saveData(this, "saves/gameSave.dat");
@@ -288,6 +245,23 @@ public class GameLoop implements Serializable, GameLoopCallback{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	TileMap testLoad()
+	{
+		String filePath = "tileMap.json";
+
+		// Deserialize TileMap from file
+		TileMap deserializedTileMap = TileMapDeserializer.deserializeTileMap(filePath);
+
+		if (deserializedTileMap != null) {
+			System.out.println("TileMap deserialized successfully!");
+			System.out.println("First tile growth stage: " + deserializedTileMap.tiles[0][0].growthStage);
+			System.out.println("Is the first tile watered? " + deserializedTileMap.tiles[0][0].isWatered);
+		} else {
+			System.out.println("Failed to deserialize TileMap.");
+		}
+		return deserializedTileMap;
 	}
 
 	public void setPlaying(boolean p)
