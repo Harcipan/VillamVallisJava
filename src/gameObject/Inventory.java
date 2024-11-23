@@ -13,6 +13,8 @@ public class Inventory extends GameObject{
     public int currentTool;
     Image[] texture = new Image[6];
     Image inventoryTexture;
+    public int currentPlant = 0;
+    public static int numberOfPlants = 2;
 
     // Note: Always preload textures, otherwise the game will lag
     public Inventory() {

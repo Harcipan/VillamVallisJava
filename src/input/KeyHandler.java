@@ -7,10 +7,12 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import gameObject.Inventory;
 import gamemanager.SceneManager;
 import graphics.GamePanel;
 import graphics.camera.Camera;
 import graphics.scenes.GameScene;
+import graphics.scenes.Scene;
 import interfaces.GameLoopCallback;
 
 public class KeyHandler{
@@ -27,9 +29,9 @@ public class KeyHandler{
 	JPanel settingsPanel;
 	Camera camera;
 	GameLoopCallback glCallback;
-	GameScene gameScene;
+	Scene gameScene;
     
-	public KeyHandler(GamePanel gamePanel, SceneManager sceneManager, boolean sActive, JPanel sPanel, Camera c, GameScene gameScene) {
+	public KeyHandler(GamePanel gamePanel, SceneManager sceneManager, boolean sActive, JPanel sPanel, Camera c, Scene gameScene) {
     	movingUp = false;
     	movingDown = false;
     	movingLeft = false;
@@ -64,8 +66,13 @@ public class KeyHandler{
 				glCallback.setPlaying(false);
         	}
         }
-		else if (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_3) {
-			gameScene.player.inventory.currentTool = keyCode - KeyEvent.VK_0;
+		else if (keyCode >= KeyEvent.VK_1 && keyCode <= KeyEvent.VK_4) {
+			Scene.player.inventory.currentTool = keyCode - KeyEvent.VK_1;
+			if(keyCode == KeyEvent.VK_1)
+			{
+				Scene.player.inventory.currentPlant=(Scene.player.inventory.currentPlant+1)% Inventory.numberOfPlants;
+				System.out.println(Scene.player.inventory.currentPlant);
+			}
 		}
     }
 

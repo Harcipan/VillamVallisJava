@@ -1,10 +1,7 @@
 package gamemanager;
 
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -12,17 +9,27 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 //import graphics.scenes.GameScene;
 import filemanager.Serializer;
+import filemanager.TileMapDeserializer;
+import filemanager.TileMapSerializer;
 import gameObject.Player;
 import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
 import graphics.GamePanel;
 import graphics.camera.Camera;
+import graphics.scenes.GameScene;
 import graphics.transform.Vec2;
 import input.KeyHandler;
 import interfaces.GameLoopCallback;
 import interfaces.GameObserver;
+
 /**
  * The GameLoop class manages the game's main loop, handling user input and game state.
  * It allows saving and loading the game state.
@@ -45,7 +52,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	private transient boolean firstTime = true;
 	private transient ScheduledExecutorService saveScheduler;
 	private transient Player player;
-	transient TileMap tileMap;
+	public transient TileMap tileMap;
 	int[][] tileMapSave;
 	Vec2 cameraSave;
 
@@ -79,9 +86,13 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		money = 0;
 		playing = true;
 
+		tileMap= new TileMap(new int[3][3]);
+
 		saveScheduler = Executors.newSingleThreadScheduledExecutor();
 		saveScheduler.scheduleAtFixedRate(this::autoSave, 600, 600, TimeUnit.SECONDS);
+
 	}
+
 
 	// Method to handle automatic saving only if the game is playing
 	private void autoSave() {
@@ -91,18 +102,22 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		}
 	}
 
-    public void loopSetup(KeyHandler keyHandler, Camera camera, GamePanel gp, Player player, TileMap tileMap)
+    public void loopSetup(KeyHandler keyHandler, Camera camera, GamePanel gp, Player player)
     {
         this.keyHandler = keyHandler;
         this.camera = camera;
         this.gp = gp;
 		this.player = player;
-		this.tileMap = tileMap;
     }
 
 	public void newGame()
 	{
 		setMoney(0);
+		tileMap = new TileMap(new int[5][5]);
+		saveGame();
+		loadGame();
+
+		Camera.setMaxCamera((tileMap.mapData[0].length-1)*TileMap.TILE_SIZE/2,(tileMap.mapData.length-1)*TileMap.TILE_SIZE/2);
 		if(firstTime)
 		{
 			gameLoopT = new Thread(this::startGameLoop);
@@ -113,6 +128,8 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public void continueGame()
 	{
 		loadGame();
+
+		Camera.setMaxCamera((tileMap.mapData[0].length-1)*TileMap.TILE_SIZE/2,(tileMap.mapData.length-1)*TileMap.TILE_SIZE/2);
 		if(firstTime)
 		{
 			gameLoopT = new Thread(this::startGameLoop);
@@ -150,7 +167,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 				while (deltaTime >= 100) {
 					moveCamera((float) (deltaTime/100.0)); // Update movement
 					deltaTime--;
-					tileMap.addGrowthToAll(1);
+					tileMap.addGrowthToAll();
 					//System.out.println(playing);
 				}
 
@@ -208,10 +225,15 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public void loadGame()
 	{
 		try {
-			loadedGame = (GameLoop)ser.loadData("saves/gameSave.dat");
+			loadedGame = (GameLoop)ser.loadData("saves/game1/gameSave.dat");
 			System.out.println(loadedGame.money);
 			player.setMoney(loadedGame.money);
-			tileMap.setTiles(loadedGame.tileMapSave);
+			//tileMap.setTiles(loadedGame.tileMapSave);
+			tileMap=loadMap();
+
+			gp.tileMap = tileMap;
+			GameScene.tm = tileMap;
+
 			camera.setwCenter(loadedGame.cameraSave);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
@@ -223,14 +245,36 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	{
 		System.out.println(player.money);
 		money= player.money;
-		tileMapSave = tileMap.getTiles();
+		//tileMapSave = tileMap.getTiles();
+		String filePath = "saves/game1/tileMap.json";
+		TileMapSerializer.writeTileMapToFile(tileMap, filePath);
 		cameraSave = camera.getwCenter();
 		try {
-			ser.saveData(this, "saves/gameSave.dat");
+			ser.saveData(this, "saves/game1/gameSave.dat");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	TileMap loadMap()
+	{
+		String filePath = "saves/game1/tileMap.json";
+
+		// Deserialize TileMap from file
+		TileMap deserializedTileMap = TileMapDeserializer.deserializeTileMap(filePath);
+
+		if (deserializedTileMap != null) {
+			System.out.println("TileMap deserialized successfully!");
+			System.out.println("First tile growth stage: " + deserializedTileMap.tiles[0][0].growthStage);
+			System.out.println("Is the first tile watered? " + deserializedTileMap.tiles[0][0].isWatered);
+			System.out.println("Is the first tile isCultivable? " + deserializedTileMap.tiles[0][0].isCultivable);
+			System.out.println("first tile texturepos" + deserializedTileMap.tiles[0][0].plantTextureYPos);
+		} else {
+			System.out.println("Failed to deserialize TileMap.");
+		}
+
+		return deserializedTileMap;
 	}
 
 	public void setPlaying(boolean p)
