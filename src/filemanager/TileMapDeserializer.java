@@ -58,6 +58,8 @@ public class TileMapDeserializer {
         tile.growthSpeed = tileJson.getInt("growthSpeed");
         tile.isHarvestable = tileJson.getBoolean("cultivable");
         tile.type = tileJson.getString("type");
+        tile.plantTextureYPos = tileJson.getInt("plantTextureYPos");
+        tile.updateTexture();
         return tile;
     }
 }

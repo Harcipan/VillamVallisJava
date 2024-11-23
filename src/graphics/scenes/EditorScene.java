@@ -52,4 +52,6 @@ public class EditorScene extends Scene implements GameObserver {
 
     }
 
+    //TODO: List out, edit and define plant types
+
 }

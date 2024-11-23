@@ -51,6 +51,7 @@ public class TileMapSerializer {
         tileBuilder.add("growthSpeed", tile.growthSpeed);
         tileBuilder.add("cultivable", tile.isCultivable);
         tileBuilder.add("type", tile.type);
+        tileBuilder.add("plantTextureYPos", tile.plantTextureYPos);
         return tileBuilder.build();
     }
 

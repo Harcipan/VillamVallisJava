@@ -15,15 +15,16 @@ public class Tile {
     public boolean isCultivable;
     public int growthSpeed;
     public String type;
+    public int plantTextureYPos;
 
 
     public Tile() {
         for(int i=0;i<5;i++)
         {
-            this.texture[i] = TextureManager.getTextureFromMap(new Vec2(i,0),new Vec2(TILE_SIZE, TILE_SIZE));
+            this.texture[i] = TextureManager.getTextureFromMap(new Vec2(i,plantTextureYPos),new Vec2(TILE_SIZE, TILE_SIZE));
         }
         isWatered = false; isHarvestable = false; isCultivable = true;
-        growthSpeed = 1; type = "ground";
+        growthSpeed = 1; type = "ground"; plantTextureYPos = 0;
     }
     
     public Image getPlantTexture() {
@@ -39,6 +40,14 @@ public class Tile {
             }
         }
         return null;
+    }
+
+    public void updateTexture()
+    {
+        for(int i=0;i<5;i++)
+        {
+            this.texture[i] = TextureManager.getTextureFromMap(new Vec2(i,plantTextureYPos),new Vec2(TILE_SIZE, TILE_SIZE));
+        }
     }
 }
 

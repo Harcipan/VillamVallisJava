@@ -233,6 +233,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 
 			gp.tileMap = tileMap;
 			GameScene.tm = tileMap;
+
 			camera.setwCenter(loadedGame.cameraSave);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
@@ -268,6 +269,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 			System.out.println("First tile growth stage: " + deserializedTileMap.tiles[0][0].growthStage);
 			System.out.println("Is the first tile watered? " + deserializedTileMap.tiles[0][0].isWatered);
 			System.out.println("Is the first tile isCultivable? " + deserializedTileMap.tiles[0][0].isCultivable);
+			System.out.println("first tile texturepos" + deserializedTileMap.tiles[0][0].plantTextureYPos);
 		} else {
 			System.out.println("Failed to deserialize TileMap.");
 		}
