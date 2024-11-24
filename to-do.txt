@@ -70,9 +70,10 @@ Bigger goals:
 +++ test for new game features
 
 After Jporta eval
-- be able to define, list out,
++++ be able to define, list out,
 copy (and than edit the copy)
 new plant types from the game
+	+++ table for plants
 
 +++ different dirt types with diff growth speed and texture
 	+++ save Tile obj. instead of just growth number
@@ -96,10 +97,13 @@ new plant types from the game
 - add bed and sleep option (bed tile)
 - add nigth and day
 
-- fix fullscreen
-- fix settings in main menu and gamesceen
-	- simplify settingsmenu creation and modif
-	- improve settings look
+- fix bugs:
+	- fix fullscreen
+	- fix settings in main menu and gamesceen
+		- simplify settingsmenu creation and modif
+		- improve settings look
+	- delete plant type, than play then try to edit plant type
+	-> out of bounds exception
 
 
 Extra

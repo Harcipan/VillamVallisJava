@@ -14,7 +14,7 @@ public class Plant {
     public String name;
     public int growthSpeed;
     public int textureYPos;
-    private transient Image[] texture = new Image[5];
+    public transient Image[] texture = new Image[5];
 
     public Plant() {
         growthStage = 0;

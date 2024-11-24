@@ -15,7 +15,8 @@ public class Tile {
     public boolean isCultivable;
     public int growthSpeed;
     public String type;
-    public int plantTextureYPos;
+    public String hasPlant;
+    public int plantTextureYPos = 0;
 
 
     public Tile() {
@@ -24,7 +25,7 @@ public class Tile {
             this.texture[i] = TextureManager.getTextureFromMap(new Vec2(i,plantTextureYPos),new Vec2(TILE_SIZE, TILE_SIZE));
         }
         isWatered = false; isHarvestable = false; isCultivable = true;
-        growthSpeed = 1; type = "ground"; plantTextureYPos = 0;
+        growthSpeed = 1; type = "ground"; hasPlant = "none";
     }
     
     public Image getPlantTexture() {

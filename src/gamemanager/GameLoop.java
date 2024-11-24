@@ -18,10 +18,7 @@ import java.io.IOException;
 
 //import graphics.scenes.GameScene;
 import filemanager.Serializer;
-import filemanager.TileMapDeserializer;
 import filemanager.TileMapSerializer;
-import gameObject.Player;
-import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
 import graphics.camera.Camera;
 import graphics.scenes.GameScene;
@@ -242,7 +239,8 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		money= GameScene.player.money;
 		//tileMapSave = tileMap.getTiles();
 		String filePath = "saves/game1/tileMap.json";
-		TileMapSerializer.writeTileMapToFile(tileMap, filePath);
+		//TileMapSerializer.writeTileMapToFile(tileMap, filePath);
+		TileMapSerializer.serializeTileMap(tileMap, filePath);
 		cameraSave = GameScene.camera.getwCenter();
 		try {
 			ser.saveData(this, "saves/game1/gameSave.dat");
@@ -257,7 +255,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		String filePath = "saves/game1/tileMap.json";
 
 		// Deserialize TileMap from file
-		TileMap deserializedTileMap = TileMapDeserializer.deserializeTileMap(filePath);
+		TileMap deserializedTileMap = TileMapSerializer.deserializeTileMap(filePath);
 
 		if (deserializedTileMap != null) {
 			System.out.println("TileMap deserialized successfully!");

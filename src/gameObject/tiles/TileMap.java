@@ -90,7 +90,14 @@ public class TileMap extends GameObject{
 					g.drawImage(defaultTexture, x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
 				}
 				// Draw plant if there is one
-				g.drawImage(tiles[y][x].getPlantTexture(), x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
+				//g.drawImage(tiles[y][x].getPlantTexture(), x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
+				for(Plant plant : plantTypes)
+				{
+					if(plant.name.equals(tiles[y][x].hasPlant))
+					{
+						g.drawImage(plant.texture[0], x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
+					}
+				}
             }
         }
     }
