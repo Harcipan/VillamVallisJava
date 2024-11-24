@@ -37,7 +37,7 @@ public class EditorScene extends Scene implements GameObserver {
     private JTextField deleteTextField;
 
     public EditorScene(SceneManager manager, GameLoop gameLoop) {
-        //gameLoop.loadGame();
+        gameLoop.loadGame();
         setLayout(new BorderLayout());
         this.manager = manager;
         this.gameLoop = gameLoop;

@@ -41,7 +41,7 @@ public class TileMap extends GameObject{
 	{
         for (Tile[] tile : tiles) {
             for (Tile value : tile) {
-				if(value.isHarvestable)
+				if(value.isCultivable)
 				{
 					if (value.growthStage > 0) {
 						if(value.isWatered)
@@ -95,7 +95,7 @@ public class TileMap extends GameObject{
 				{
 					if(plant.name.equals(tiles[y][x].hasPlant))
 					{
-						g.drawImage(plant.texture[0], x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
+						g.drawImage(plant.getPlantTexture(tiles[y][x].growthStage), x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
 					}
 				}
             }

@@ -25,23 +25,10 @@ public class Tile {
             this.texture[i] = TextureManager.getTextureFromMap(new Vec2(i,plantTextureYPos),new Vec2(TILE_SIZE, TILE_SIZE));
         }
         isWatered = false; isHarvestable = false; isCultivable = true;
-        growthSpeed = 1; type = "ground"; hasPlant = "none";
+        growthSpeed = 1; type = "ground"; hasPlant = "Plant";
     }
     
-    public Image getPlantTexture() {
-        if(growthStage!=0)
-        {
-            if(growthStage/1000<4)
-            {
-                return texture[(growthStage/1000)];
-            }
-            else
-            {
-                return texture[4];
-            }
-        }
-        return null;
-    }
+
 
     public void updateTexture()
     {

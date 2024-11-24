@@ -161,7 +161,6 @@ public class GameLoop implements Serializable, GameLoopCallback{
 					moveCamera((float) (deltaTime/100.0)); // Update movement
 					deltaTime--;
 					tileMap.addGrowthToAll();
-					//System.out.println(playing);
 				}
 
 				gp.repaint(); // Really IMPORTANT for smoother movement

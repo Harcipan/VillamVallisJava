@@ -17,7 +17,7 @@ public class Plant {
     public transient Image[] texture = new Image[5];
 
     public Plant() {
-        growthStage = 0;
+        //growthStage = 0;
         isWatered = false;
         isHarvestable = false;
         name = "plant";
@@ -27,6 +27,21 @@ public class Plant {
         {
             this.texture[i] = TextureManager.getTextureFromMap(new Vec2(i,textureYPos),new Vec2(TILE_SIZE, TILE_SIZE));
         }
+    }
+
+    public Image getPlantTexture(int growthStage) {
+        if(growthStage!=0)
+        {
+            if(growthStage/1000<4)
+            {
+                return texture[(growthStage/1000)];
+            }
+            else
+            {
+                return texture[4];
+            }
+        }
+        return null;
     }
 
     public void updateTexture()
