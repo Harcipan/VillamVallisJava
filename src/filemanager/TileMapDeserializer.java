@@ -1,4 +1,5 @@
 package filemanager;
+import gameObject.Player;
 import gameObject.tiles.Plant;
 import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
@@ -45,13 +46,11 @@ public class TileMapDeserializer {
 
             // Deserialize plantTypes
             JsonArray plantTypesArray = tileMapJson.getJsonArray("plantTypes");
-            for (int i = 0; i < plantTypesArray.size(); i++) {
-                JsonArray rowArray = plantTypesArray.getJsonArray(i);
-                for (int j = 0; j < rowArray.size(); j++) {
-                    JsonObject plantJson = rowArray.getJsonObject(j);
-                    Plant plant = deserializePlant(plantJson);
-                    tileMap.plantTypes.add(plant); // Replace the default Tile with the deserialized one
-                }
+            for(Plant plant: tileMap.plantTypes)
+            {
+                JsonObject plantJson = plantTypesArray.getJsonObject(plant.textureYPos);
+                Plant plant1 = deserializePlant(plantJson);
+                tileMap.plantTypes.add(plant1);
             }
 
             return tileMap;

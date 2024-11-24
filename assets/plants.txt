@@ -1,2 +1,0 @@
-0 wheat 1
-10 Bwheat 2

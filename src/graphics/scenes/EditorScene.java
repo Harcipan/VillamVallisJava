@@ -2,11 +2,9 @@ package graphics.scenes;
 
 import gameObject.Player;
 import gameObject.tiles.Plant;
-import gameObject.tiles.TileMap;
 import gamemanager.GameLoop;
 import gamemanager.SceneManager;
 import graphics.GameFrame;
-import graphics.GamePanel;
 import graphics.camera.Camera;
 import graphics.components.UIPanel;
 import input.KeyHandler;

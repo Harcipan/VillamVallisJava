@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
+import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -22,7 +23,6 @@ import filemanager.TileMapSerializer;
 import gameObject.Player;
 import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
-import graphics.GamePanel;
 import graphics.camera.Camera;
 import graphics.scenes.GameScene;
 import graphics.transform.Vec2;
@@ -46,12 +46,10 @@ public class GameLoop implements Serializable, GameLoopCallback{
     //private transient Thread inputT;
     private transient boolean playing;
     private transient KeyHandler keyHandler;
-    private transient Camera camera;
-    private transient GamePanel gp;
+    private transient JPanel gp;
     private float moveSpeed = 2;
 	private transient boolean firstTime = true;
 	private transient ScheduledExecutorService saveScheduler;
-	private transient Player player;
 	public static TileMap tileMap;
 	int[][] tileMapSave;
 	Vec2 cameraSave;
@@ -102,12 +100,10 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		}
 	}
 
-    public void loopSetup(KeyHandler keyHandler, Camera camera, GamePanel gp, Player player)
+    public void loopSetup(KeyHandler keyHandler, JPanel gp)
     {
         this.keyHandler = keyHandler;
-        this.camera = camera;
         this.gp = gp;
-		this.player = player;
     }
 
 	public void newGame()
@@ -218,7 +214,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
         if (pressedKeys.contains(KeyEvent.VK_D)) {
             deltaX += moveSpeed * deltaTime;
         }
-        camera.moveCamera(deltaX, deltaY);
+		GameScene.camera.moveCamera(deltaX, deltaY);
         gp.repaint();
     }
 
@@ -227,27 +223,27 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		try {
 			loadedGame = (GameLoop)ser.loadData("saves/game1/gameSave.dat");
 			System.out.println(loadedGame.money);
-			player.setMoney(loadedGame.money);
+			GameScene.player.setMoney(loadedGame.money);
 			//tileMap.setTiles(loadedGame.tileMapSave);
 			tileMap=loadMap();
 
 			//gp.tileMap = tileMap;
 
-			camera.setwCenter(loadedGame.cameraSave);
+			GameScene.camera.setwCenter(loadedGame.cameraSave);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(player.money);
+		System.out.println(GameScene.player.money);
 	}
 
 	public void saveGame()
 	{
-		System.out.println(player.money);
-		money= player.money;
+		System.out.println(GameScene.player.money);
+		money= GameScene.player.money;
 		//tileMapSave = tileMap.getTiles();
 		String filePath = "saves/game1/tileMap.json";
 		TileMapSerializer.writeTileMapToFile(tileMap, filePath);
-		cameraSave = camera.getwCenter();
+		cameraSave = GameScene.camera.getwCenter();
 		try {
 			ser.saveData(this, "saves/game1/gameSave.dat");
 		} catch (IOException e) {

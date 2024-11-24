@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 
 import gameObject.Inventory;
 import gamemanager.SceneManager;
-import graphics.GamePanel;
 import graphics.camera.Camera;
 import graphics.scenes.GameScene;
 import graphics.scenes.Scene;
@@ -23,7 +22,7 @@ public class KeyHandler{
     boolean movingDown;
     boolean movingLeft, movingRight;
     double lastKeyPressTime;
-    GamePanel gp;
+    JPanel gp;
 	SceneManager manager;
 	boolean settingsActive;
 	JPanel settingsPanel;
@@ -31,7 +30,7 @@ public class KeyHandler{
 	GameLoopCallback glCallback;
 	Scene gameScene;
     
-	public KeyHandler(GamePanel gamePanel, SceneManager sceneManager, boolean sActive, JPanel sPanel, Camera c, Scene gameScene) {
+	public KeyHandler(JPanel gamePanel, SceneManager sceneManager, boolean sActive, JPanel sPanel, Camera c, Scene gameScene) {
     	movingUp = false;
     	movingDown = false;
     	movingLeft = false;
@@ -67,11 +66,11 @@ public class KeyHandler{
         	}
         }
 		else if (keyCode >= KeyEvent.VK_1 && keyCode <= KeyEvent.VK_4) {
-			Scene.player.inventory.currentTool = keyCode - KeyEvent.VK_1;
+			GameScene.player.inventory.currentTool = keyCode - KeyEvent.VK_1;
 			if(keyCode == KeyEvent.VK_1)
 			{
-				Scene.player.inventory.currentPlant=(Scene.player.inventory.currentPlant+1)% Inventory.numberOfPlants;
-				System.out.println(Scene.player.inventory.currentPlant);
+				GameScene.player.inventory.currentPlant=(GameScene.player.inventory.currentPlant+1)% Inventory.numberOfPlants;
+				System.out.println(GameScene.player.inventory.currentPlant);
 			}
 		}
     }

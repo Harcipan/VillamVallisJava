@@ -12,7 +12,6 @@ import gameObject.tiles.TileMap;
 import gamemanager.GameLoop;
 import gamemanager.SceneManager;
 import graphics.GameFrame;
-import graphics.GamePanel;
 import graphics.camera.Camera;
 import graphics.components.SettingsPanel;
 import graphics.components.UIPanel;
@@ -30,10 +29,11 @@ public class GameScene extends Scene implements GameObserver{
 	private JLabel moneyText;
 	private GameLoopCallback glCallback;
     JLayeredPane layeredPane; // To show the UI on top of stuff
-    public GamePanel gp;
+    public JPanel gp;
     UIPanel ui;
-    public Camera camera;
+    public static Camera camera=new Camera();
     public KeyHandler keyHandler;
+    public static Player player;
 
     /**
      * Initializes a new instance of GameScene.
@@ -50,8 +50,19 @@ public class GameScene extends Scene implements GameObserver{
 
 
         player = new Player(this);
-        camera = new Camera();
-        gp = new GamePanel(player,camera);
+        gp = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+
+                g2d.translate(-GameScene.camera.getCameraX(), -GameScene.camera.getCameraY());
+
+                GameLoop.tileMap.draw(g2d, (int) GameScene.camera.getCameraX(), (int) GameScene.camera.getCameraY());
+                GameScene.player.draw(g2d, (int) GameScene.camera.getCameraX(), (int) GameScene.camera.getCameraY());
+            }
+        };
+
      
 
         // Create a JLayeredPane to stack gp and jp
@@ -73,13 +84,13 @@ public class GameScene extends Scene implements GameObserver{
         settingsActive = false;
 
 
-        glCallback = (GameLoopCallback)gameLoop;
+        glCallback = gameLoop;
         gameLoop.addObserver(this);
 
         settingsPanel = new SettingsPanel(glCallback, manager, this);
         keyHandler = new KeyHandler(gp, manager, settingsActive, settingsPanel, camera, this);
         keyHandler.setGLCallback(glCallback);
-        gameLoop.loopSetup(keyHandler, camera, gp, player);
+        gameLoop.loopSetup(keyHandler, gp);
         
         this.addComponentListener(new ComponentAdapter() {
             @Override
