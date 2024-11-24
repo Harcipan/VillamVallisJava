@@ -89,6 +89,7 @@ public class EditorScene extends Scene implements GameObserver {
             boolean removed = GameLoop.tileMap.plantTypes.removeIf(plant -> plant.name.equals(nameToDelete));
             if (removed) {
                 JOptionPane.showMessageDialog(this, "Plant deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                plantTableModel.plants=GameLoop.tileMap.plantTypes;
                 plantTableModel.fireTableDataChanged(); // Refresh table
             } else {
                 JOptionPane.showMessageDialog(this, "No plant found with the given name.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -103,6 +104,7 @@ public class EditorScene extends Scene implements GameObserver {
         });
 
         // Initial population of the table
+        plantTableModel.plants=GameLoop.tileMap.plantTypes;
         plantTableModel.fireTableDataChanged();
     }
 
@@ -176,6 +178,7 @@ public class EditorScene extends Scene implements GameObserver {
                     plant.textureYPos = Integer.parseInt(aValue.toString());
                     break;
             }
+            plants=GameLoop.tileMap.plantTypes;
             fireTableCellUpdated(rowIndex, columnIndex); // Notify table of the change
         }
 

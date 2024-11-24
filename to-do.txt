@@ -71,8 +71,8 @@ Bigger goals:
 
 After Jporta eval
 +++ be able to define, list out,
-copy (and than edit the copy)
-new plant types from the game
+- copy (and than edit the copy)
++++ new plant types from the game
 	+++ table for plants
 
 +++ different dirt types with diff growth speed and texture
@@ -104,7 +104,7 @@ new plant types from the game
 		- improve settings look
 	- delete plant type, than play then try to edit plant type
 	-> out of bounds exception
-
+- fix sizing issues
 
 Extra
 

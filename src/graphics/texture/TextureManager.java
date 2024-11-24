@@ -12,6 +12,10 @@ public class TextureManager {
 
     public static BufferedImage getTextureFromMap(Vec2 position, Vec2 size){
         //get part of the texture map to an image
+        if(position.x*size.x>textureMap.getWidth()||position.y*size.y>textureMap.getHeight()){
+            return null;
+            //throw new RuntimeException("Texture out of bounds");
+        }
         return textureMap.getSubimage((int)position.x*(int)size.x, (int)position.y*(int)size.y, (int)size.x, (int)size.y);
     }
 

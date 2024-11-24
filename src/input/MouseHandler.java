@@ -36,9 +36,15 @@ public class MouseHandler {
                     new Vec2(tileX*tileSize, tileY*tileSize), tileSize*2) && tileX>=0 && tileY>=0 &&
                     tileX< GameLoop.tileMap.mapData.length && tileY<GameLoop.tileMap.mapData[0].length){
                 System.out.println("In bounds");
-                if(gameScene.player.inventory.currentTool==0&&GameLoop.tileMap.getTile(tileX, tileY).isCultivable)
+                if(gameScene.player.inventory.currentTool==0&&GameLoop.tileMap.getTile(tileX, tileY).isCultivable&&
+                GameLoop.tileMap.getTile(tileX,tileY).growthStage==0)
                 {
                     GameLoop.tileMap.getTile(tileX, tileY).growthStage++;
+                    int cT = GameScene.player.inventory.currentPlant;
+                    GameLoop.tileMap.getTile(tileX, tileY).hasPlant=
+                            GameLoop.tileMap.plantTypes.get(cT%GameLoop.tileMap.plantTypes.size()).name;
+                    System.out.println(GameLoop.tileMap.plantTypes.get(cT%GameLoop.tileMap.plantTypes.size()).name);
+                    System.out.println("plantypes size: "+GameLoop.tileMap.plantTypes.size()+" "+cT%GameLoop.tileMap.plantTypes.size()+" "+cT);
                 }
                 else if(gameScene.player.inventory.currentTool==2 && GameLoop.tileMap.getTile(tileX, tileY).isCultivable)
                 {

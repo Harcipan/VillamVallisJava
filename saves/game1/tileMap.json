@@ -40,7 +40,7 @@
     "tiles": [
         [
             {
-                "growthStage": 0,
+                "growthStage": 1113,
                 "isWatered": false,
                 "isHarvestable": false,
                 "growthSpeed": 1,
@@ -50,9 +50,51 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 0,
+                "growthStage": 286,
                 "isWatered": false,
                 "isHarvestable": false,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Wheat",
+                "plantTextureYPos": 0
+            },
+            {
+                "growthStage": 301,
+                "isWatered": false,
+                "isHarvestable": false,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Wheat",
+                "plantTextureYPos": 0
+            },
+            {
+                "growthStage": 358,
+                "isWatered": false,
+                "isHarvestable": false,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Wheat",
+                "plantTextureYPos": 0
+            },
+            {
+                "growthStage": 240,
+                "isWatered": false,
+                "isHarvestable": false,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Wheat",
+                "plantTextureYPos": 0
+            }
+        ],
+        [
+            {
+                "growthStage": 3668,
+                "isWatered": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -60,9 +102,9 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 1551,
+                "growthStage": 9251,
                 "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -70,9 +112,9 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 0,
+                "growthStage": 6677,
                 "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -80,9 +122,71 @@
                 "plantTextureYPos": 0
             },
             {
+                "growthStage": 6492,
+                "isWatered": false,
+                "isHarvestable": true,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Plant",
+                "plantTextureYPos": 0
+            },
+            {
+                "growthStage": 5882,
+                "isWatered": false,
+                "isHarvestable": true,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Wheat",
+                "plantTextureYPos": 0
+            }
+        ],
+        [
+            {
+                "growthStage": 9425,
+                "isWatered": false,
+                "isHarvestable": true,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Plant",
+                "plantTextureYPos": 0
+            },
+            {
+                "growthStage": 4366,
+                "isWatered": false,
+                "isHarvestable": true,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Wheat",
+                "plantTextureYPos": 0
+            },
+            {
+                "growthStage": 5333,
+                "isWatered": false,
+                "isHarvestable": true,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Wheat",
+                "plantTextureYPos": 0
+            },
+            {
                 "growthStage": 0,
                 "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "New Plant 4",
+                "plantTextureYPos": 0
+            },
+            {
+                "growthStage": 0,
+                "isWatered": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -94,7 +198,7 @@
             {
                 "growthStage": 0,
                 "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -102,9 +206,19 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 1387,
+                "growthStage": 5190,
                 "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Wheat",
+                "plantTextureYPos": 0
+            },
+            {
+                "growthStage": 5399,
+                "isWatered": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -112,19 +226,9 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 3696,
+                "growthStage": 4145,
                 "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            },
-            {
-                "growthStage": 1518,
-                "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -134,7 +238,7 @@
             {
                 "growthStage": 0,
                 "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -146,7 +250,7 @@
             {
                 "growthStage": 0,
                 "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -154,9 +258,19 @@
                 "plantTextureYPos": 0
             },
             {
+                "growthStage": 5225,
+                "isWatered": false,
+                "isHarvestable": true,
+                "growthSpeed": 1,
+                "cultivable": true,
+                "type": "ground",
+                "hasPlant": "Wheat",
+                "plantTextureYPos": 0
+            },
+            {
                 "growthStage": 0,
                 "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -164,133 +278,19 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 1261,
+                "growthStage": 5273,
                 "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            },
-            {
-                "growthStage": 3617,
-                "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
+                "hasPlant": "New Plant 4",
                 "plantTextureYPos": 0
             },
             {
                 "growthStage": 0,
                 "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            }
-        ],
-        [
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            },
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            },
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            },
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            },
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            }
-        ],
-        [
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            },
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            },
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            },
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "growthSpeed": 1,
-                "cultivable": true,
-                "type": "ground",
-                "hasPlant": "Plant",
-                "plantTextureYPos": 0
-            },
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
+                "isHarvestable": true,
                 "growthSpeed": 1,
                 "cultivable": true,
                 "type": "ground",
@@ -303,12 +303,22 @@
         {
             "growthSpeed": 1,
             "name": "Plant",
-            "textureYPos": 10
+            "textureYPos": 0
         },
         {
             "growthSpeed": 1,
             "name": "Wheat",
-            "textureYPos": 0
+            "textureYPos": 10
+        },
+        {
+            "growthSpeed": 330,
+            "name": "New Plant 3",
+            "textureYPos": 1
+        },
+        {
+            "growthSpeed": 0,
+            "name": "New Plant 4",
+            "textureYPos": 4
         }
     ]
 }

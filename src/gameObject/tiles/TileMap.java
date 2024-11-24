@@ -65,6 +65,7 @@ public class TileMap extends GameObject{
 
 	public void harvestTile(int x, int y) {
 		tiles[y][x].growthStage = 0;
+		tiles[y][x].isHarvestable = false;
 		tiles[y][x].isWatered = false;
 	}
 

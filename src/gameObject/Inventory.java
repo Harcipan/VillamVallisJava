@@ -1,5 +1,6 @@
 package gameObject;
 
+import gamemanager.GameLoop;
 import graphics.GameFrame;
 import graphics.texture.TextureManager;
 import graphics.transform.Vec2;

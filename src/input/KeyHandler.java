@@ -53,6 +53,7 @@ public class KeyHandler{
 			GameScene.player.inventory.currentTool = keyCode - KeyEvent.VK_1;
 			if(keyCode == KeyEvent.VK_1)
 			{
+				Inventory.numberOfPlants = GameLoop.tileMap.plantTypes.size();
 				GameScene.player.inventory.currentPlant=(GameScene.player.inventory.currentPlant+1)% Inventory.numberOfPlants;
 				System.out.println(GameScene.player.inventory.currentPlant);
 			}
