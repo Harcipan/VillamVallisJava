@@ -13,7 +13,7 @@ public class MainMenu extends JPanel {
 	private GameLoopCallback glCallback;
     public MainMenu(SceneManager manager, GameLoopCallback glCback) {
     	this.glCallback = glCback;
-        setLayout(new GridLayout(6, 1, 0, 30));
+        setLayout(new GridLayout(7, 1, 0, 0));
 
         JLabel menuText = new JLabel("Main Menu");
         menuText.setFont(this.getFont().deriveFont(50.0f));

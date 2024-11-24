@@ -40,7 +40,7 @@
     "tiles": [
         [
             {
-                "growthStage": 1113,
+                "growthStage": 1642,
                 "isWatered": false,
                 "isHarvestable": false,
                 "growthSpeed": 1,
@@ -50,7 +50,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 286,
+                "growthStage": 815,
                 "isWatered": false,
                 "isHarvestable": false,
                 "growthSpeed": 1,
@@ -60,7 +60,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 301,
+                "growthStage": 830,
                 "isWatered": false,
                 "isHarvestable": false,
                 "growthSpeed": 1,
@@ -70,7 +70,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 358,
+                "growthStage": 887,
                 "isWatered": false,
                 "isHarvestable": false,
                 "growthSpeed": 1,
@@ -80,7 +80,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 240,
+                "growthStage": 769,
                 "isWatered": false,
                 "isHarvestable": false,
                 "growthSpeed": 1,
@@ -92,7 +92,7 @@
         ],
         [
             {
-                "growthStage": 3668,
+                "growthStage": 4197,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -102,7 +102,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 9251,
+                "growthStage": 9780,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -112,7 +112,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 6677,
+                "growthStage": 7206,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -122,7 +122,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 6492,
+                "growthStage": 7021,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -132,7 +132,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 5882,
+                "growthStage": 6411,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -144,7 +144,7 @@
         ],
         [
             {
-                "growthStage": 9425,
+                "growthStage": 9954,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -154,7 +154,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 4366,
+                "growthStage": 4895,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -164,7 +164,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 5333,
+                "growthStage": 5862,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -206,7 +206,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 5190,
+                "growthStage": 5719,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -216,7 +216,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 5399,
+                "growthStage": 5928,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -226,7 +226,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 4145,
+                "growthStage": 4674,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -258,7 +258,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 5225,
+                "growthStage": 5754,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,
@@ -278,7 +278,7 @@
                 "plantTextureYPos": 0
             },
             {
-                "growthStage": 5273,
+                "growthStage": 5802,
                 "isWatered": false,
                 "isHarvestable": true,
                 "growthSpeed": 1,

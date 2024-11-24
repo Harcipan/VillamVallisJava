@@ -1,6 +1,8 @@
 package gamemanager;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class SceneManager {
     public SceneManager(JFrame frame) {
         this.frame = frame;
         fullscreen = false;
+
         // Create the JLayeredPane and set it as the content pane
         layeredPane = new JLayeredPane();
         frame.setContentPane(layeredPane);
@@ -46,12 +49,44 @@ public class SceneManager {
         sceneContainer.setBounds(0, 0, frame.getWidth(), frame.getHeight());
         layeredPane.add(sceneContainer, JLayeredPane.DEFAULT_LAYER);
 
+        // Sound initialization
         soundPlayer = new SoundPlayer();
         clip = soundPlayer.playSound("assets/sound/backgroundMusic/InstrumentalSuno.wav");
         soundPlayer.setVolume(clip, -30.0f);
         soundPlayer.loopSound(clip);
+
+        // Add ComponentListener to handle resizing
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                updateComponentSizes();
+            }
+        });
     }
-    
+
+    /**
+     * Updates the size and position of components to match the frame's current size.
+     */
+    private void updateComponentSizes() {
+        // Update sceneContainer to match frame size
+        int frameWidth = frame.getWidth();
+        int frameHeight = frame.getHeight();
+        sceneContainer.setBounds(0, 0, frameWidth, frameHeight);
+
+        // Resize overlays if needed
+        for (Component component : layeredPane.getComponents()) {
+            if (component instanceof JPanel && component.isVisible() && component != sceneContainer) {
+                // Center the visible overlay in the frame
+                int overlayWidth = component.getWidth();
+                int overlayHeight = component.getHeight();
+                int xPosition = (frameWidth - overlayWidth) / 2;
+                int yPosition = (frameHeight - overlayHeight) / 2;
+                component.setBounds(xPosition, yPosition, overlayWidth, overlayHeight);
+            }
+        }
+    }
+
+
 
     /**
      * Adds a new scene to the manager.
