@@ -1,8 +1,5 @@
 package gamemanager;
 import graphics.GameFrame;
-import sound.SoundPlayer;
-
-import javax.sound.sampled.Clip;
 import java.io.IOException;
 
 /**

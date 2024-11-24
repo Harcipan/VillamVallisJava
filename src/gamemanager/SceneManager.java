@@ -21,7 +21,7 @@ public class SceneManager {
     private JPanel sceneContainer; // A panel to hold different scenes
     private transient List<JPanel> scenes = new ArrayList<>();
     private final CardLayout cardLayout; // To switch between scenes
-    public JLayeredPane layeredPane; // To show the settings on top of stuff
+    public static JLayeredPane layeredPane; // To show the settings on top of stuff
     private boolean fullscreen;
     public SoundPlayer soundPlayer;
     Clip clip;
@@ -82,7 +82,7 @@ public class SceneManager {
      *
      * @param overlayPanel The JPanel to display as an overlay.
      */
-    public void showOverlay(JPanel overlayPanel) {
+    public static void showOverlay(JPanel overlayPanel) {
     	overlayPanel.setVisible(true);
         // Get the dimensions of the layeredPane
         int paneWidth = layeredPane.getWidth();
@@ -106,7 +106,7 @@ public class SceneManager {
      *
      * @param overlayPanel The JPanel to hide.
      */
-    public void hideOverlay(JPanel overlayPanel) {
+    public static void hideOverlay(JPanel overlayPanel) {
     	overlayPanel.setVisible(false);
         layeredPane.remove(overlayPanel); // Remove the settings panel from the layered pane
     }

@@ -46,11 +46,10 @@ public class TileMapDeserializer {
 
             // Deserialize plantTypes
             JsonArray plantTypesArray = tileMapJson.getJsonArray("plantTypes");
-            for(Plant plant: tileMap.plantTypes)
-            {
-                JsonObject plantJson = plantTypesArray.getJsonObject(plant.textureYPos);
-                Plant plant1 = deserializePlant(plantJson);
-                tileMap.plantTypes.add(plant1);
+            for(int i=0;i<plantTypesArray.size();i++) {
+                JsonObject plantJson = plantTypesArray.getJsonObject(i);
+                Plant plant = deserializePlant(plantJson);
+                tileMap.plantTypes.add(plant);
             }
 
             return tileMap;

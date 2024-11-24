@@ -25,7 +25,7 @@ import interfaces.GameObserver;
 public class GameScene extends Scene implements GameObserver{
 	private static final long serialVersionUID = 1L;
 	SceneManager manager;
-	JPanel settingsPanel;
+    public static JPanel settingsPanel;
 	private JLabel moneyText;
 	private GameLoopCallback glCallback;
     JLayeredPane layeredPane; // To show the UI on top of stuff
@@ -88,8 +88,7 @@ public class GameScene extends Scene implements GameObserver{
         gameLoop.addObserver(this);
 
         settingsPanel = new SettingsPanel(glCallback, manager, this);
-        keyHandler = new KeyHandler(gp, manager, settingsActive, settingsPanel, camera, this);
-        keyHandler.setGLCallback(glCallback);
+        keyHandler = new KeyHandler();
         gameLoop.loopSetup(keyHandler, gp);
         
         this.addComponentListener(new ComponentAdapter() {

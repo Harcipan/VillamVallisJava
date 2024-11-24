@@ -37,6 +37,7 @@ public class EditorScene extends Scene implements GameObserver {
     private JTextField deleteTextField;
 
     public EditorScene(SceneManager manager, GameLoop gameLoop) {
+        gameLoop.loadGame();
         setLayout(new BorderLayout());
         this.manager = manager;
         this.gameLoop = gameLoop;
@@ -54,13 +55,15 @@ public class EditorScene extends Scene implements GameObserver {
         JPanel controlPanel = new JPanel(new FlowLayout());
 
         JButton addPlantButton = new JButton("Add Plant");
-        deleteTextField = new JTextField(15);
+        deleteTextField = new JTextField(5);
         JButton deletePlantButton = new JButton("Delete Plant");
+        JButton backToMenuButton = new JButton("Back to Menu");
 
         controlPanel.add(addPlantButton);
         controlPanel.add(new JLabel("Name to Delete:"));
         controlPanel.add(deleteTextField);
         controlPanel.add(deletePlantButton);
+        controlPanel.add(backToMenuButton);
 
         add(controlPanel, BorderLayout.SOUTH);
 
@@ -91,6 +94,11 @@ public class EditorScene extends Scene implements GameObserver {
             }
 
             deleteTextField.setText(""); // Clear the text field
+        });
+
+        backToMenuButton.addActionListener(e -> {
+            manager.showScene("MainMenu");
+            gameLoop.saveGame();
         });
 
         // Initial population of the table

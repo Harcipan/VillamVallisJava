@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 
 import gameObject.Inventory;
+import gamemanager.GameLoop;
 import gamemanager.SceneManager;
 import graphics.camera.Camera;
 import graphics.scenes.GameScene;
@@ -20,31 +21,14 @@ public class KeyHandler{
 
     boolean movingUp;
     boolean movingDown;
-    boolean movingLeft, movingRight;
-    double lastKeyPressTime;
-    JPanel gp;
-	SceneManager manager;
-	boolean settingsActive;
-	JPanel settingsPanel;
-	Camera camera;
-	GameLoopCallback glCallback;
-	Scene gameScene;
+    boolean movingLeft;
+	boolean movingRight;
     
-	public KeyHandler(JPanel gamePanel, SceneManager sceneManager, boolean sActive, JPanel sPanel, Camera c, Scene gameScene) {
+	public KeyHandler() {
     	movingUp = false;
     	movingDown = false;
     	movingLeft = false;
     	movingRight = false;
-    	gp = gamePanel;
-    	manager = sceneManager;
-    	settingsActive = sActive;
-    	settingsPanel = sPanel;
-    	camera = c;
-		this.gameScene = gameScene;
-	}
-
-	public void setGLCallback(GameLoopCallback glC) {
-		glCallback = glC;
 	}
 	
     public void keyPressed(KeyEvent e) {
@@ -52,17 +36,17 @@ public class KeyHandler{
 		int keyCode = e.getKeyCode();
         if (keyCode == KeyEvent.VK_ESCAPE) {
             //JPanel settingsPanel = new SettingsScene(manager);
-        	if(settingsActive)
+        	if(Scene.settingsActive)
         	{
-        		settingsActive = false;
-                manager.hideOverlay(settingsPanel);
-				glCallback.setPlaying(true);
+				Scene.settingsActive = false;
+                SceneManager.hideOverlay(GameScene.settingsPanel);
+				GameLoop.playing = true;
 
 			}
         	else {
-                settingsActive = true;
-                manager.showOverlay(settingsPanel);
-				glCallback.setPlaying(false);
+				Scene.settingsActive = true;
+				SceneManager.showOverlay(GameScene.settingsPanel);
+				GameLoop.playing = false;
         	}
         }
 		else if (keyCode >= KeyEvent.VK_1 && keyCode <= KeyEvent.VK_4) {

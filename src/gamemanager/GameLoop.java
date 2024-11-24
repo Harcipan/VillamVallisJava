@@ -44,7 +44,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
     private transient GameLoop loadedGame;
     private transient Thread gameLoopT = new Thread(this::startGameLoop);
     //private transient Thread inputT;
-    private transient boolean playing;
+    public static boolean playing;
     private transient KeyHandler keyHandler;
     private transient JPanel gp;
     private float moveSpeed = 2;
@@ -265,6 +265,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 			System.out.println("Is the first tile watered? " + deserializedTileMap.tiles[0][0].isWatered);
 			System.out.println("Is the first tile isCultivable? " + deserializedTileMap.tiles[0][0].isCultivable);
 			System.out.println("first tile texturepos" + deserializedTileMap.tiles[0][0].plantTextureYPos);
+			//System.out.println(deserializedTileMap.plantTypes.getFirst().name);
 		} else {
 			System.out.println("Failed to deserialize TileMap.");
 		}

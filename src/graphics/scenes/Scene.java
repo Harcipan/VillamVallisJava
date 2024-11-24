@@ -5,7 +5,7 @@ import gameObject.Player;
 import javax.swing.*;
 
 public class Scene extends JPanel {
-    public boolean settingsActive;
+    public static boolean settingsActive;
     public Scene() {
         super();
         settingsActive = false;
