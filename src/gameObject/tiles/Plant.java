@@ -18,8 +18,8 @@ public class Plant {
 
     public Plant() {
         //growthStage = 0;
-        isWatered = false;
-        isHarvestable = false;
+        //isWatered = false;
+        //isHarvestable = false;
         name = "plant";
         growthSpeed = 1;
         textureYPos = 0;

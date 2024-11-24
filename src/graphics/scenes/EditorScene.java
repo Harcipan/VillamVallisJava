@@ -71,9 +71,10 @@ public class EditorScene extends Scene implements GameObserver {
         addPlantButton.addActionListener(e -> {
             Plant newPlant = new Plant();
             newPlant.name = "New Plant " + (GameLoop.tileMap.plantTypes.size() + 1);
-            newPlant.growthStage = 0; // Example default data
-            newPlant.isWatered = false; // Example default data
+            newPlant.growthSpeed = 0; // Example default data
+            newPlant.textureYPos = 0; // Example default data
             GameLoop.tileMap.plantTypes.add(newPlant);
+            plantTableModel.plants=GameLoop.tileMap.plantTypes;
             plantTableModel.fireTableDataChanged(); // Notify the table model of the new data
         });
 
@@ -112,7 +113,7 @@ public class EditorScene extends Scene implements GameObserver {
 
     // Custom table model for the plant data
     private static class PlantTableModel extends AbstractTableModel {
-        private final List<Plant> plants;
+        private List<Plant> plants;
 
         public PlantTableModel(List<Plant> plants) {
             this.plants = plants;
@@ -134,9 +135,9 @@ public class EditorScene extends Scene implements GameObserver {
                 case 0:
                     return "Name";
                 case 1:
-                    return "Growth Stage";
+                    return "Growth Speed";
                 case 2:
-                    return "Is Watered";
+                    return "Texture Position";
                 default:
                     return "";
             }
@@ -149,9 +150,9 @@ public class EditorScene extends Scene implements GameObserver {
                 case 0:
                     return plant.name;
                 case 1:
-                    return plant.growthStage;
+                    return plant.growthSpeed;
                 case 2:
-                    return plant.isWatered;
+                    return plant.textureYPos;
                 default:
                     return null;
             }
@@ -166,13 +167,13 @@ public class EditorScene extends Scene implements GameObserver {
                     break;
                 case 1:
                     try {
-                        plant.growthStage = Integer.parseInt(aValue.toString());
+                        plant.growthSpeed = Integer.parseInt(aValue.toString());
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Growth Stage must be an integer.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
                 case 2:
-                    plant.isWatered = Boolean.parseBoolean(aValue.toString());
+                    plant.textureYPos = Integer.parseInt(aValue.toString());
                     break;
             }
             fireTableCellUpdated(rowIndex, columnIndex); // Notify table of the change
@@ -186,10 +187,12 @@ public class EditorScene extends Scene implements GameObserver {
         @Override
         public Class<?> getColumnClass(int columnIndex) {
             switch (columnIndex) {
+                case 0:
+                    return String.class;
                 case 1:
                     return Integer.class;
                 case 2:
-                    return Boolean.class;
+                    return Integer.class;
                 default:
                     return String.class;
             }

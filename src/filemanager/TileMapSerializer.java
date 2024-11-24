@@ -77,7 +77,7 @@ public class TileMapSerializer {
         tile.isWatered = tileJson.getBoolean("isWatered");
         tile.isHarvestable = tileJson.getBoolean("isHarvestable");
         tile.growthSpeed = tileJson.getInt("growthSpeed");
-        tile.isHarvestable = tileJson.getBoolean("cultivable");
+        tile.isCultivable = tileJson.getBoolean("cultivable");
         tile.type = tileJson.getString("type");
         tile.hasPlant = tileJson.getString("hasPlant");
         tile.plantTextureYPos = tileJson.getInt("plantTextureYPos");
@@ -92,7 +92,7 @@ public class TileMapSerializer {
     public static void serializeTileMap(TileMap tileMap, String filePath) {
         JsonObjectBuilder tileMapBuilder = Json.createObjectBuilder();
 
-        // Serialize mapData
+       // Serialize mapData
         JsonArrayBuilder mapDataBuilder = Json.createArrayBuilder();
         for (int[] row : tileMap.mapData) {
             JsonArrayBuilder rowBuilder = Json.createArrayBuilder();
@@ -114,7 +114,7 @@ public class TileMapSerializer {
                         .add("isWatered", tile.isWatered)
                         .add("isHarvestable", tile.isHarvestable)
                         .add("growthSpeed", tile.growthSpeed)
-                        .add("cultivable", tile.isHarvestable)
+                        .add("cultivable", tile.isCultivable)
                         .add("type", tile.type)
                         .add("hasPlant", tile.hasPlant)
                         .add("plantTextureYPos", tile.plantTextureYPos);
