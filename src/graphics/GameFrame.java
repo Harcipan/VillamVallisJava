@@ -61,7 +61,7 @@ public class GameFrame extends JFrame implements KeyListener, MouseListener {
 
         // Show initial scene (Main Menu)
         sceneManager.showScene("MainMenu");
-		sceneManager.toggleFullScreen();
+		//sceneManager.toggleFullScreen();
 
 		gameScene = sceneManager.getGameScene();
 		keyHandler = gameScene.keyHandler;
