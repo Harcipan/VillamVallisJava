@@ -38,7 +38,7 @@ public class EditorScene extends Scene implements GameObserver {
 
     public EditorScene(SceneManager manager, GameLoop gameLoop) {
         gameLoop.loadGame();
-        setLayout(new BorderLayout());
+        setLayout(new GridLayout(4, 1));
         this.manager = manager;
         this.gameLoop = gameLoop;
 
@@ -46,10 +46,9 @@ public class EditorScene extends Scene implements GameObserver {
         plantTableModel = new PlantTableModel(GameLoop.tileMap.plantTypes);
         plantTable = new JTable(plantTableModel);
         JScrollPane tableScrollPane = new JScrollPane(plantTable);
-
         // Add components to the scene
-        add(new JLabel("This is the editor scene!"), BorderLayout.NORTH);
-        add(tableScrollPane, BorderLayout.CENTER);
+        add(new JLabel("This is the editor scene!"));
+        add(tableScrollPane);
 
         // Add controls for adding and deleting plants
         JPanel controlPanel = new JPanel(new FlowLayout());
@@ -67,7 +66,7 @@ public class EditorScene extends Scene implements GameObserver {
         controlPanel.add(deletePlantButton);
         controlPanel.add(backToMenuButton);
 
-        add(controlPanel, BorderLayout.SOUTH);
+        add(controlPanel);
 
         // Add plant button functionality
         addPlantButton.addActionListener(e -> {
