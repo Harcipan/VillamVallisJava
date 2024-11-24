@@ -71,7 +71,7 @@ Bigger goals:
 
 After Jporta eval
 +++ be able to define, list out,
-- copy (and than edit the copy)
++++ copy (and than edit the copy)
 +++ new plant types from the game
 	+++ table for plants
 

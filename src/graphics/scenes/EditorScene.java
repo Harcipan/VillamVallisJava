@@ -57,11 +57,13 @@ public class EditorScene extends Scene implements GameObserver {
         JButton addPlantButton = new JButton("Add Plant");
         deleteTextField = new JTextField(5);
         JButton deletePlantButton = new JButton("Delete Plant");
+        JButton copyPlantButton = new JButton("Copy Plant");
         JButton backToMenuButton = new JButton("Back to Menu");
 
         controlPanel.add(addPlantButton);
         controlPanel.add(new JLabel("Name to Delete:"));
         controlPanel.add(deleteTextField);
+        controlPanel.add(copyPlantButton);
         controlPanel.add(deletePlantButton);
         controlPanel.add(backToMenuButton);
 
@@ -94,8 +96,31 @@ public class EditorScene extends Scene implements GameObserver {
             } else {
                 JOptionPane.showMessageDialog(this, "No plant found with the given name.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
+            plantTableModel.plants=GameLoop.tileMap.plantTypes;
             deleteTextField.setText(""); // Clear the text field
+        });
+
+        copyPlantButton.addActionListener(e -> {
+            Plant copiedPlant = new Plant();
+            String nameToCopy = deleteTextField.getText().trim();
+            if (nameToCopy.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter a plant name to copy.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            for(Plant plant : GameLoop.tileMap.plantTypes) {
+                if (plant.name.equals(nameToCopy)) {
+                    copiedPlant.name = plant.name + " Copy";
+                    copiedPlant.growthSpeed = plant.growthSpeed;
+                    copiedPlant.textureYPos = plant.textureYPos;
+                    break;
+                }
+            }
+
+            GameLoop.tileMap.plantTypes.add(copiedPlant);
+            plantTableModel.plants=GameLoop.tileMap.plantTypes;
+            deleteTextField.setText(""); // Clear the text field
+            plantTableModel.fireTableDataChanged(); // Refresh table
         });
 
         backToMenuButton.addActionListener(e -> {
