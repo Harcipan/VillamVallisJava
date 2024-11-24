@@ -1,14 +1,14 @@
 package gamemanager;
 
-import static org.junit.Assert.*;
-
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
 import javax.swing.JPanel;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import graphics.GameFrame;
 import graphics.scenes.GameScene;
@@ -22,7 +22,7 @@ public class SceneManagerTest {
     private SceneManager manager;
     private GameFrame gf;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         gameLoop = new GameLoop();
     	gf = new GameFrame();

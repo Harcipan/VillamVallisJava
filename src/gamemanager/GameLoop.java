@@ -52,7 +52,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	private transient boolean firstTime = true;
 	private transient ScheduledExecutorService saveScheduler;
 	private transient Player player;
-	public transient TileMap tileMap;
+	public static TileMap tileMap;
 	int[][] tileMapSave;
 	Vec2 cameraSave;
 
@@ -231,8 +231,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 			//tileMap.setTiles(loadedGame.tileMapSave);
 			tileMap=loadMap();
 
-			gp.tileMap = tileMap;
-			GameScene.tm = tileMap;
+			//gp.tileMap = tileMap;
 
 			camera.setwCenter(loadedGame.cameraSave);
 		} catch (ClassNotFoundException | IOException e) {
@@ -280,6 +279,26 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public void setPlaying(boolean p)
 	{
 		playing = p;
+	}
+
+	public void serializePlant()
+	{
+		try {
+			JsonObject plant = Json.createObjectBuilder()
+					.add("growthStage", 0)
+					.add("isWatered", false)
+					.add("isHarvestable", false)
+					.add("isCultivable", true)
+					.add("growthSpeed", 1)
+					.add("type", "ground")
+					.add("plantTextureYPos", 0)
+					.build();
+			JsonWriter writer = Json.createWriter(new FileWriter("saves/game1/plant.json"));
+			writer.writeObject(plant);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

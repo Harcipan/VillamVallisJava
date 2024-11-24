@@ -1,5 +1,6 @@
 package filemanager;
 
+import gameObject.tiles.Plant;
 import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
 
@@ -35,12 +36,28 @@ public class TileMapSerializer {
             }
             tilesArrayBuilder.add(rowArrayBuilder);
         }
+        JsonArrayBuilder plantArrayBuilder = Json.createArrayBuilder();
+        for (Plant plant : tileMap.plantTypes) {
+            plantArrayBuilder.add(serializePlant(plant));
+        }
 
         // Add serialized data to tileMap JSON
         tileMapBuilder.add("mapData", mapDataArrayBuilder);
         tileMapBuilder.add("tiles", tilesArrayBuilder);
+        tileMapBuilder.add("plantTypes", plantArrayBuilder);
 
         return tileMapBuilder.build();
+    }
+
+    private static JsonObject serializePlant(Plant plant) {
+        JsonObjectBuilder plantBuilder = Json.createObjectBuilder();
+        plantBuilder.add("name", plant.name);
+        plantBuilder.add("growthStage", plant.growthStage);
+        plantBuilder.add("growthSpeed", plant.growthSpeed);
+        plantBuilder.add("isHarvestable", plant.isHarvestable);
+        plantBuilder.add("isWatered", plant.isWatered);
+        plantBuilder.add("textureYPos", plant.textureYPos);
+        return plantBuilder.build();
     }
 
     private static JsonObject serializeTile(Tile tile) {

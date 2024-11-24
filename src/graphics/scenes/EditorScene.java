@@ -1,6 +1,7 @@
 package graphics.scenes;
 
 import gameObject.Player;
+import gameObject.tiles.Plant;
 import gameObject.tiles.TileMap;
 import gamemanager.GameLoop;
 import gamemanager.SceneManager;
@@ -31,7 +32,6 @@ public class EditorScene extends Scene implements GameObserver {
     public KeyHandler keyHandler;
     MouseHandler mouseHandler;
     public GameLoop gameLoop;
-    public TileMap tm;
 
     public EditorScene(SceneManager manager, GameLoop gameLoop) {
         setLayout(new GridLayout(1, 1));
@@ -39,12 +39,21 @@ public class EditorScene extends Scene implements GameObserver {
         this.add(jl);
 
         this.manager=manager;
-        GamePanel gp = new GamePanel(tm,player,camera);
+        //GamePanel gp = new GamePanel(player,camera);//not sure if this is needed
 
-        glCallback = (GameLoopCallback)gameLoop;
+        glCallback = gameLoop;
         gameLoop.addObserver(this);
         settingsPanel = new SettingsPanel(glCallback, manager, this);
 
+        Button addPlant = new Button("Add Plant");
+        addPlant.addActionListener(e -> {
+            Plant newPlant = new Plant();
+            newPlant.name = "New Plant";
+            GameLoop.tileMap.plantTypes.add(newPlant);
+            //give back focus to the game frame
+            GameFrame.getInstance().requestFocus();
+        });
+        this.add(addPlant);
     }
 
     @Override

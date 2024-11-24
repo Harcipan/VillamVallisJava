@@ -1,6 +1,6 @@
 package graphics.scenes;
 
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.JLabel;
@@ -34,7 +34,6 @@ public class GameScene extends Scene implements GameObserver{
     UIPanel ui;
     public Camera camera;
     public KeyHandler keyHandler;
-    public static TileMap tm;
 
     /**
      * Initializes a new instance of GameScene.
@@ -50,10 +49,9 @@ public class GameScene extends Scene implements GameObserver{
 
 
 
-        tm = gameLoop.tileMap;
         player = new Player(this);
         camera = new Camera();
-        gp = new GamePanel(tm,player,camera);
+        gp = new GamePanel(player,camera);
      
 
         // Create a JLayeredPane to stack gp and jp
@@ -61,7 +59,7 @@ public class GameScene extends Scene implements GameObserver{
         layeredPane.setLayout(null);  // No layout manager, we'll set bounds manually
 
         // Set the size of the game panel (gp) and add it to the default layer
-        gp.setBounds(0, 0, GameFrame.getInstance().getWidth(), GameFrame.getInstance().getHeight());
+        //gp.setBounds(0, 0, GameFrame.getInstance().getWidth(), GameFrame.getInstance().getHeight());
         
         layeredPane.add(gp, JLayeredPane.DEFAULT_LAYER);
 
@@ -108,5 +106,4 @@ public class GameScene extends Scene implements GameObserver{
 	public void setMoneyText(JLabel moneyText) {
 		this.moneyText = moneyText;
 	}
-
 }

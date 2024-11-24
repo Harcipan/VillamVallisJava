@@ -2,20 +2,20 @@ package gamemanager;
 
 //Change to JUnit5
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Before;
 
 import graphics.GameFrame;
 import graphics.scenes.GameScene;
 import interfaces.GameObserver;
+import org.junit.jupiter.api.*;
 
 public class GameLoopTest {
 
     private GameScene gameScene;
     private GameLoop gameLoop;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         gameLoop = new GameLoop();
         SceneManager manager = new SceneManager(new GameFrame());

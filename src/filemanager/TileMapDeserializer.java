@@ -1,4 +1,5 @@
 package filemanager;
+import gameObject.tiles.Plant;
 import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
 
@@ -42,12 +43,36 @@ public class TileMapDeserializer {
                 }
             }
 
+            // Deserialize plantTypes
+            JsonArray plantTypesArray = tileMapJson.getJsonArray("plantTypes");
+            for (int i = 0; i < plantTypesArray.size(); i++) {
+                JsonArray rowArray = plantTypesArray.getJsonArray(i);
+                for (int j = 0; j < rowArray.size(); j++) {
+                    JsonObject plantJson = rowArray.getJsonObject(j);
+                    Plant plant = deserializePlant(plantJson);
+                    tileMap.plantTypes.add(plant); // Replace the default Tile with the deserialized one
+                }
+            }
+
             return tileMap;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static Plant deserializePlant(JsonObject plantJson) {
+        Plant plant = new Plant();
+        plant.growthStage = plantJson.getInt("growthStage");
+        plant.isWatered = plantJson.getBoolean("isWatered");
+        plant.isHarvestable = plantJson.getBoolean("isHarvestable");
+        plant.growthSpeed = plantJson.getInt("growthSpeed");
+        plant.name = plantJson.getString("name");
+        plant.textureYPos = plantJson.getInt("textureYPos");
+        plant.updateTexture();
+
+        return plant;
     }
 
     private static Tile deserializeTile(JsonObject tileJson) {

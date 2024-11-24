@@ -1,5 +1,6 @@
 package input;
 
+import gamemanager.GameLoop;
 import graphics.GameFrame;
 import graphics.scenes.GameScene;
 import graphics.transform.Vec2;
@@ -33,19 +34,19 @@ public class MouseHandler {
         if(mouseEvent.getButton()==MouseEvent.BUTTON1) {
             if(inBounds(new Vec2(gameScene.camera.getCameraX()*2,gameScene.camera.getCameraY()*2),
                     new Vec2(tileX*tileSize, tileY*tileSize), tileSize*2) && tileX>=0 && tileY>=0 &&
-                    tileX<gameScene.tm.mapData.length && tileY<gameScene.tm.mapData[0].length){
+                    tileX< GameLoop.tileMap.mapData.length && tileY<GameLoop.tileMap.mapData[0].length){
                 System.out.println("In bounds");
-                if(gameScene.player.inventory.currentTool==0&&gameScene.tm.getTile(tileX, tileY).isCultivable)
+                if(gameScene.player.inventory.currentTool==0&&GameLoop.tileMap.getTile(tileX, tileY).isCultivable)
                 {
-                    gameScene.tm.getTile(tileX, tileY).growthStage++;
+                    GameLoop.tileMap.getTile(tileX, tileY).growthStage++;
                 }
-                else if(gameScene.player.inventory.currentTool==2 && gameScene.tm.getTile(tileX, tileY).isCultivable)
+                else if(gameScene.player.inventory.currentTool==2 && GameLoop.tileMap.getTile(tileX, tileY).isCultivable)
                 {
-                    gameScene.tm.getTile(tileX, tileY).isWatered = true;
+                    GameLoop.tileMap.getTile(tileX, tileY).isWatered = true;
                 }
-                else if(gameScene.tm.getTile(tileX, tileY).isHarvestable)
+                else if(GameLoop.tileMap.getTile(tileX, tileY).isHarvestable)
                 {
-                    gameScene.tm.harvestTile(tileX,tileY);
+                    GameLoop.tileMap.harvestTile(tileX,tileY);
                     gameScene.player.setMoney(gameScene.player.money+1);
                 }
             }

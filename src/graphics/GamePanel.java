@@ -8,17 +8,16 @@ import javax.swing.JPanel;
 
 import gameObject.Player;
 import gameObject.tiles.TileMap;
+import gamemanager.GameLoop;
 import graphics.camera.Camera;
 
 public class GamePanel extends JPanel {
     private static final long serialVersionUID = 1L;
-	public TileMap tileMap;
 	private Player player;
 	private Camera camera;
 
     // Constructor and other methods...
-    public GamePanel(TileMap tileMap, Player player,Camera camera) {
-        this.tileMap = tileMap;
+    public GamePanel(Player player,Camera camera) {
         this.player = player;
         this.camera = camera;
     }
@@ -32,7 +31,7 @@ public class GamePanel extends JPanel {
         g2d.translate(-camera.getCameraX(), -camera.getCameraY());
 
 
-        tileMap.draw(g2d, (int)camera.getCameraX(), (int)camera.getCameraY());
+        GameLoop.tileMap.draw(g2d, (int)camera.getCameraX(), (int)camera.getCameraY());
         player.draw(g2d, (int)(camera.getCameraX()), (int)camera.getCameraY());
     }
 
