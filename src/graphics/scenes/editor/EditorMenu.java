@@ -1,12 +1,13 @@
-package graphics.scenes;
+package graphics.scenes.editor;
 
 import gamemanager.SceneManager;
 import graphics.components.MenuButton;
+import graphics.scenes.Scene;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class EditorMenu extends Scene{
+public class EditorMenu extends Scene {
     public EditorMenu(SceneManager manager) {
         setLayout(new BorderLayout());
 
@@ -19,7 +20,7 @@ public class EditorMenu extends Scene{
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3, 10, 10));
 
         JButton plantEditorButton = new MenuButton("Plant Editor");
-        JButton tileEditorButton = new MenuButton("Tile Editor");
+        JButton tileEditorButton = new MenuButton("Ground Editor");
         JButton mapEditorButton = new MenuButton("Map Editor");
 
         plantEditorButton.addActionListener(e -> manager.showScene("PlantEditor"));

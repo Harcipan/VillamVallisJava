@@ -18,6 +18,7 @@ public class TileMap extends GameObject{
 	public int[][] mapData;
 	// List to store all plant types
 	public List<Plant> plantTypes;
+	public List<Ground> groundTypes;
 
 
     public TileMap(int[][] mapData) {
@@ -27,6 +28,7 @@ public class TileMap extends GameObject{
 		defaultTexture = TextureManager.getTextureFromMap(new Vec2(0, 1), new Vec2(TILE_SIZE, TILE_SIZE));
         tiles = new Tile[mapData.length][mapData[0].length];
 		plantTypes = new ArrayList<>();
+		groundTypes = new ArrayList<>();
         for(int i=0;i<mapData.length;i++)
         {
         	for(int j = 0;j<mapData[i].length;j++)

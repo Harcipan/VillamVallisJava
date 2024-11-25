@@ -107,8 +107,8 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	{
 		setMoney(0);
 		tileMap = new TileMap(new int[5][5]);
-		saveGame();
-		loadGame();
+		//saveGame();
+		//loadGame();
 
 		Camera.setMaxCamera((tileMap.mapData[0].length-1)*TileMap.TILE_SIZE/2,(tileMap.mapData.length-1)*TileMap.TILE_SIZE/2);
 		if(firstTime)

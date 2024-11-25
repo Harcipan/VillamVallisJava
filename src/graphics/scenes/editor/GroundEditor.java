@@ -1,12 +1,14 @@
-package graphics.scenes;
+package graphics.scenes.editor;
 
 import gameObject.Player;
+import gameObject.tiles.Ground;
 import gameObject.tiles.Plant;
 import gamemanager.GameLoop;
 import gamemanager.SceneManager;
 import graphics.camera.Camera;
 import graphics.components.SettingsPanel;
 import graphics.components.UIPanel;
+import graphics.scenes.Scene;
 import input.KeyHandler;
 import input.MouseHandler;
 import interfaces.GameLoopCallback;
@@ -17,7 +19,7 @@ import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class TileEditor extends Scene implements GameObserver {
+public class GroundEditor extends Scene implements GameObserver {
     private static final long serialVersionUID = 1L;
     SceneManager manager;
     SettingsPanel settingsPanel;
@@ -35,27 +37,27 @@ public class TileEditor extends Scene implements GameObserver {
     private PlantTableModel plantTableModel;
     private JTextField deleteTextField;
 
-    public TileEditor(SceneManager manager, GameLoop gameLoop) {
+    public GroundEditor(SceneManager manager, GameLoop gameLoop) {
         gameLoop.loadGame();
         setLayout(new GridLayout(4, 1));
         this.manager = manager;
         this.gameLoop = gameLoop;
 
         // Initialize the custom table model and table
-        plantTableModel = new PlantTableModel(GameLoop.tileMap.plantTypes);
+        plantTableModel = new PlantTableModel(GameLoop.tileMap.groundTypes);
         plantTable = new JTable(plantTableModel);
         JScrollPane tableScrollPane = new JScrollPane(plantTable);
         // Add components to the scene
-        add(new JLabel("This is the editor scene!"));
+        add(new JLabel("This is the ground editor scene!"));
         add(tableScrollPane);
 
         // Add controls for adding and deleting plants
         JPanel controlPanel = new JPanel(new FlowLayout());
 
-        JButton addPlantButton = new JButton("Add Plant");
+        JButton addPlantButton = new JButton("Add Ground");
         deleteTextField = new JTextField(5);
-        JButton deletePlantButton = new JButton("Delete Plant");
-        JButton copyPlantButton = new JButton("Copy Plant");
+        JButton deletePlantButton = new JButton("Delete Ground");
+        JButton copyPlantButton = new JButton("Copy Ground");
         JButton backToMenuButton = new JButton("Back to Menu");
 
         controlPanel.add(addPlantButton);
@@ -69,12 +71,13 @@ public class TileEditor extends Scene implements GameObserver {
 
         // Add plant button functionality
         addPlantButton.addActionListener(e -> {
-            Plant newPlant = new Plant();
-            newPlant.name = "New Plant " + (GameLoop.tileMap.plantTypes.size() + 1);
-            newPlant.growthSpeed = 0; // Example default data
-            newPlant.textureYPos = 0; // Example default data
-            GameLoop.tileMap.plantTypes.add(newPlant);
-            plantTableModel.plants=GameLoop.tileMap.plantTypes;
+            Ground newGround = new Ground();
+            newGround.name = "New Ground " + (GameLoop.tileMap.groundTypes.size() + 1);
+            newGround.growthSpeed = 0;
+            newGround.isCultivable = true;
+            newGround.textureYPos = 0;
+            GameLoop.tileMap.groundTypes.add(newGround);
+            plantTableModel.grounds=GameLoop.tileMap.groundTypes;
             plantTableModel.fireTableDataChanged(); // Notify the table model of the new data
         });
 
@@ -82,41 +85,41 @@ public class TileEditor extends Scene implements GameObserver {
         deletePlantButton.addActionListener(e -> {
             String nameToDelete = deleteTextField.getText().trim();
             if (nameToDelete.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please enter a plant name to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter a ground name to delete.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            boolean removed = GameLoop.tileMap.plantTypes.removeIf(plant -> plant.name.equals(nameToDelete));
+            boolean removed = GameLoop.tileMap.groundTypes.removeIf(ground -> ground.name.equals(nameToDelete));
             if (removed) {
-                JOptionPane.showMessageDialog(this, "Plant deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                plantTableModel.plants=GameLoop.tileMap.plantTypes;
+                JOptionPane.showMessageDialog(this, "Ground deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                plantTableModel.grounds=GameLoop.tileMap.groundTypes;
                 plantTableModel.fireTableDataChanged(); // Refresh table
             } else {
-                JOptionPane.showMessageDialog(this, "No plant found with the given name.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No ground found with the given name.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            plantTableModel.plants=GameLoop.tileMap.plantTypes;
+            plantTableModel.grounds=GameLoop.tileMap.groundTypes;
             deleteTextField.setText(""); // Clear the text field
         });
 
         copyPlantButton.addActionListener(e -> {
-            Plant copiedPlant = new Plant();
+            Ground copiedGround = new Ground();
             String nameToCopy = deleteTextField.getText().trim();
             if (nameToCopy.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please enter a plant name to copy.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please enter a ground name to copy.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             for(Plant plant : GameLoop.tileMap.plantTypes) {
                 if (plant.name.equals(nameToCopy)) {
-                    copiedPlant.name = plant.name + " Copy";
-                    copiedPlant.growthSpeed = plant.growthSpeed;
-                    copiedPlant.textureYPos = plant.textureYPos;
+                    copiedGround.name = plant.name + " Copy";
+                    copiedGround.growthSpeed = plant.growthSpeed;
+                    copiedGround.textureYPos = plant.textureYPos;
                     break;
                 }
             }
 
-            GameLoop.tileMap.plantTypes.add(copiedPlant);
-            plantTableModel.plants=GameLoop.tileMap.plantTypes;
+            GameLoop.tileMap.groundTypes.add(copiedGround);
+            plantTableModel.grounds=GameLoop.tileMap.groundTypes;
             deleteTextField.setText(""); // Clear the text field
             plantTableModel.fireTableDataChanged(); // Refresh table
         });
@@ -127,7 +130,7 @@ public class TileEditor extends Scene implements GameObserver {
         });
 
         // Initial population of the table
-        plantTableModel.plants=GameLoop.tileMap.plantTypes;
+        plantTableModel.grounds=GameLoop.tileMap.groundTypes;
         plantTableModel.fireTableDataChanged();
     }
 
@@ -138,15 +141,15 @@ public class TileEditor extends Scene implements GameObserver {
 
     // Custom table model for the plant data
     private static class PlantTableModel extends AbstractTableModel {
-        private List<Plant> plants;
+        private List<Ground> grounds;
 
-        public PlantTableModel(List<Plant> plants) {
-            this.plants = plants;
+        public PlantTableModel(List<Ground> grounds) {
+            this.grounds = grounds;
         }
 
         @Override
         public int getRowCount() {
-            return plants.size();
+            return grounds.size();
         }
 
         @Override
@@ -162,6 +165,8 @@ public class TileEditor extends Scene implements GameObserver {
                 case 1:
                     return "Growth Speed";
                 case 2:
+                    return "cultivable";
+                case 3:
                     return "Texture Position";
                 default:
                     return "";
@@ -170,14 +175,16 @@ public class TileEditor extends Scene implements GameObserver {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Plant plant = plants.get(rowIndex);
+            Ground ground = grounds.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return plant.name;
+                    return ground.name;
                 case 1:
-                    return plant.growthSpeed;
+                    return ground.growthSpeed;
                 case 2:
-                    return plant.textureYPos;
+                    return ground.isCultivable;
+                case 3:
+                    return ground.textureYPos;
                 default:
                     return null;
             }
@@ -185,29 +192,31 @@ public class TileEditor extends Scene implements GameObserver {
 
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-            Plant plant = plants.get(rowIndex);
+            Ground ground = grounds.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    plant.name = aValue.toString();
+                    ground.name = aValue.toString();
                     break;
                 case 1:
                     try {
-                        plant.growthSpeed = Integer.parseInt(aValue.toString());
+                        ground.growthSpeed = Integer.parseInt(aValue.toString());
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Growth Stage must be an integer.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
                 case 2:
-                    plant.textureYPos = Integer.parseInt(aValue.toString());
+                    ground.isCultivable = Boolean.parseBoolean(aValue.toString());
+                case 3:
+                    ground.textureYPos = Integer.parseInt(aValue.toString());
                     break;
             }
-            plants=GameLoop.tileMap.plantTypes;
+            grounds=GameLoop.tileMap.groundTypes;
             fireTableCellUpdated(rowIndex, columnIndex); // Notify table of the change
         }
 
         @Override
         public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return columnIndex < 3; // Editable columns
+            return columnIndex < 4; // Editable columns
         }
 
         @Override
@@ -218,7 +227,7 @@ public class TileEditor extends Scene implements GameObserver {
                 case 1:
                     return Integer.class;
                 case 2:
-                    return Integer.class;
+                    return Boolean.class;
                 default:
                     return String.class;
             }

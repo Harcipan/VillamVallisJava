@@ -1,4 +1,4 @@
-package graphics.scenes;
+package graphics.scenes.editor;
 
 import gameObject.Player;
 import gameObject.tiles.Plant;
@@ -7,6 +7,7 @@ import gamemanager.SceneManager;
 import graphics.camera.Camera;
 import graphics.components.SettingsPanel;
 import graphics.components.UIPanel;
+import graphics.scenes.Scene;
 import input.KeyHandler;
 import input.MouseHandler;
 import interfaces.GameLoopCallback;
@@ -36,7 +37,7 @@ public class MapEditor extends Scene implements GameObserver {
     private JTextField deleteTextField;
 
     public MapEditor(SceneManager manager, GameLoop gameLoop) {
-        gameLoop.loadGame();
+        //gameLoop.loadGame();
         setLayout(new GridLayout(4, 1));
         this.manager = manager;
         this.gameLoop = gameLoop;

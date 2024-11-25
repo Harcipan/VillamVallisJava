@@ -1,4 +1,4 @@
-package graphics.scenes;
+package graphics.scenes.editor;
 
 import gameObject.Player;
 import gameObject.tiles.Plant;
@@ -6,6 +6,7 @@ import gamemanager.GameLoop;
 import gamemanager.SceneManager;
 import graphics.camera.Camera;
 import graphics.components.UIPanel;
+import graphics.scenes.Scene;
 import input.KeyHandler;
 import input.MouseHandler;
 import interfaces.GameLoopCallback;

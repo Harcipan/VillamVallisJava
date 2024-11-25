@@ -1,5 +1,6 @@
 package filemanager;
 
+import gameObject.tiles.Ground;
 import gameObject.tiles.Plant;
 import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
@@ -53,6 +54,14 @@ public class TileMapSerializer {
                 tileMap.plantTypes.add(plant);
             }
 
+            // Deserialize groundTypes
+            JsonArray groundTypesArray = tileMapJson.getJsonArray("groundTypes");
+            for (int i = 0; i < groundTypesArray.size(); i++) {
+                JsonObject groundJson = groundTypesArray.getJsonObject(i);
+                Ground ground = deserializeGround(groundJson);
+                tileMap.groundTypes.add(ground);
+            }
+
             return tileMap;
 
         } catch (IOException e) {
@@ -76,13 +85,21 @@ public class TileMapSerializer {
         tile.growthStage = tileJson.getInt("growthStage");
         tile.isWatered = tileJson.getBoolean("isWatered");
         tile.isHarvestable = tileJson.getBoolean("isHarvestable");
-        tile.growthSpeed = tileJson.getInt("growthSpeed");
-        tile.isCultivable = tileJson.getBoolean("cultivable");
+        //tile.growthSpeed = tileJson.getInt("growthSpeed");
         tile.type = tileJson.getString("type");
         tile.hasPlant = tileJson.getString("hasPlant");
-        tile.plantTextureYPos = tileJson.getInt("plantTextureYPos");
         tile.updateTexture();
         return tile;
+    }
+
+    private static Ground deserializeGround(JsonObject groundJson) {
+        Ground ground = new Ground();
+        ground.name = groundJson.getString("name");
+        ground.growthSpeed = groundJson.getInt("growthSpeed");
+        ground.isCultivable = groundJson.getBoolean("cultivable");
+        ground.textureYPos = groundJson.getInt("textureYPos");
+        ground.updateTexture();
+        return ground;
     }
 
     //------SERIALIZATION------//
@@ -113,11 +130,8 @@ public class TileMapSerializer {
                 tileBuilder.add("growthStage", tile.growthStage)
                         .add("isWatered", tile.isWatered)
                         .add("isHarvestable", tile.isHarvestable)
-                        .add("growthSpeed", tile.growthSpeed)
-                        .add("cultivable", tile.isCultivable)
                         .add("type", tile.type)
-                        .add("hasPlant", tile.hasPlant)
-                        .add("plantTextureYPos", tile.plantTextureYPos);
+                        .add("hasPlant", tile.hasPlant);
                 rowBuilder.add(tileBuilder);
             }
             tilesBuilder.add(rowBuilder);
@@ -135,6 +149,19 @@ public class TileMapSerializer {
             plantTypesBuilder.add(plantBuilder);
         }
         tileMapBuilder.add("plantTypes", plantTypesBuilder);
+
+        JsonArrayBuilder groundTypesBuilder = Json.createArrayBuilder();
+        for (Ground ground : tileMap.groundTypes) {
+            JsonObjectBuilder plantBuilder = Json.createObjectBuilder();
+            plantBuilder
+                    .add("name", ground.name)
+                    .add("growthSpeed", ground.growthSpeed)
+                    .add("cultivable", ground.isCultivable)
+                    .add("textureYPos", ground.textureYPos);
+            groundTypesBuilder.add(plantBuilder);
+        }
+        tileMapBuilder.add("groundTypes", groundTypesBuilder);
+
 
         // Write the JSON to the file with pretty printing
         try (FileWriter fileWriter = new FileWriter(filePath)) {
