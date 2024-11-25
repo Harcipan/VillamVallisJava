@@ -81,16 +81,24 @@ public class TileMap extends GameObject{
         int offsetY = GameFrame.getInstance().getHeight() / 2 - camY;
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
-				if(tiles[y][x].isWatered)
+				// Draw ground
+				for(Ground ground : groundTypes)
 				{
-					g.drawImage(wateredTexture, x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
-				}
-				else if(tiles[y][x].type.equals("ground")) {
-					g.drawImage(dirtTexture, x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
-				}
-				else
-				{
-					g.drawImage(defaultTexture, x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
+					if(ground.name.equals(tiles[y][x].type))
+					{
+						if(tiles[y][x].isWatered)
+						{
+							g.drawImage(ground.wateredTexture, x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
+						}
+						else
+						{
+							g.drawImage(ground.texture, x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
+						}
+					}
+					else
+					{
+						g.drawImage(defaultTexture, x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);
+					}
 				}
 				// Draw plant if there is one
 				//g.drawImage(tiles[y][x].getPlantTexture(), x * TILE_SIZE+offsetX, y * TILE_SIZE+offsetY, null);

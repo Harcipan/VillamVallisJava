@@ -41,10 +41,15 @@ public class MouseHandler {
                 {
                     GameLoop.tileMap.getTile(tileX, tileY).growthStage++;
                     int cT = GameScene.player.inventory.currentPlant;
+                    int numberOfPlants = GameLoop.tileMap.plantTypes.size();
+                    if(numberOfPlants<=0)
+                    {
+                        return;
+                    }
                     GameLoop.tileMap.getTile(tileX, tileY).hasPlant=
-                            GameLoop.tileMap.plantTypes.get(cT%GameLoop.tileMap.plantTypes.size()).name;
-                    System.out.println(GameLoop.tileMap.plantTypes.get(cT%GameLoop.tileMap.plantTypes.size()).name);
-                    System.out.println("plantypes size: "+GameLoop.tileMap.plantTypes.size()+" "+cT%GameLoop.tileMap.plantTypes.size()+" "+cT);
+                            GameLoop.tileMap.plantTypes.get(cT%numberOfPlants).name;
+                    System.out.println(GameLoop.tileMap.plantTypes.get(cT%numberOfPlants).name);
+                    System.out.println("plantypes size: "+numberOfPlants+" "+cT%numberOfPlants+" "+cT);
                 }
                 else if(gameScene.player.inventory.currentTool==2 && GameLoop.tileMap.getTile(tileX, tileY).isCultivable)
                 {

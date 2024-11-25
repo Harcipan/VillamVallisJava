@@ -154,7 +154,7 @@ public class GroundEditor extends Scene implements GameObserver {
 
         @Override
         public int getColumnCount() {
-            return 3; // Example: name, growthStage, isWatered
+            return 4; // Example: name, growthStage, isWatered
         }
 
         @Override
