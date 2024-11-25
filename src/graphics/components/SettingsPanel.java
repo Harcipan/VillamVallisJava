@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class SettingsPanel extends JPanel {
     public SettingsPanel(GameLoopCallback glCallback, SceneManager manager, Scene scene) {
-        this.setBackground(new Color(170,170,170,255));
+        //this.setBackground(new Color(170,170,170,0));
         this.setLayout(new GridLayout(5, 1, 10, 10));
 
         //Extra: Implement after audio

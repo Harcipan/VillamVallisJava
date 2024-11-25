@@ -30,6 +30,7 @@ public class GameFrame extends JFrame implements KeyListener, MouseListener {
 	JPanel MainMenu;
 	public JPanel GameScene;
 	JPanel EditorMenu;
+	JPanel SavesMenu;
 	JPanel PlantEditor;
 	JPanel TileEditor;
 	JPanel MapEditor;
@@ -58,12 +59,14 @@ public class GameFrame extends JFrame implements KeyListener, MouseListener {
         SceneManager sceneManager = new SceneManager(this);
         MainMenu = new MainMenu(sceneManager,((GameLoopCallback)(gameLoop)));
         GameScene = new GameScene(sceneManager,gameLoop);
+		SavesMenu = new SavesMenu(sceneManager,gameLoop);
 		EditorMenu = new EditorMenu(sceneManager);
 		PlantEditor = new PlantEditor(sceneManager,gameLoop);
 		TileEditor = new GroundEditor(sceneManager,gameLoop);
 		MapEditor = new MapEditor(sceneManager,gameLoop);
         sceneManager.addScene("MainMenu", MainMenu);
 		sceneManager.addScene("GameScene", GameScene);
+		sceneManager.addScene("SavesMenu", SavesMenu);
 		sceneManager.addScene("EditorMenu", EditorMenu);
 		sceneManager.addScene("PlantEditor", PlantEditor);
 		sceneManager.addScene("TileEditor", TileEditor);

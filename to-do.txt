@@ -91,10 +91,7 @@ After Jporta eval
 
 
 - save functionality upgrade
-	- choose save file from list
-	- new game screen
-		- choose save name
-		- modifiable character ???
+	+++ choose save file from list
 
 - add bed and sleep option (bed tile)
 - add nigth and day
@@ -112,10 +109,13 @@ After Jporta eval
 		(it only updates itself from the save file)
 
 Extra
-
 - add text (first for tutorial and sleep dialog)
 
 - fix moneytext centering
 - improve resize (especially in gp) ???
 - physics
 - improve looks (textures, anim)
+
+- new game screen
+	- choose save name
+	- modifiable character ???

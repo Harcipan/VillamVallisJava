@@ -51,11 +51,11 @@ public class MouseHandler {
                     System.out.println(GameLoop.tileMap.plantTypes.get(cT%numberOfPlants).name);
                     System.out.println("plantypes size: "+numberOfPlants+" "+cT%numberOfPlants+" "+cT);
                 }
-                else if(gameScene.player.inventory.currentTool==2 && GameLoop.tileMap.getTile(tileX, tileY).isCultivable)
+                else if(GameScene.player.inventory.currentTool==2 && GameLoop.tileMap.getTile(tileX, tileY).isCultivable)
                 {
                     GameLoop.tileMap.getTile(tileX, tileY).isWatered = true;
                 }
-                else if(GameLoop.tileMap.getTile(tileX, tileY).isHarvestable)
+                else if(GameLoop.tileMap.getTile(tileX, tileY).isHarvestable && GameScene.player.inventory.currentTool==1)
                 {
                     GameLoop.tileMap.harvestTile(tileX,tileY);
                     gameScene.player.setMoney(gameScene.player.money+1);

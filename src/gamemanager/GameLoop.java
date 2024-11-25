@@ -111,7 +111,9 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		setMoney(0);
 		tileMap = new TileMap(new String[5][5]);
 		//saveGame();
-		//loadGame();
+		savePath = "assets/newGame";
+		loadGame();
+		savePath = generateUniqueSavePath("saves/newGame");
 
 		Camera.setMaxCamera((tileMap.mapData[0].length-1)*TileMap.TILE_SIZE/2,(tileMap.mapData.length-1)*TileMap.TILE_SIZE/2);
 		if(firstTime)
@@ -121,6 +123,23 @@ public class GameLoop implements Serializable, GameLoopCallback{
 			firstTime=false;
 		}
 	}
+
+	private String generateUniqueSavePath(String basePath) {
+		File savesDirectory = new File("saves");
+		if (!savesDirectory.exists()) {
+			savesDirectory.mkdirs();
+		}
+		int counter = 1;
+		String newSavePath = basePath;
+		while (new File(newSavePath).exists()) {
+			newSavePath = basePath + counter;
+			counter++;
+		}
+		savesDirectory = new File(newSavePath);
+		savesDirectory.mkdirs();
+		return newSavePath;
+	}
+
 	public void continueGame()
 	{
 		loadGame();

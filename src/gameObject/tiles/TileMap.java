@@ -54,7 +54,7 @@ public class TileMap extends GameObject{
 						newTiles[i][j].growthSpeed = ground.growthSpeed;
 					}
 				}
-				System.out.println("Setting tile "+i+","+j+" to "+mapData[i][j]);
+				//System.out.println("Setting tile "+i+","+j+" to "+mapData[i][j]);
 			}
 		}
 		tiles = newTiles;

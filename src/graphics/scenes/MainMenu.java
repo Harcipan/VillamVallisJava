@@ -42,7 +42,8 @@ public class MainMenu extends JPanel {
 
         newGameButton.addActionListener(e -> {manager.showScene("GameScene"); glCallback.newGame(); glCallback.setPlaying(true);});
         //TODO: add logic to disable if there are no saves to continue or serial version isn't matching
-        contGameButton.addActionListener(e -> {manager.showScene("GameScene"); glCallback.continueGame();glCallback.setPlaying(true);});
+        //contGameButton.addActionListener(e -> {manager.showScene("GameScene"); glCallback.continueGame();glCallback.setPlaying(true);});
+        contGameButton.addActionListener(e -> {manager.showScene("SavesMenu");});
         editorButton.addActionListener(e -> manager.showScene("EditorMenu"));
         settingsButton.addActionListener(e -> {
             JPanel settingsPanel = createSettingsPanel(manager);
