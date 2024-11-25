@@ -36,7 +36,7 @@ public class GameFrame extends JFrame implements KeyListener, MouseListener {
 	KeyHandler keyHandler;
 	public GameScene gameScene;
 	MouseHandler mouseHandler;
-	GameLoop gameLoop;
+	public GameLoop gameLoop;
     /**
      * Initializes a new instance of GameFrame.
      * Sets the title and icon of the frame, and initializes the scene manager.

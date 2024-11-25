@@ -4,34 +4,14 @@
         [
             0,
             0,
-            0,
-            0,
             0
         ],
         [
             0,
             0,
-            0,
-            0,
             0
         ],
         [
-            0,
-            0,
-            0,
-            0,
-            0
-        ],
-        [
-            0,
-            0,
-            0,
-            0,
-            0
-        ],
-        [
-            0,
-            0,
             0,
             0,
             0
@@ -41,64 +21,6 @@
         [
             {
                 "growthStage": 0,
-                "isWatered": true,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 0,
-                "isWatered": true,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 4379,
-                "isWatered": true,
-                "isHarvestable": true,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 2837,
-                "isWatered": true,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 0,
-                "isWatered": true,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            }
-        ],
-        [
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 4485,
-                "isWatered": true,
-                "isHarvestable": true,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 73,
-                "isWatered": true,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 1467,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
@@ -107,36 +29,6 @@
             {
                 "growthStage": 0,
                 "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            }
-        ],
-        [
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 1339,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 0,
-                "isWatered": true,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 0,
-                "isWatered": true,
                 "isHarvestable": false,
                 "type": "ground",
                 "hasPlant": "Plant"
@@ -170,40 +62,12 @@
                 "isHarvestable": false,
                 "type": "ground",
                 "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 185,
-                "isWatered": true,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 0,
-                "isWatered": true,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
             }
         ],
         [
             {
-                "growthStage": 148,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 1288,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
                 "growthStage": 0,
-                "isWatered": true,
+                "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
                 "hasPlant": "Plant"
@@ -237,6 +101,12 @@
             "growthSpeed": 0,
             "cultivable": true,
             "textureYPos": 0
+        },
+        {
+            "name": "g2",
+            "growthSpeed": 10,
+            "cultivable": true,
+            "textureYPos": 1
         }
     ]
 }

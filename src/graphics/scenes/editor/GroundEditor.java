@@ -206,6 +206,7 @@ public class GroundEditor extends Scene implements GameObserver {
                     break;
                 case 2:
                     ground.isCultivable = Boolean.parseBoolean(aValue.toString());
+                    break;
                 case 3:
                     ground.textureYPos = Integer.parseInt(aValue.toString());
                     break;
@@ -228,6 +229,8 @@ public class GroundEditor extends Scene implements GameObserver {
                     return Integer.class;
                 case 2:
                     return Boolean.class;
+                case 3:
+                    return Integer.class;
                 default:
                     return String.class;
             }

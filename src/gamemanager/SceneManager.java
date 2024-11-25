@@ -10,6 +10,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import graphics.GameFrame;
 import graphics.scenes.GameScene;
 import sound.SoundPlayer;
 
@@ -19,7 +20,7 @@ import javax.swing.JLayeredPane;
  * It handles switching between scenes and showing overlays.
  */
 public class SceneManager {
-	private JFrame frame; // The main game frame
+	private GameFrame frame; // The main game frame
     private JPanel sceneContainer; // A panel to hold different scenes
     private transient List<JPanel> scenes = new ArrayList<>();
     private final CardLayout cardLayout; // To switch between scenes
@@ -34,7 +35,7 @@ public class SceneManager {
      *
      * @param frame The main game frame.
      */
-    public SceneManager(JFrame frame) {
+    public SceneManager(GameFrame frame) {
         this.frame = frame;
         fullscreen = false;
 
@@ -105,6 +106,8 @@ public class SceneManager {
      * @param sceneName The name of the scene to display.
      */
     public void showScene(String sceneName) {
+        //frame.gameLoop.saveGame();
+        //frame.gameLoop.loadGame();
         cardLayout.show(sceneContainer, sceneName); // Switch to the desired scene
         if (sceneContainer.getComponent(sceneContainer.getComponentCount() - 1) instanceof GameScene) {
             ((GameScene) sceneContainer.getComponent(sceneContainer.getComponentCount() - 1)).requestFocus();

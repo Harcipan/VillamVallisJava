@@ -11,7 +11,7 @@ import graphics.texture.TextureManager;
 import graphics.transform.Vec2;
 
 public class TileMap extends GameObject{
-	public final Tile[][] tiles;
+	public Tile[][] tiles;
 	private final transient Image dirtTexture;
 	private final transient Image wateredTexture;
 	private final transient Image defaultTexture;
@@ -38,6 +38,22 @@ public class TileMap extends GameObject{
         	}
         }
     }
+
+	public void changeTileMapSize(int row, int col, int[][] mapData)
+	{
+		System.out.println("Changing tile map size to "+row+"x"+col);
+		this.mapData = mapData;
+		Tile[][] newTiles = new Tile[row][col];
+		for(int i=0;i<mapData.length;i++)
+		{
+			for(int j = 0;j<mapData[i].length;j++)
+			{
+				newTiles[i][j] = new Tile();
+				newTiles[i][j].growthStage = mapData[i][j];
+			}
+		}
+		tiles = newTiles;
+	}
 
 	public void addGrowthToAll()
 	{

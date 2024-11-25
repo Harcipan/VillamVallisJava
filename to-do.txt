@@ -77,7 +77,9 @@ After Jporta eval
 
 +++ different dirt types with diff growth speed and texture
 	+++ save Tile obj. instead of just growth number
-- be able to edit, define... same as plant
++++ be able to edit, define... same as plant
+
+- diff plants like diff ground
 
 - be able to edit the map
 	+++ editor scene
@@ -98,13 +100,14 @@ After Jporta eval
 - add nigth and day
 
 - fix bugs:
-	- fix fullscreen
+	- fix fullscreen on amd
 	- fix settings in main menu and gamesceen
 		- simplify settingsmenu creation and modif
 		- improve settings look
 	- delete plant type, than play then try to edit plant type
 	-> out of bounds exception
-- fix sizing issues
+	+++ fix sizing issues
+	- fix mouse clicking position issue (have to click half a block higher)
 
 Extra
 

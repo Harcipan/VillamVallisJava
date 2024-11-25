@@ -1,228 +1,129 @@
 package graphics.scenes.editor;
 
-import gameObject.Player;
-import gameObject.tiles.Plant;
 import gamemanager.GameLoop;
 import gamemanager.SceneManager;
-import graphics.camera.Camera;
-import graphics.components.SettingsPanel;
-import graphics.components.UIPanel;
 import graphics.scenes.Scene;
-import input.KeyHandler;
-import input.MouseHandler;
-import interfaces.GameLoopCallback;
-import interfaces.GameObserver;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MapEditor extends Scene implements GameObserver {
+public class MapEditor extends Scene {
     private static final long serialVersionUID = 1L;
-    SceneManager manager;
-    SettingsPanel settingsPanel;
-    private JLabel moneyText;
-    private GameLoopCallback glCallback;
-    public Player player;
-    JLayeredPane layeredPane;
-    UIPanel ui;
-    public Camera camera;
-    public KeyHandler keyHandler;
-    MouseHandler mouseHandler;
-    public GameLoop gameLoop;
 
-    private JTable plantTable;
-    private PlantTableModel plantTableModel;
-    private JTextField deleteTextField;
+    private SceneManager manager;
+    private int rows = 5; // Default map size
+    private int cols = 5;
+    private String[][] groundMap;
+    private JPanel mapGridPanel;
+    private JComboBox<String> groundTypeSelector;
+    private GameLoop gameLoop;
 
     public MapEditor(SceneManager manager, GameLoop gameLoop) {
-        //gameLoop.loadGame();
-        setLayout(new GridLayout(4, 1));
         this.manager = manager;
         this.gameLoop = gameLoop;
+        gameLoop.loadGame();
+        rows = GameLoop.tileMap.mapData.length;
+        cols = GameLoop.tileMap.mapData[0].length;
+        this.groundMap = new String[rows][cols]; // Initialize map
 
-        // Initialize the custom table model and table
-        plantTableModel = new PlantTableModel(GameLoop.tileMap.plantTypes);
-        plantTable = new JTable(plantTableModel);
-        JScrollPane tableScrollPane = new JScrollPane(plantTable);
-        // Add components to the scene
-        add(new JLabel("This is the editor scene!"));
-        add(tableScrollPane);
+        setLayout(new GridLayout(3,1));
+        initializeUI();
+        initializeMap();
+    }
 
-        // Add controls for adding and deleting plants
+    private void initializeUI() {
+        // Top Control Panel
         JPanel controlPanel = new JPanel(new FlowLayout());
 
-        JButton addPlantButton = new JButton("Add Plant");
-        deleteTextField = new JTextField(5);
-        JButton deletePlantButton = new JButton("Delete Plant");
-        JButton copyPlantButton = new JButton("Copy Plant");
+        JTextField rowInput = new JTextField(5);
+        JTextField colInput = new JTextField(5);
+        JButton setSizeButton = new JButton("Set Map Size");
         JButton backToMenuButton = new JButton("Back to Menu");
 
-        controlPanel.add(addPlantButton);
-        controlPanel.add(new JLabel("Name to Delete:"));
-        controlPanel.add(deleteTextField);
-        controlPanel.add(copyPlantButton);
-        controlPanel.add(deletePlantButton);
+        controlPanel.add(new JLabel("Rows:"));
+        controlPanel.add(rowInput);
+        controlPanel.add(new JLabel("Cols:"));
+        controlPanel.add(colInput);
+        controlPanel.add(setSizeButton);
         controlPanel.add(backToMenuButton);
 
         add(controlPanel);
 
-        // Add plant button functionality
-        addPlantButton.addActionListener(e -> {
-            Plant newPlant = new Plant();
-            newPlant.name = "New Plant " + (GameLoop.tileMap.plantTypes.size() + 1);
-            newPlant.growthSpeed = 0; // Example default data
-            newPlant.textureYPos = 0; // Example default data
-            GameLoop.tileMap.plantTypes.add(newPlant);
-            plantTableModel.plants=GameLoop.tileMap.plantTypes;
-            plantTableModel.fireTableDataChanged(); // Notify the table model of the new data
+        // Map Grid Panel
+        mapGridPanel = new JPanel();
+        add(mapGridPanel);
+
+        // Ground Type Selector
+        JPanel groundSelectorPanel = new JPanel(new FlowLayout());
+        groundTypeSelector = new JComboBox<>();
+        GameLoop.tileMap.groundTypes.forEach(ground -> groundTypeSelector.addItem(ground.name));
+        JLabel currentTypeLabel = new JLabel("Select Ground Type:");
+        groundSelectorPanel.add(currentTypeLabel);
+        groundSelectorPanel.add(groundTypeSelector);
+        add(groundSelectorPanel);
+
+        // Set size button action
+        setSizeButton.addActionListener(e -> {
+            try {
+                int newRows = Integer.parseInt(rowInput.getText());
+                int newCols = Integer.parseInt(colInput.getText());
+                setMapSize(newRows, newCols);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid input. Please enter integers.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
-        // Delete plant button functionality
-        deletePlantButton.addActionListener(e -> {
-            String nameToDelete = deleteTextField.getText().trim();
-            if (nameToDelete.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please enter a plant name to delete.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            boolean removed = GameLoop.tileMap.plantTypes.removeIf(plant -> plant.name.equals(nameToDelete));
-            if (removed) {
-                JOptionPane.showMessageDialog(this, "Plant deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                plantTableModel.plants=GameLoop.tileMap.plantTypes;
-                plantTableModel.fireTableDataChanged(); // Refresh table
-            } else {
-                JOptionPane.showMessageDialog(this, "No plant found with the given name.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            plantTableModel.plants=GameLoop.tileMap.plantTypes;
-            deleteTextField.setText(""); // Clear the text field
-        });
-
-        copyPlantButton.addActionListener(e -> {
-            Plant copiedPlant = new Plant();
-            String nameToCopy = deleteTextField.getText().trim();
-            if (nameToCopy.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please enter a plant name to copy.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            for(Plant plant : GameLoop.tileMap.plantTypes) {
-                if (plant.name.equals(nameToCopy)) {
-                    copiedPlant.name = plant.name + " Copy";
-                    copiedPlant.growthSpeed = plant.growthSpeed;
-                    copiedPlant.textureYPos = plant.textureYPos;
-                    break;
-                }
-            }
-
-            GameLoop.tileMap.plantTypes.add(copiedPlant);
-            plantTableModel.plants=GameLoop.tileMap.plantTypes;
-            deleteTextField.setText(""); // Clear the text field
-            plantTableModel.fireTableDataChanged(); // Refresh table
-        });
-
-        backToMenuButton.addActionListener(e -> {
-            manager.showScene("MainMenu");
-            gameLoop.saveGame();
-        });
-
-        // Initial population of the table
-        plantTableModel.plants=GameLoop.tileMap.plantTypes;
-        plantTableModel.fireTableDataChanged();
+        // Back to menu action
+        backToMenuButton.addActionListener(e -> manager.showScene("MainMenu"));
     }
 
-    @Override
-    public void onMoneyChange(int newScore) {
-        // Handle money change events if needed
+    private void initializeMap() {
+        int[][] mapData = new int[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                groundMap[i][j] = "Ground"; // Default ground type
+                mapData[i][j] = 0; // Default ground type index
+            }
+        }
+        GameLoop.tileMap.changeTileMapSize(rows, cols, mapData);
+        gameLoop.saveGame();
+        updateMapGrid();
     }
 
-    // Custom table model for the plant data
-    private static class PlantTableModel extends AbstractTableModel {
-        private List<Plant> plants;
+    private void setMapSize(int newRows, int newCols) {
+        this.rows = newRows;
+        this.cols = newCols;
+        this.groundMap = new String[rows][cols];
+        initializeMap();
+    }
 
-        public PlantTableModel(List<Plant> plants) {
-            this.plants = plants;
-        }
+    private void updateMapGrid() {
+        mapGridPanel.removeAll();
+        mapGridPanel.setLayout(new GridLayout(rows, cols));
 
-        @Override
-        public int getRowCount() {
-            return plants.size();
-        }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                JButton tileButton = new JButton(groundMap[i][j]);
+                int row = i;
+                int col = j;
 
-        @Override
-        public int getColumnCount() {
-            return 3; // Example: name, growthStage, isWatered
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            switch (column) {
-                case 0:
-                    return "Name";
-                case 1:
-                    return "Growth Speed";
-                case 2:
-                    return "Texture Position";
-                default:
-                    return "";
-            }
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            Plant plant = plants.get(rowIndex);
-            switch (columnIndex) {
-                case 0:
-                    return plant.name;
-                case 1:
-                    return plant.growthSpeed;
-                case 2:
-                    return plant.textureYPos;
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-            Plant plant = plants.get(rowIndex);
-            switch (columnIndex) {
-                case 0:
-                    plant.name = aValue.toString();
-                    break;
-                case 1:
-                    try {
-                        plant.growthSpeed = Integer.parseInt(aValue.toString());
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Growth Stage must be an integer.", "Error", JOptionPane.ERROR_MESSAGE);
+                // Tile button action
+                tileButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String selectedType = (String) groundTypeSelector.getSelectedItem();
+                        groundMap[row][col] = selectedType;
+                        tileButton.setText(selectedType); // Update button text
                     }
-                    break;
-                case 2:
-                    plant.textureYPos = Integer.parseInt(aValue.toString());
-                    break;
-            }
-            plants=GameLoop.tileMap.plantTypes;
-            fireTableCellUpdated(rowIndex, columnIndex); // Notify table of the change
-        }
+                });
 
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return columnIndex < 3; // Editable columns
-        }
-
-        @Override
-        public Class<?> getColumnClass(int columnIndex) {
-            switch (columnIndex) {
-                case 0:
-                    return String.class;
-                case 1:
-                    return Integer.class;
-                case 2:
-                    return Integer.class;
-                default:
-                    return String.class;
+                mapGridPanel.add(tileButton);
             }
         }
+
+        mapGridPanel.revalidate();
+        mapGridPanel.repaint();
     }
 }
