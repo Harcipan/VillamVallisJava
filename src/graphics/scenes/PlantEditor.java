@@ -4,7 +4,6 @@ import gameObject.Player;
 import gameObject.tiles.Plant;
 import gamemanager.GameLoop;
 import gamemanager.SceneManager;
-import graphics.GameFrame;
 import graphics.camera.Camera;
 import graphics.components.UIPanel;
 import input.KeyHandler;
@@ -18,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class EditorScene extends Scene implements GameObserver {
+public class PlantEditor extends Scene implements GameObserver {
     private static final long serialVersionUID = 1L;
     SceneManager manager;
     SettingsPanel settingsPanel;
@@ -36,7 +35,7 @@ public class EditorScene extends Scene implements GameObserver {
     private PlantTableModel plantTableModel;
     private JTextField deleteTextField;
 
-    public EditorScene(SceneManager manager, GameLoop gameLoop) {
+    public PlantEditor(SceneManager manager, GameLoop gameLoop) {
         gameLoop.loadGame();
         setLayout(new GridLayout(4, 1));
         this.manager = manager;

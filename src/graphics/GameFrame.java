@@ -10,14 +10,11 @@ import javax.swing.JPanel;
 
 import gamemanager.GameLoop;
 import gamemanager.SceneManager;
-import graphics.scenes.EditorScene;
-import graphics.scenes.GameScene;
-import graphics.scenes.MainMenu;
+import graphics.scenes.*;
 import graphics.transform.Vec2;
 import input.KeyHandler;
 import input.MouseHandler;
 import interfaces.GameLoopCallback;
-import interfaces.GameObserver;
 
 /**
  * The GameFrame class represents the main window of the game application.
@@ -28,7 +25,10 @@ public class GameFrame extends JFrame implements KeyListener, MouseListener {
 	private static GameFrame instance;
 	JPanel MainMenu;
 	public JPanel GameScene;
-	JPanel EditorScene;
+	JPanel EditorMenu;
+	JPanel PlantEditor;
+	JPanel TileEditor;
+	JPanel MapEditor;
 	KeyHandler keyHandler;
 	public GameScene gameScene;
 	MouseHandler mouseHandler;
@@ -54,10 +54,16 @@ public class GameFrame extends JFrame implements KeyListener, MouseListener {
         SceneManager sceneManager = new SceneManager(this);
         MainMenu = new MainMenu(sceneManager,((GameLoopCallback)(gameLoop)));
         GameScene = new GameScene(sceneManager,gameLoop);
-		EditorScene = new EditorScene(sceneManager,gameLoop);
+		EditorMenu = new EditorMenu(sceneManager);
+		PlantEditor = new PlantEditor(sceneManager,gameLoop);
+		TileEditor = new TileEditor(sceneManager,gameLoop);
+		MapEditor = new MapEditor(sceneManager,gameLoop);
         sceneManager.addScene("MainMenu", MainMenu);
 		sceneManager.addScene("GameScene", GameScene);
-		sceneManager.addScene("EditorScene", EditorScene);
+		sceneManager.addScene("EditorMenu", EditorMenu);
+		sceneManager.addScene("PlantEditor", PlantEditor);
+		sceneManager.addScene("TileEditor", TileEditor);
+		sceneManager.addScene("MapEditor", MapEditor);
 
         // Show initial scene (Main Menu)
         sceneManager.showScene("MainMenu");
