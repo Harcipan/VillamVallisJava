@@ -2,22 +2,22 @@
 {
     "mapData": [
         [
-            "Stone",
-            "Stone",
-            "ground",
-            "ground"
-        ],
-        [
             "ground",
             "ground",
             "ground",
             "ground"
         ],
         [
-            "ground",
-            "ground",
-            "ground",
-            "ground"
+            "Fertilezer",
+            "Fertilezer",
+            "Fertilezer",
+            "Stone"
+        ],
+        [
+            "Fertilezer",
+            "Fertilezer",
+            "Fertilezer",
+            "Stone"
         ],
         [
             "ground",
@@ -32,8 +32,82 @@
                 "growthStage": 0,
                 "isWatered": false,
                 "isHarvestable": false,
+                "type": "ground",
+                "hasPlant": "Plant"
+            },
+            {
+                "growthStage": 0,
+                "isWatered": false,
+                "isHarvestable": false,
+                "type": "ground",
+                "hasPlant": "Plant"
+            },
+            {
+                "growthStage": 0,
+                "isWatered": false,
+                "isHarvestable": false,
+                "type": "ground",
+                "hasPlant": "Plant"
+            },
+            {
+                "growthStage": 0,
+                "isWatered": false,
+                "isHarvestable": false,
+                "type": "ground",
+                "hasPlant": "Plant"
+            }
+        ],
+        [
+            {
+                "growthStage": 15971,
+                "isWatered": false,
+                "isHarvestable": true,
+                "type": "Fertilezer",
+                "hasPlant": "Plant"
+            },
+            {
+                "growthStage": 15971,
+                "isWatered": false,
+                "isHarvestable": true,
+                "type": "Fertilezer",
+                "hasPlant": "Plant"
+            },
+            {
+                "growthStage": 3961,
+                "isWatered": true,
+                "isHarvestable": false,
+                "type": "Fertilezer",
+                "hasPlant": "Plant"
+            },
+            {
+                "growthStage": 0,
+                "isWatered": false,
+                "isHarvestable": false,
                 "type": "Stone",
                 "hasPlant": "Plant"
+            }
+        ],
+        [
+            {
+                "growthStage": 15971,
+                "isWatered": false,
+                "isHarvestable": true,
+                "type": "Fertilezer",
+                "hasPlant": "Plant"
+            },
+            {
+                "growthStage": 15971,
+                "isWatered": false,
+                "isHarvestable": true,
+                "type": "Fertilezer",
+                "hasPlant": "Plant"
+            },
+            {
+                "growthStage": 13801,
+                "isWatered": true,
+                "isHarvestable": true,
+                "type": "Fertilezer",
+                "hasPlant": "New Plant 2"
             },
             {
                 "growthStage": 0,
@@ -41,85 +115,25 @@
                 "isHarvestable": false,
                 "type": "Stone",
                 "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 175,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
             }
         ],
         [
             {
-                "growthStage": 357,
+                "growthStage": 1777,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
                 "hasPlant": "Plant"
             },
             {
-                "growthStage": 100,
+                "growthStage": 1878,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
                 "hasPlant": "Plant"
             },
             {
-                "growthStage": 385,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 196,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            }
-        ],
-        [
-            {
-                "growthStage": 290,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 335,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 406,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 220,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            }
-        ],
-        [
-            {
-                "growthStage": 0,
+                "growthStage": 56,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
@@ -127,20 +141,6 @@
             },
             {
                 "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 0,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Plant"
-            },
-            {
-                "growthStage": 242,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
@@ -174,10 +174,10 @@
             "textureYPos": 2
         },
         {
-            "name": "New Ground 4",
-            "growthSpeed": 0,
+            "name": "Fertilezer",
+            "growthSpeed": 10,
             "cultivable": true,
-            "textureYPos": 0
+            "textureYPos": 1
         }
     ]
 }

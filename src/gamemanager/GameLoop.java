@@ -9,18 +9,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonWriter;
 import javax.swing.*;
-import java.io.FileWriter;
 import java.io.IOException;
 
-//import graphics.scenes.GameScene;
 import filemanager.Serializer;
 import filemanager.TileMapSerializer;
-import gameObject.tiles.Ground;
-import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
 import graphics.camera.Camera;
 import graphics.scenes.GameScene;
@@ -42,7 +35,6 @@ public class GameLoop implements Serializable, GameLoopCallback{
     private transient Serializer ser;
     private transient GameLoop loadedGame;
     private transient Thread gameLoopT = new Thread(this::startGameLoop);
-    //private transient Thread inputT;
     public static boolean playing;
     private transient KeyHandler keyHandler;
     private transient JPanel gp;
@@ -50,7 +42,6 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	private transient boolean firstTime = true;
 	private transient ScheduledExecutorService saveScheduler;
 	public static TileMap tileMap;
-	String[][] tileMapSave;
 	Vec2 cameraSave;
 	public static String savePath = "saves/game1";
 

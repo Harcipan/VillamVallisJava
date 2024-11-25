@@ -29,39 +29,16 @@
     "tiles": [
         [
             {
-                "growthStage": 2850,
+                "growthStage": 3211,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
                 "hasPlant": "Wheat"
             },
             {
-                "growthStage": 5845,
+                "growthStage": 6206,
                 "isWatered": false,
                 "isHarvestable": true,
-                "type": "ground",
-                "hasPlant": "Wheat"
-            },
-            {
-                "growthStage": 5767,
-                "isWatered": false,
-                "isHarvestable": true,
-                "type": "ground",
-                "hasPlant": "Wheat"
-            },
-            {
-                "growthStage": 2570,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Wheat"
-            }
-        ],
-        [
-            {
-                "growthStage": 2869,
-                "isWatered": false,
-                "isHarvestable": false,
                 "type": "ground",
                 "hasPlant": "Wheat"
             },
@@ -73,14 +50,7 @@
                 "hasPlant": "Wheat"
             },
             {
-                "growthStage": 2764,
-                "isWatered": false,
-                "isHarvestable": false,
-                "type": "ground",
-                "hasPlant": "Wheat"
-            },
-            {
-                "growthStage": 2633,
+                "growthStage": 2931,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
@@ -89,7 +59,37 @@
         ],
         [
             {
-                "growthStage": 2494,
+                "growthStage": 3230,
+                "isWatered": false,
+                "isHarvestable": false,
+                "type": "ground",
+                "hasPlant": "Wheat"
+            },
+            {
+                "growthStage": 0,
+                "isWatered": false,
+                "isHarvestable": false,
+                "type": "ground",
+                "hasPlant": "Wheat"
+            },
+            {
+                "growthStage": 3125,
+                "isWatered": false,
+                "isHarvestable": false,
+                "type": "ground",
+                "hasPlant": "Wheat"
+            },
+            {
+                "growthStage": 2994,
+                "isWatered": false,
+                "isHarvestable": false,
+                "type": "ground",
+                "hasPlant": "Wheat"
+            }
+        ],
+        [
+            {
+                "growthStage": 2855,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
@@ -110,7 +110,7 @@
                 "hasPlant": "Plant"
             },
             {
-                "growthStage": 2691,
+                "growthStage": 3052,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
@@ -119,11 +119,18 @@
         ],
         [
             {
-                "growthStage": 18641,
+                "growthStage": 22251,
                 "isWatered": false,
                 "isHarvestable": true,
                 "type": "Fertelizer",
                 "hasPlant": "BlueWheat"
+            },
+            {
+                "growthStage": 2361,
+                "isWatered": false,
+                "isHarvestable": false,
+                "type": "Fertelizer",
+                "hasPlant": "Wheat"
             },
             {
                 "growthStage": 0,
@@ -133,14 +140,7 @@
                 "hasPlant": "Wheat"
             },
             {
-                "growthStage": 14831,
-                "isWatered": true,
-                "isHarvestable": true,
-                "type": "Fertelizer",
-                "hasPlant": "Wheat"
-            },
-            {
-                "growthStage": 13981,
+                "growthStage": 21201,
                 "isWatered": true,
                 "isHarvestable": true,
                 "type": "Fertelizer",

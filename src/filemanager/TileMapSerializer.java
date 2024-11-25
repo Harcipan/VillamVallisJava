@@ -11,10 +11,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Provides functionality for serializing and deserializing {@link TileMap} objects to and from JSON files.
+ */
 public class TileMapSerializer {
 
-
-
+    /**
+     * Deserializes a {@link TileMap} object from a JSON file.
+     *
+     * @param filePath the path to the JSON file containing the tile map data.
+     * @return a {@link TileMap} object populated with data from the file, or {@code null} if an error occurs.
+     */
     public static TileMap deserializeTileMap(String filePath) {
         try (FileReader fileReader = new FileReader(filePath);
              JsonReader jsonReader = Json.createReader(fileReader)) {
@@ -62,15 +69,11 @@ public class TileMapSerializer {
                 tileMap.groundTypes.add(ground);
             }
 
-
-            for(Tile[] t : tileMap.tiles)
-            {
-                for(Tile t2 : t)
-                {
-                    for(Ground ground : tileMap.groundTypes)
-                    {
-                        if(ground.name.equals(t2.type))
-                        {
+            // Update tile properties based on ground types
+            for (Tile[] t : tileMap.tiles) {
+                for (Tile t2 : t) {
+                    for (Ground ground : tileMap.groundTypes) {
+                        if (ground.name.equals(t2.type)) {
                             t2.isCultivable = ground.isCultivable;
                             t2.growthSpeed = ground.growthSpeed;
                         }
@@ -87,6 +90,12 @@ public class TileMapSerializer {
         return null;
     }
 
+    /**
+     * Deserializes a {@link Plant} object from a JSON object.
+     *
+     * @param plantJson the JSON object containing plant data.
+     * @return a {@link Plant} object populated with the data.
+     */
     private static Plant deserializePlant(JsonObject plantJson) {
         Plant plant = new Plant();
         plant.growthSpeed = plantJson.getInt("growthSpeed");
@@ -97,18 +106,29 @@ public class TileMapSerializer {
         return plant;
     }
 
+    /**
+     * Deserializes a {@link Tile} object from a JSON object.
+     *
+     * @param tileJson the JSON object containing tile data.
+     * @return a {@link Tile} object populated with the data.
+     */
     private static Tile deserializeTile(JsonObject tileJson) {
         Tile tile = new Tile();
         tile.growthStage = tileJson.getInt("growthStage");
         tile.isWatered = tileJson.getBoolean("isWatered");
         tile.isHarvestable = tileJson.getBoolean("isHarvestable");
-        //tile.growthSpeed = tileJson.getInt("growthSpeed");
         tile.type = tileJson.getString("type");
         tile.hasPlant = tileJson.getString("hasPlant");
-        tile.updateTexture();
+        //tile.updateTexture();
         return tile;
     }
 
+    /**
+     * Deserializes a {@link Ground} object from a JSON object.
+     *
+     * @param groundJson the JSON object containing ground data.
+     * @return a {@link Ground} object populated with the data.
+     */
     private static Ground deserializeGround(JsonObject groundJson) {
         Ground ground = new Ground();
         ground.name = groundJson.getString("name");
@@ -119,14 +139,16 @@ public class TileMapSerializer {
         return ground;
     }
 
-    //------SERIALIZATION------//
-
-
-    // Serialize the TileMap back to a pretty-printed JSON file
+    /**
+     * Serializes a {@link TileMap} object to a JSON file.
+     *
+     * @param tileMap  the {@link TileMap} object to serialize.
+     * @param filePath the path to the file where the JSON data will be saved.
+     */
     public static void serializeTileMap(TileMap tileMap, String filePath) {
         JsonObjectBuilder tileMapBuilder = Json.createObjectBuilder();
 
-       // Serialize mapData
+        // Serialize mapData
         JsonArrayBuilder mapDataBuilder = Json.createArrayBuilder();
         for (String[] row : tileMap.mapData) {
             JsonArrayBuilder rowBuilder = Json.createArrayBuilder();
@@ -167,6 +189,7 @@ public class TileMapSerializer {
         }
         tileMapBuilder.add("plantTypes", plantTypesBuilder);
 
+        // Serialize groundTypes
         JsonArrayBuilder groundTypesBuilder = Json.createArrayBuilder();
         for (Ground ground : tileMap.groundTypes) {
             JsonObjectBuilder plantBuilder = Json.createObjectBuilder();
@@ -178,7 +201,6 @@ public class TileMapSerializer {
             groundTypesBuilder.add(plantBuilder);
         }
         tileMapBuilder.add("groundTypes", groundTypesBuilder);
-
 
         // Write the JSON to the file with pretty printing
         try (FileWriter fileWriter = new FileWriter(filePath)) {

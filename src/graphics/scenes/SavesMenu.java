@@ -9,11 +9,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+
+/**
+ * The SavesMenu class represents the menu screen where players can select from available save files
+ * to continue their game. It dynamically loads save folders from the "saves" directory and displays them
+ * as buttons. If no saves are found, a message is displayed informing the user.
+ */
 public class SavesMenu extends Scene {
-    private GameLoop gameLoop;
+
+    /**
+     * Constructs the SavesMenu panel with the specified SceneManager and GameLoop.
+     * Initializes the layout, adds components (labels, buttons), and loads the available saves.
+     *
+     * @param manager the SceneManager responsible for managing different scenes in the game.
+     * @param gameLoop the GameLoop that handles the game state and loading functionality.
+     */
     public SavesMenu(SceneManager manager, GameLoop gameLoop) {
         setLayout(new BorderLayout());
-        this.gameLoop=gameLoop;
 
         // Header label
         JLabel menuText = new JLabel("Saves Menu", SwingConstants.CENTER);
@@ -32,8 +47,14 @@ public class SavesMenu extends Scene {
                 for (File saveFolder : saveFolders) {
                     String saveName = saveFolder.getName();
                     JButton saveButton = new MenuButton(saveName);
-                    saveButton.addActionListener(e -> {gameLoop.loadGame(); GameLoop.savePath = "saves/" + saveName; manager.showScene("GameScene");
-                    GameLoop.playing = true; GameFrame.getInstance().requestFocus(); gameLoop.continueGame();});
+                    saveButton.addActionListener(e -> {
+                        gameLoop.loadGame();
+                        GameLoop.savePath = "saves/" + saveName;
+                        manager.showScene("GameScene");
+                        GameLoop.playing = true;
+                        GameFrame.getInstance().requestFocus();
+                        gameLoop.continueGame();
+                    });
                     buttonPanel.add(saveButton);
                     buttonPanel.add(Box.createVerticalStrut(10)); // Add spacing between buttons
                 }
@@ -51,11 +72,5 @@ public class SavesMenu extends Scene {
         // Add components to the menu
         add(menuText, BorderLayout.NORTH);
         add(new JScrollPane(buttonPanel), BorderLayout.CENTER);
-    }
-
-    // Method to handle save loading
-    private void loadSave(String saveName) {
-        System.out.println("Loading save: " + saveName);
-        // Add logic here to load the save
     }
 }

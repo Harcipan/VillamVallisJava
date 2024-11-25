@@ -106,8 +106,6 @@ public class SceneManager {
      * @param sceneName The name of the scene to display.
      */
     public void showScene(String sceneName) {
-        //frame.gameLoop.saveGame();
-        //frame.gameLoop.loadGame();
         cardLayout.show(sceneContainer, sceneName); // Switch to the desired scene
         if (sceneContainer.getComponent(sceneContainer.getComponentCount() - 1) instanceof GameScene) {
             ((GameScene) sceneContainer.getComponent(sceneContainer.getComponentCount() - 1)).requestFocus();
@@ -165,7 +163,21 @@ public class SceneManager {
         }
         sceneContainer.setBounds(0, 0, frame.getWidth(), frame.getHeight());
     }
-    
+
+    /**
+     * Toggles the fullscreen mode of the application window.
+     * If currently in fullscreen mode, it exits to windowed mode with a default size.
+     * If not in fullscreen, it attempts to set the window to fullscreen mode.
+     *
+     * <p>
+     * Updates the bounds of the `sceneContainer` to match the window size after toggling.
+     * </p>
+     *
+     * <p>
+     * Note: This method checks if fullscreen mode is supported before applying it.
+     * If not supported, the application remains in windowed mode with a default size.
+     * </p>
+     */
     public void toggleFullScreen()
     {
     	//is this safe??? source: OpenAI ChatGPT 4o
@@ -197,7 +209,16 @@ public class SceneManager {
         frame.setVisible(true);
     }
 
-    //get gameScene
+    /**
+     * Retrieves the {@link GameScene} instance from the list of scenes.
+     *
+     * <p>
+     * This method iterates through the scenes and returns the first instance of
+     * {@link GameScene} it encounters. If no {@link GameScene} is found, it returns {@code null}.
+     * </p>
+     *
+     * @return the {@link GameScene} instance if present, or {@code null} if no such scene exists
+     */
     public GameScene getGameScene()
     {
     	for(JPanel scene : scenes)
