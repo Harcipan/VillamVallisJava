@@ -87,7 +87,7 @@ public class MapEditor extends Scene {
         }
         GameLoop.tileMap.changeTileMapSize(rows, cols, groundMap);
         updateMapGrid();
-        gameLoop.saveGame();
+        //gameLoop.saveGame();
     }
 
     private void setMapSize(int newRows, int newCols) {

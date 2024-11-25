@@ -3,8 +3,8 @@
     "mapData": [
         [
             "ground",
-            "Stone",
-            "Stone",
+            "ground",
+            "ground",
             "ground"
         ],
         [
@@ -29,24 +29,24 @@
     "tiles": [
         [
             {
-                "growthStage": 1,
+                "growthStage": 1969,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
                 "hasPlant": "Plant"
             },
             {
-                "growthStage": 0,
+                "growthStage": 1969,
                 "isWatered": false,
                 "isHarvestable": false,
-                "type": "Stone",
-                "hasPlant": "Plant"
+                "type": "ground",
+                "hasPlant": "New Plant 2"
             },
             {
-                "growthStage": 0,
+                "growthStage": 1969,
                 "isWatered": false,
                 "isHarvestable": false,
-                "type": "Stone",
+                "type": "ground",
                 "hasPlant": "Plant"
             },
             {
@@ -66,21 +66,21 @@
                 "hasPlant": "Plant"
             },
             {
-                "growthStage": 1,
+                "growthStage": 1969,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
                 "hasPlant": "Plant"
             },
             {
-                "growthStage": 1,
+                "growthStage": 1969,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
                 "hasPlant": "Plant"
             },
             {
-                "growthStage": 1,
+                "growthStage": 0,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
@@ -110,7 +110,7 @@
                 "hasPlant": "Plant"
             },
             {
-                "growthStage": 1,
+                "growthStage": 0,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
@@ -126,7 +126,7 @@
                 "hasPlant": "Plant"
             },
             {
-                "growthStage": 0,
+                "growthStage": 1969,
                 "isWatered": false,
                 "isHarvestable": false,
                 "type": "ground",
@@ -150,20 +150,20 @@
     ],
     "plantTypes": [
         {
-            "growthSpeed": 0,
+            "growthSpeed": 1,
             "name": "Plant",
             "textureYPos": 0
         },
         {
-            "growthSpeed": 0,
+            "growthSpeed": 1,
             "name": "New Plant 2",
-            "textureYPos": 0
+            "textureYPos": 10
         }
     ],
     "groundTypes": [
         {
             "name": "ground",
-            "growthSpeed": 0,
+            "growthSpeed": 1,
             "cultivable": true,
             "textureYPos": 0
         },

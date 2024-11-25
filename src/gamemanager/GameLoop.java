@@ -52,6 +52,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public static TileMap tileMap;
 	String[][] tileMapSave;
 	Vec2 cameraSave;
+	public static String savePath = "saves/game1";
 
 
 
@@ -219,7 +220,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public void loadGame()
 	{
 		try {
-			loadedGame = (GameLoop)ser.loadData("saves/game1/gameSave.dat");
+			loadedGame = (GameLoop)ser.loadData(savePath+"/gameSave.dat");
 			System.out.println(loadedGame.money);
 			GameScene.player.setMoney(loadedGame.money);
 			//tileMap.setTiles(loadedGame.tileMapSave);
@@ -239,12 +240,12 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		System.out.println(GameScene.player.money);
 		money= GameScene.player.money;
 		//tileMapSave = tileMap.getTiles();
-		String filePath = "saves/game1/tileMap.json";
+		String filePath = savePath+"/tileMap.json";
 		//TileMapSerializer.writeTileMapToFile(tileMap, filePath);
 		TileMapSerializer.serializeTileMap(tileMap, filePath);
 		cameraSave = GameScene.camera.getwCenter();
 		try {
-			ser.saveData(this, "saves/game1/gameSave.dat");
+			ser.saveData(this, savePath+"/gameSave.dat");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -253,25 +254,11 @@ public class GameLoop implements Serializable, GameLoopCallback{
 
 	TileMap loadMap()
 	{
-		String filePath = "saves/game1/tileMap.json";
+		String filePath = savePath+"/tileMap.json";
 
 		// Deserialize TileMap from file
 		TileMap deserializedTileMap = TileMapSerializer.deserializeTileMap(filePath);
 
-		for(Tile[] t : deserializedTileMap.tiles)
-		{
-			for(Tile t2 : t)
-			{
-				for(Ground ground : deserializedTileMap.groundTypes)
-				{
-					if(ground.name.equals(t2.type))
-					{
-						t2.isCultivable = ground.isCultivable;
-						t2.growthSpeed = ground.growthSpeed;
-					}
-				}
-			}
-		}
 
 		if (deserializedTileMap != null) {
 			System.out.println("TileMap deserialized successfully!");
@@ -290,26 +277,6 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public void setPlaying(boolean p)
 	{
 		playing = p;
-	}
-
-	public void serializePlant()
-	{
-		try {
-			JsonObject plant = Json.createObjectBuilder()
-					.add("growthStage", 0)
-					.add("isWatered", false)
-					.add("isHarvestable", false)
-					.add("isCultivable", true)
-					.add("growthSpeed", 1)
-					.add("type", "ground")
-					.add("plantTextureYPos", 0)
-					.build();
-			JsonWriter writer = Json.createWriter(new FileWriter("saves/game1/plant.json"));
-			writer.writeObject(plant);
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

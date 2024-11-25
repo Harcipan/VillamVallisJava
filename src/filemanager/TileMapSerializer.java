@@ -62,11 +62,28 @@ public class TileMapSerializer {
                 tileMap.groundTypes.add(ground);
             }
 
+
+            for(Tile[] t : tileMap.tiles)
+            {
+                for(Tile t2 : t)
+                {
+                    for(Ground ground : tileMap.groundTypes)
+                    {
+                        if(ground.name.equals(t2.type))
+                        {
+                            t2.isCultivable = ground.isCultivable;
+                            t2.growthSpeed = ground.growthSpeed;
+                        }
+                    }
+                }
+            }
+
             return tileMap;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
