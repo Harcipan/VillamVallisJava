@@ -18,6 +18,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 
 public class GroundEditor extends Scene implements GameObserver {
     private static final long serialVersionUID = 1L;
@@ -54,13 +55,13 @@ public class GroundEditor extends Scene implements GameObserver {
         // Add controls for adding and deleting plants
         JPanel controlPanel = new JPanel(new FlowLayout());
 
-        JButton addPlantButton = new JButton("Add Ground");
+        JButton addGroundButton = new JButton("Add Ground");
         deleteTextField = new JTextField(5);
         JButton deletePlantButton = new JButton("Delete Ground");
         JButton copyPlantButton = new JButton("Copy Ground");
         JButton backToMenuButton = new JButton("Back to Menu");
 
-        controlPanel.add(addPlantButton);
+        controlPanel.add(addGroundButton);
         controlPanel.add(new JLabel("Name to Delete:"));
         controlPanel.add(deleteTextField);
         controlPanel.add(copyPlantButton);
@@ -70,7 +71,7 @@ public class GroundEditor extends Scene implements GameObserver {
         add(controlPanel);
 
         // Add plant button functionality
-        addPlantButton.addActionListener(e -> {
+        addGroundButton.addActionListener(e -> {
             Ground newGround = new Ground();
             newGround.name = "New Ground " + (GameLoop.tileMap.groundTypes.size() + 1);
             newGround.growthSpeed = 0;
@@ -79,6 +80,7 @@ public class GroundEditor extends Scene implements GameObserver {
             GameLoop.tileMap.groundTypes.add(newGround);
             plantTableModel.grounds=GameLoop.tileMap.groundTypes;
             plantTableModel.fireTableDataChanged(); // Notify the table model of the new data
+            MapEditor.groundTypeSelector.addItem(newGround.name);
         });
 
         // Delete plant button functionality
@@ -94,6 +96,7 @@ public class GroundEditor extends Scene implements GameObserver {
                 JOptionPane.showMessageDialog(this, "Ground deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 plantTableModel.grounds=GameLoop.tileMap.groundTypes;
                 plantTableModel.fireTableDataChanged(); // Refresh table
+                MapEditor.groundTypeSelector.removeItem(nameToDelete);
             } else {
                 JOptionPane.showMessageDialog(this, "No ground found with the given name.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -114,6 +117,7 @@ public class GroundEditor extends Scene implements GameObserver {
                     copiedGround.name = plant.name + " Copy";
                     copiedGround.growthSpeed = plant.growthSpeed;
                     copiedGround.textureYPos = plant.textureYPos;
+                    MapEditor.groundTypeSelector.addItem(copiedGround.name);
                     break;
                 }
             }

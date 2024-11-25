@@ -23,12 +23,12 @@ public class TileMapSerializer {
 
             // Deserialize mapData
             JsonArray mapDataArray = tileMapJson.getJsonArray("mapData");
-            int[][] mapData = new int[mapDataArray.size()][];
+            String[][] mapData = new String[mapDataArray.size()][];
             for (int i = 0; i < mapDataArray.size(); i++) {
                 JsonArray rowArray = mapDataArray.getJsonArray(i);
-                mapData[i] = new int[rowArray.size()];
+                mapData[i] = new String[rowArray.size()];
                 for (int j = 0; j < rowArray.size(); j++) {
-                    mapData[i][j] = rowArray.getInt(j);
+                    mapData[i][j] = rowArray.getString(j);
                 }
             }
 
@@ -111,9 +111,9 @@ public class TileMapSerializer {
 
        // Serialize mapData
         JsonArrayBuilder mapDataBuilder = Json.createArrayBuilder();
-        for (int[] row : tileMap.mapData) {
+        for (String[] row : tileMap.mapData) {
             JsonArrayBuilder rowBuilder = Json.createArrayBuilder();
-            for (int value : row) {
+            for (String value : row) {
                 rowBuilder.add(value);
             }
             mapDataBuilder.add(rowBuilder);

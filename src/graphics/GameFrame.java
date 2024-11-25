@@ -117,7 +117,7 @@ public class GameFrame extends JFrame implements KeyListener, MouseListener {
 		//check if the clicked tile is inside the map
 		if(!(clickedTileX<0 || clickedTileY<0 || clickedTileX>=GameLoop.tileMap.mapData.length || clickedTileY>=GameLoop.tileMap.mapData[0].length))
 		{
-			if(GameLoop.tileMap.mapData[-(int)Math.floor(worldY/gameScene.player.getTileSize())-1][(int)Math.floor(worldX/gameScene.player.getTileSize())]==1)
+			if(GameLoop.tileMap.mapData[-(int)Math.floor(worldY/gameScene.player.getTileSize())-1][(int)Math.floor(worldX/gameScene.player.getTileSize())].equals("dirt"))
 			{
 				System.out.println("You clicked on a dirt");
 			}

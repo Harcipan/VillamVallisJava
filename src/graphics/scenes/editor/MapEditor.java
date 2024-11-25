@@ -17,7 +17,7 @@ public class MapEditor extends Scene {
     private int cols = 5;
     private String[][] groundMap;
     private JPanel mapGridPanel;
-    private JComboBox<String> groundTypeSelector;
+    public static JComboBox<String> groundTypeSelector;
     private GameLoop gameLoop;
 
     public MapEditor(SceneManager manager, GameLoop gameLoop) {
@@ -80,16 +80,14 @@ public class MapEditor extends Scene {
     }
 
     private void initializeMap() {
-        int[][] mapData = new int[rows][cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                groundMap[i][j] = "Ground"; // Default ground type
-                mapData[i][j] = 0; // Default ground type index
+                groundMap[i][j] = "ground"; // Default ground type
             }
         }
-        GameLoop.tileMap.changeTileMapSize(rows, cols, mapData);
-        gameLoop.saveGame();
+        GameLoop.tileMap.changeTileMapSize(rows, cols, groundMap);
         updateMapGrid();
+        gameLoop.saveGame();
     }
 
     private void setMapSize(int newRows, int newCols) {
@@ -116,6 +114,8 @@ public class MapEditor extends Scene {
                         String selectedType = (String) groundTypeSelector.getSelectedItem();
                         groundMap[row][col] = selectedType;
                         tileButton.setText(selectedType); // Update button text
+                        GameLoop.tileMap.changeTileMapSize(rows, cols, groundMap);
+                        gameLoop.saveGame();
                     }
                 });
 

@@ -19,6 +19,8 @@ import java.io.IOException;
 //import graphics.scenes.GameScene;
 import filemanager.Serializer;
 import filemanager.TileMapSerializer;
+import gameObject.tiles.Ground;
+import gameObject.tiles.Tile;
 import gameObject.tiles.TileMap;
 import graphics.camera.Camera;
 import graphics.scenes.GameScene;
@@ -48,7 +50,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	private transient boolean firstTime = true;
 	private transient ScheduledExecutorService saveScheduler;
 	public static TileMap tileMap;
-	int[][] tileMapSave;
+	String[][] tileMapSave;
 	Vec2 cameraSave;
 
 
@@ -81,7 +83,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 		money = 0;
 		playing = true;
 
-		tileMap= new TileMap(new int[3][3]);
+		tileMap= new TileMap(new String[3][3]);
 
 		saveScheduler = Executors.newSingleThreadScheduledExecutor();
 		saveScheduler.scheduleAtFixedRate(this::autoSave, 600, 600, TimeUnit.SECONDS);
@@ -106,7 +108,7 @@ public class GameLoop implements Serializable, GameLoopCallback{
 	public void newGame()
 	{
 		setMoney(0);
-		tileMap = new TileMap(new int[5][5]);
+		tileMap = new TileMap(new String[5][5]);
 		//saveGame();
 		//loadGame();
 
@@ -255,6 +257,21 @@ public class GameLoop implements Serializable, GameLoopCallback{
 
 		// Deserialize TileMap from file
 		TileMap deserializedTileMap = TileMapSerializer.deserializeTileMap(filePath);
+
+		for(Tile[] t : deserializedTileMap.tiles)
+		{
+			for(Tile t2 : t)
+			{
+				for(Ground ground : deserializedTileMap.groundTypes)
+				{
+					if(ground.name.equals(t2.type))
+					{
+						t2.isCultivable = ground.isCultivable;
+						t2.growthSpeed = ground.growthSpeed;
+					}
+				}
+			}
+		}
 
 		if (deserializedTileMap != null) {
 			System.out.println("TileMap deserialized successfully!");

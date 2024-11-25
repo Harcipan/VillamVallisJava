@@ -12,19 +12,15 @@ import graphics.transform.Vec2;
 
 public class TileMap extends GameObject{
 	public Tile[][] tiles;
-	private final transient Image dirtTexture;
-	private final transient Image wateredTexture;
 	private final transient Image defaultTexture;
-	public int[][] mapData;
+	public String[][] mapData;
 	// List to store all plant types
 	public List<Plant> plantTypes;
 	public List<Ground> groundTypes;
 
 
-    public TileMap(int[][] mapData) {
+    public TileMap(String[][] mapData) {
 		this.mapData = mapData;
-		dirtTexture = TextureManager.getTextureFromMap(new Vec2(5, 0), new Vec2(TILE_SIZE, TILE_SIZE));
-		wateredTexture = TextureManager.getTextureFromMap(new Vec2(5, 1), new Vec2(TILE_SIZE, TILE_SIZE));
 		defaultTexture = TextureManager.getTextureFromMap(new Vec2(0, 1), new Vec2(TILE_SIZE, TILE_SIZE));
         tiles = new Tile[mapData.length][mapData[0].length];
 		plantTypes = new ArrayList<>();
@@ -34,12 +30,12 @@ public class TileMap extends GameObject{
         	for(int j = 0;j<mapData[i].length;j++)
         	{
 				tiles[i][j] = new Tile();
-				tiles[i][j].growthStage = mapData[i][j];
+				tiles[i][j].type = mapData[i][j];
         	}
         }
     }
 
-	public void changeTileMapSize(int row, int col, int[][] mapData)
+	public void changeTileMapSize(int row, int col, String[][] mapData)
 	{
 		System.out.println("Changing tile map size to "+row+"x"+col);
 		this.mapData = mapData;
@@ -49,7 +45,16 @@ public class TileMap extends GameObject{
 			for(int j = 0;j<mapData[i].length;j++)
 			{
 				newTiles[i][j] = new Tile();
-				newTiles[i][j].growthStage = mapData[i][j];
+				newTiles[i][j].type = mapData[i][j];
+				for(Ground ground : groundTypes)
+				{
+					if(ground.name.equals(mapData[i][j]))
+					{
+						newTiles[i][j].isCultivable = ground.isCultivable;
+						newTiles[i][j].growthSpeed = ground.growthSpeed;
+					}
+				}
+				System.out.println("Setting tile "+i+","+j+" to "+mapData[i][j]);
 			}
 		}
 		tiles = newTiles;
@@ -129,13 +134,13 @@ public class TileMap extends GameObject{
         }
     }
 
-	public int[][] getTiles()
+	public String[][] getTiles()
 	{
 		for(int i=0;i<mapData.length;i++)
 		{
 			for(int j = 0;j<mapData[i].length;j++)
 			{
-				mapData[i][j] = tiles[i][j].growthStage;
+				mapData[i][j] = tiles[i][j].type;
 			}
 		}
 		return mapData;
