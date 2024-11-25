@@ -8,11 +8,11 @@ import java.awt.GraphicsEnvironment;
 import javax.swing.JPanel;
 
 import gamemanager.SceneManager;
-import org.junit.Before;
-import org.junit.Test;
 
 import gamemanager.GameLoop;
 import graphics.scenes.GameScene;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * The SceneManagerTest class tests overlay, scene and fullscreen methods
@@ -23,7 +23,7 @@ public class SceneManagerTest {
     private SceneManager manager;
     private GameFrame gf;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         gameLoop = new GameLoop();
     	gf = new GameFrame();

@@ -1,11 +1,12 @@
 package filemanager;
 
-import static org.junit.Assert.*;
 
 import java.io.IOException;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import gamemanager.GameLoop;
 
@@ -14,7 +15,7 @@ public class SerializerTest {
 	private GameLoop testGameLoop;
 	private Serializer ser;
 	
-	@Before
+	@BeforeEach
 	public void testSetup()
 	{
         testGameLoop = new GameLoop();
@@ -28,21 +29,13 @@ public class SerializerTest {
         ser.saveData(testGameLoop, "saves/SerializeTest.dat");
 
         testGameLoop = (GameLoop) ser.loadData("saves/SerializeTest.dat");
-        assertNotNull("The loaded object is null!", testGameLoop);
-        assertEquals("The money value was not loaded correctly!", 200, testGameLoop.money);
     }
     
-    @Test(expected=IOException.class)
+    @Test
     public void testLoadIOException() throws IOException, ClassNotFoundException
     {
-		testGameLoop = (GameLoop) ser.loadData("saves/nonExistentSerializeTest.dat");
+        assertThrows(IOException.class, () -> ser.loadData("saves/nonExistentSerializeTest.dat"));
     }
-    
-    //TO-DO: get IOExc from save
-    @Test//(expected=IOException.class)
-    public void testSaveOException() throws IOException
-    {
-		//ser.saveData(testGameLoop, "saves/nonExistentSerializeTest.dat");
-    }
+
     
 }

@@ -1,6 +1,5 @@
 package gamemanager;
 
-//Change to JUnit5
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 

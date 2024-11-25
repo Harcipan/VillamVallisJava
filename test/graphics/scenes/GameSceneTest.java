@@ -4,12 +4,13 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import gamemanager.GameLoop;
 import gamemanager.SceneManager;
 import graphics.GameFrame;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class GameSceneTest {
 
@@ -19,7 +20,7 @@ public class GameSceneTest {
     private SceneManager manager;
     private GameFrame gf;
 
-    @Before
+    @BeforeEach
     public void setUp() throws AWTException {
         gameLoop = new GameLoop();
     	gf = new GameFrame();

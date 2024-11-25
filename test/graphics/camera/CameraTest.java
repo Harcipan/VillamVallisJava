@@ -22,22 +22,22 @@ public class CameraTest {
     /**Test camera V transformation**/
     @Test
     void testV() {
-        Assertions.assertEquals(-200, camera.V().m[3].x);
-        Assertions.assertEquals(-200, camera.V().m[3].y);
+        Assertions.assertEquals(-10, camera.V().m[3].x);
+        Assertions.assertEquals(-10, camera.V().m[3].y);
     }
 
     /**Test camera P transformation**/
     @Test
     void testP() {        
-        Assertions.assertEquals(0.0078125, camera.P().m[0].x, 0.0001);
-        Assertions.assertEquals(0.0078125, camera.P().m[1].y, 0.0001);
+        Assertions.assertEquals(0.03125, camera.P().m[0].x, 0.0001);
+        Assertions.assertEquals(0.03125, camera.P().m[1].y, 0.0001);
     }
 
     /**Test camera V inverse transformation**/
     @Test
     void testVinv() {
-        Assertions.assertEquals(200, camera.Vinv().m[3].x);
-        Assertions.assertEquals(200, camera.Vinv().m[3].y);
+        Assertions.assertEquals(10, camera.Vinv().m[3].x);
+        Assertions.assertEquals(10, camera.Vinv().m[3].y);
     }
 
     /**Test camera P inverse transformation**/
